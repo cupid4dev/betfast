@@ -36,7 +36,7 @@ export default function GameOverview({
       </div>
       
       { finished 
-      ? <Button variant="gradient" className="h-full w-50">FINISHED</Button> 
+      ? <Button variant="gradient" className="h-full">FINISHED</Button> 
       : <div className="flex">
         <div className="ml-4">
           <Typography variant="paragraph" className="text-center">Julia Riera</Typography>

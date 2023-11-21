@@ -65,12 +65,12 @@ export default function Sidebar() {
           </ListItemPrefix>
             College Basketball
         </ListItem>
-        <ListItem>
+        <Link href="/sports/nfl"><ListItem>
           <ListItemPrefix>
             <GiHockey  className="h-5 w-5" />
           </ListItemPrefix>
             NHL
-        </ListItem>
+        </ListItem></Link>
         <ListItem>
           <ListItemPrefix>
             <SiNba className="h-5 w-5" />

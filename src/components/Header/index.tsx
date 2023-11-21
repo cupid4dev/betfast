@@ -11,6 +11,7 @@ import {
   MenuItem,
   Avatar,
   Card,
+  Dialog,
 } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
@@ -25,6 +26,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import ConenctWalletDialog from "../UI/ConnectWalletDialog";
 
 // profile menu component
 const profileMenuItems = [
@@ -41,7 +43,7 @@ const profileMenuItems = [
   {
     label: "Help",
     icon: LifebuoyIcon,
-    link: "",
+    link: "/help",
   },
   {
     label: "Sign Out",
@@ -52,7 +54,6 @@ const profileMenuItems = [
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
@@ -230,6 +231,8 @@ function NavList() {
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const [isHome, setIsHome] = React.useState(1);
+  const [isConnectWalletDialog, setConnectWalletDialog] = React.useState(false);
+  const handleConnectWalletDialog = () => {setConnectWalletDialog(!isConnectWalletDialog)};
 
   React.useEffect(() => {
     window.addEventListener(
@@ -247,7 +250,7 @@ export default function ComplexNavbar() {
             width={50}       // Set the width of the image
             height={50}      // Set the height of the image
             onClick={()=>{
-              setIsHome(1);
+              // setIsHome(1);
             }}
         /></Link>
         <div
@@ -255,7 +258,7 @@ export default function ComplexNavbar() {
         >
          
           <Link href="/home"><Typography variant="h4" className="mr-4" onClick={()=>{
-                setIsHome(1);
+                // setIsHome(1);
               }}>
             <span className="inline-block align-middle">BETFAST</span>
           </Typography></Link>
@@ -263,7 +266,7 @@ export default function ComplexNavbar() {
           <div className="float-left mr-4">
             <Link href="/home">
               <Button variant={ isHome === 1 ? "gradient" : "text" } onClick={()=>{
-                setIsHome(1);
+                // setIsHome(1);
               }}>Home</Button>
             </Link>
           </div>
@@ -271,16 +274,21 @@ export default function ComplexNavbar() {
           <div className="float-left">
             <Link href="/mytrades">
               <Button variant={ isHome === 0 ? "gradient" : "text" } onClick={()=>{
-                setIsHome(0);
+                // setIsHome(0);
               }}>My Trades</Button>
             </Link>
           </div>
         </div>
         
         <div className="flex ">
-          <Button size="sm" variant="text">
+          <Button size="sm" variant="text" onClick={()=>{
+            handleConnectWalletDialog();
+          }}>
             <span>Connect wallet</span>
           </Button>
+          <Dialog size="xs" open={isConnectWalletDialog} handler={handleConnectWalletDialog}>
+            <ConenctWalletDialog handler={handleConnectWalletDialog}/>
+          </Dialog>
           <ProfileMenu />
         </div>
       </div>
