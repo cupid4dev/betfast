@@ -5,9 +5,6 @@ import {
   Button,
   Typography, 
   Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
 } from "@material-tailwind/react";
 
 export default function GameOverview({
@@ -23,13 +20,13 @@ export default function GameOverview({
 
   return <div>
     <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
-    <div className="float-left mr-auto">
+      <Link className="float-left mr-auto" href="/sports/gamedetails">
         <Typography variant="paragraph" className="flex"><img className="h-5 w-5" src="https://seeklogo.com/images/W/wta-logo-C8481584E6-seeklogo.com.png" alt="WTA"/>
           &nbsp;WTA WOMEN SINGLES
         </Typography>
         <Typography variant="h6"> Julia Riera vs Despina Papamichail </Typography>
-        <Typography variant="paragraph" className="text-link"> Liquidity: <Link href="#">$0 USDC</Link> </Typography>
-      </div>
+        <Typography variant="paragraph" className="text-link"> Liquidity: <span>$0 USDC</span> </Typography>
+      </Link>
       <div className="mr-4">
         <Typography variant="h6" className="text-right">19:00</Typography>
         <Typography variant="h6">Mon 20 Nov</Typography>
