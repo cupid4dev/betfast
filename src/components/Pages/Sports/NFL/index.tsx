@@ -21,5 +21,5 @@ export default function NFL() {
         <GameOverview finished={false}/>
       </Card>
     </div>
-  </div>;
+  </div>
 }

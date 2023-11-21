@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.w-50 {
+  width:50%;
+}
+
+.w-200px {
+  width: 200px;
+}
+
+.w-fit-content {
+  width: fit-content;
+}
+
 .mg-auto{
   margin: auto;
 }
@@ -26,6 +38,10 @@
 
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .t-0 {
