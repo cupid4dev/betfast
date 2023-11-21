@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mg-auto{
+  margin: auto;
+}
+
+.mr-auto{
+  margin-right: auto;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mt-4px {
+  margin-top: 4px;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.t-0 {
+  top: 0;
+}
+
+.r-0 {
+  right: 0;
+}
+
+.button-selected {
+  background-color: rgb(33 150 243 / 0.5);
+}
+
+.carousel {
+  height: 350px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.gradient-back{
+  color: #4fc3f7;
+}
+
+.profit-color {
+  color: skyblue;
+}
