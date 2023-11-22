@@ -27,6 +27,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import ConenctWalletDialog from "../UI/ConnectWalletDialog";
+import ConnectWalletButton from "../UI/ConnectWalletButton";
 
 // profile menu component
 const profileMenuItems = [
@@ -231,8 +232,6 @@ function NavList() {
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const [isHome, setIsHome] = React.useState(1);
-  const [isConnectWalletDialog, setConnectWalletDialog] = React.useState(false);
-  const handleConnectWalletDialog = () => {setConnectWalletDialog(!isConnectWalletDialog)};
 
   React.useEffect(() => {
     window.addEventListener(
@@ -280,15 +279,8 @@ export default function ComplexNavbar() {
           </div>
         </div>
         
-        <div className="flex ">
-          <Button size="sm" variant="text" onClick={()=>{
-            handleConnectWalletDialog();
-          }}>
-            <span>Connect wallet</span>
-          </Button>
-          <Dialog size="xs" open={isConnectWalletDialog} handler={handleConnectWalletDialog}>
-            <ConenctWalletDialog handler={handleConnectWalletDialog}/>
-          </Dialog>
+        <div className="flex customized-wallet">
+          <ConnectWalletButton/>
           <ProfileMenu />
         </div>
       </div>

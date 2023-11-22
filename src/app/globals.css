@@ -75,3 +75,11 @@
 .profit-color {
   color: skyblue;
 }
+
+.customized-wallet > .wallet-adapter-dropdown > button {
+  color: black;
+}
+
+.customized-wallet > .wallet-adapter-dropdown > button:hover {
+  background-color: #55555522;
+}
