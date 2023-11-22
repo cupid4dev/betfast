@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import { configureStore } from "@reduxjs/toolkit";
-import { reducer as appReducer } from './slice';
+import { reducer as appReducer } from "./slice";
 
 const store = configureStore({
   reducer: {
