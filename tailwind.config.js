@@ -6,11 +6,11 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        primary: '#ff4500', // Customize the primary color
-        link: "#4fc3f7"
+        primary: "#ff4500", // Customize the primary color
+        link: "#4fc3f7",
       },
       fontFamily: {
-        custom: ['YourCustomFont', 'ariel'], // Add a custom font
+        custom: ["YourCustomFont", "ariel"], // Add a custom font
       },
     },
   },

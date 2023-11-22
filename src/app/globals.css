@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .w-50 {
-  width:50%;
+  width: 50%;
 }
 
 .w-200px {
@@ -14,15 +14,15 @@
   width: fit-content;
 }
 
-.mg-auto{
+.mg-auto {
   margin: auto;
 }
 
-.mr-auto{
+.mr-auto {
   margin-right: auto;
 }
 
-.ml-auto{
+.ml-auto {
   margin-left: auto;
 }
 
@@ -68,7 +68,7 @@
   text-align: right;
 }
 
-.gradient-back{
+.gradient-back {
   color: #4fc3f7;
 }
 

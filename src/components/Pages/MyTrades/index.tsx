@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Typography } from "@material-tailwind/react";
 import {
   Tabs,
@@ -20,28 +20,30 @@ export default function MyTradesPage() {
       value: "settled",
       desc: `No settled trades`,
     },
-    
   ];
-  return <div className="p-4">
-    <Typography variant="h2">My Trades</Typography>
-    <Typography variant="paragraph">View your currently active and previously settled trades.</Typography>
-    <br/>
-    <Tabs value="active">
-      <TabsHeader className="w-200px">
-        {data.map(({ label, value }) => (
-          <Tab key={value} value={value}>
-            {label}
-          </Tab>
-        ))}
-      </TabsHeader>
-      <TabsBody>
-        {data.map(({ value, desc }) => (
-          <TabPanel key={value} value={value}>
-            {desc}
-          </TabPanel>
-        ))}
-      </TabsBody>
-    </Tabs>
-
-  </div>;
+  return (
+    <div className="p-4">
+      <Typography variant="h2">My Trades</Typography>
+      <Typography variant="paragraph">
+        View your currently active and previously settled trades.
+      </Typography>
+      <br />
+      <Tabs value="active">
+        <TabsHeader className="w-200px">
+          {data.map(({ label, value }) => (
+            <Tab key={value} value={value}>
+              {label}
+            </Tab>
+          ))}
+        </TabsHeader>
+        <TabsBody>
+          {data.map(({ value, desc }) => (
+            <TabPanel key={value} value={value}>
+              {desc}
+            </TabPanel>
+          ))}
+        </TabsBody>
+      </Tabs>
+    </div>
+  );
 }
