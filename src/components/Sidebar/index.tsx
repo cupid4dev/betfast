@@ -62,7 +62,7 @@ export default function Sidebar() {
           (item: any, index: number) =>
             item.id !== "HISTORICAL" && (
               <div key={index}>
-                {item.id !== "CSGO" && <Divider />}
+                {item.id == "CSGO" && <Divider />}
                 <Accordion
                   open={open === index}
                   icon={

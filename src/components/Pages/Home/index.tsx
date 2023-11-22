@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import GameOverview from "@/components/UI/GameOverview";
 import { Card, Carousel, Typography } from "@material-tailwind/react";

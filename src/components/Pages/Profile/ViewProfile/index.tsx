@@ -164,9 +164,6 @@ export default function ViewProfilePage() {
               className: "before:content-none after:content-none",
             }}
             menuProps={{ className: "h-48" }}
-            onChange={(e) => {
-              console.log(e);
-            }}
           >
             {countryList.map((country: any) => (
               <Option key={country.name} value={country.name}>
