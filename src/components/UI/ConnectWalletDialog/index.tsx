@@ -2,7 +2,6 @@
 import React from "react";
 import {
   Button,
-  Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
@@ -10,6 +9,7 @@ import {
   Typography,
   MenuItem,
 } from "@material-tailwind/react";
+import Image from "next/image";
 
 export default function ConenctWalletDialog({ handler }: { handler: any }) {
   return (
@@ -56,7 +56,7 @@ export default function ConenctWalletDialog({ handler }: { handler: any }) {
           </Typography>
           <ul className="mt-3 -ml-2 flex flex-col gap-1">
             <MenuItem className="mb-4 flex items-center justify-center gap-3 !py-4 shadow-md">
-              <img
+              <Image
                 src="https://docs.material-tailwind.com/icons/metamask.svg"
                 alt="metamast"
                 className="h-6 w-6"
@@ -66,7 +66,7 @@ export default function ConenctWalletDialog({ handler }: { handler: any }) {
               </Typography>
             </MenuItem>
             <MenuItem className="mb-1 flex items-center justify-center gap-3 !py-4 shadow-md">
-              <img
+              <Image
                 src="https://docs.material-tailwind.com/icons/coinbase.svg"
                 alt="metamast"
                 className="h-6 w-6 rounded-md"
@@ -87,7 +87,7 @@ export default function ConenctWalletDialog({ handler }: { handler: any }) {
           </Typography>
           <ul className="mt-4 -ml-2.5 flex flex-col gap-1">
             <MenuItem className="mb-4 flex items-center justify-center gap-3 !py-4 shadow-md">
-              <img
+              <Image
                 src="https://docs.material-tailwind.com/icons/trust-wallet.svg"
                 alt="metamast"
                 className="h-7 w-7 rounded-md border border-blue-gray-50"

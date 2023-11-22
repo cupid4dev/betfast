@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Provider";
-import { Provider } from "react-redux";
 import CustomLayout from "./main";
 const inter = Inter({ subsets: ["latin"] });
 
