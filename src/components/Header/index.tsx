@@ -112,7 +112,15 @@ export default function ComplexNavbar() {
   const fetchEventCategories = () => {
     if (fetchTimer) {
       clearInterval(fetchTimer);
+    } else {
+      axios
+        .get(API_URL)
+        .then((data) => {
+          dispatch(setEventCategories(data.data.eventCategories));
+        })
+        .catch(() => {});
     }
+
     fetchTimer = setInterval(() => {
       axios
         .get(API_URL)
@@ -120,7 +128,7 @@ export default function ComplexNavbar() {
           dispatch(setEventCategories(data.data.eventCategories));
         })
         .catch(() => {});
-    }, 5000);
+    }, 50000);
   };
   React.useEffect(() => {
     window.addEventListener(

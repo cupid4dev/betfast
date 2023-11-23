@@ -24,7 +24,7 @@ export function ts2TimeOptions(timestamp: number) {
   };
   const formattedTime: string = date.toLocaleTimeString("en-US", timeOptions);
 
-  return formattedTime;
+  return formattedTime.replace("24:", "00:");
 }
 
 export function ts2DateOptions(timestamp: number) {

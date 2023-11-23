@@ -1,11 +1,68 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import React from "react";
 import GameOverview from "@/components/UI/GameOverview";
+import { getEventCategories } from "@/redux/slice";
 import { Card, Carousel, Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { GiTennisRacket } from "react-icons/gi";
+import { useSelector } from "react-redux";
+import { ts2DateOptions } from "@/constants/functions";
+import SportIcon from "@/components/UI/SportIcon";
 export default function HomePage() {
+  const eventCategories = useSelector(getEventCategories);
+  const [upcomingSports, setUpcomingSports] = React.useState(new Array());
+
+  React.useEffect(() => {
+    let upcomingSS = new Array();
+
+    eventCategories.forEach((eventCategory: any) => {
+      if (eventCategory.id == "HISTORICAL") {
+        return;
+      }
+
+      let upcomingS = {
+        id: eventCategory.id,
+        title: eventCategory.title,
+        games: new Array(),
+        upcomingDate: 0,
+      };
+
+      eventCategory.eventGroup.forEach((eg: any) => {
+        let games = [...eg.events.slice(0)];
+        games.sort((a: any, b: any) => {
+          return a.eventStart > b.eventStart ? 1 : -1;
+        });
+
+        if (upcomingS.upcomingDate == 0) {
+          upcomingS.upcomingDate = games[0].eventStart;
+        }
+        const startDate = ts2DateOptions(games[0].eventStart);
+        for (let i = 0; i < games.length; i++) {
+          if (ts2DateOptions(games[i].eventStart) != startDate) {
+            break;
+          }
+          upcomingS.games.push(games[i]);
+        }
+      });
+
+      upcomingS.games.sort((a: any, b: any) => {
+        return a.eventStart > b.eventStart ? 1 : -1;
+      });
+
+      upcomingS.games = upcomingS.games.filter((a: any) => {
+        return (
+          ts2DateOptions(a.eventStart) ==
+          ts2DateOptions(upcomingS.games[0].eventStart)
+        );
+      });
+
+      upcomingSS.push(upcomingS);
+    });
+
+    setUpcomingSports(upcomingSS);
+  }, [eventCategories]);
+
   return (
     <div>
       <div className="py-4 px-4">
@@ -28,24 +85,28 @@ export default function HomePage() {
         </Carousel>
       </div>
 
-      <div className="px-4">
-        <Typography variant="h6" className="flex">
-          <GiTennisRacket className="h-5 w-5" />
-          &nbsp;Upcoming Tennis
-        </Typography>
-        <Card className="w-full px-4 py-4">
-          <GameOverview finished={false} />
-          <hr className="border-blue-gray-50 my-4" />
-          <GameOverview finished={false} />
-          <hr className="border-blue-gray-50 my-4" />
-          <Typography variant="h5" className="mg-auto">
-            <Link href="/home" className="flex">
-              See all Upcoming Tennis&nbsp;{" "}
-              <FaLongArrowAltRight className="mt-4px" />{" "}
-            </Link>
+      {upcomingSports.map((upcomingSport: any, index: number) => (
+        <div className="px-4 my-4" key={index}>
+          <Typography variant="h6" className="flex my-2">
+            <SportIcon sportName={upcomingSport.id} />
+            &nbsp;Upcoming {upcomingSport.title}
           </Typography>
-        </Card>
-      </div>
+          <Card className="w-full px-4 py-4">
+            {upcomingSport.games.map((game: any, gIndex: number) => (
+              <div key={gIndex}>
+                <GameOverview finished={false} details={game} />
+                <hr className="border-blue-gray-50 my-4" />
+              </div>
+            ))}
+            <Typography variant="h5" className="mg-auto">
+              <Link href="/home" className="flex">
+                See all Upcoming Tennis&nbsp;{" "}
+                <FaLongArrowAltRight className="mt-4px" />{" "}
+              </Link>
+            </Typography>
+          </Card>
+        </div>
+      ))}
     </div>
   );
 }

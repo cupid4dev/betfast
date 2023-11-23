@@ -18,6 +18,7 @@ export default function GameDetails() {
     category: "",
     eventName: "",
     eventStart: 0,
+    eventEnd: 0,
     participants: [{ name: "" }, { name: "" }],
   });
   const [isBack, setIsBack] = React.useState(true);
@@ -85,164 +86,168 @@ export default function GameDetails() {
           <LineChart />
         </div>
       </div>
-      <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
-        <table className="mt-4 w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 text-center"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
+      {details.eventStart * 1000 < new Date().getTime() ? (
+        <div>This game is finished!</div>
+      ) : (
+        <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
+          <table className="mt-4 w-full min-w-max table-auto text-left">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head) => (
+                  <th
+                    key={head}
+                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 text-center"
                   >
-                    {head}
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal leading-none opacity-70"
+                    >
+                      {head}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr key={1}>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="h5">
+                    {details.participants[0].name}
                   </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr key={1}>
-              <td className="p-4 border-b border-blue-gray-50">
-                <Typography variant="h5">
-                  {details.participants[0].name}
-                </Typography>
-              </td>
-              <td className="p-4 border-b border-blue-gray-50">
-                <Typography variant="paragraph" className="text-right">
-                  -
-                </Typography>
-                <Typography variant="paragraph" className="text-right">
-                  - %
-                </Typography>
-              </td>
-              <td className="p-4 border-b border-blue-gray-50">
-                <div className="flex w-full">
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
+                </td>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="paragraph" className="text-right">
+                    -
+                  </Typography>
+                  <Typography variant="paragraph" className="text-right">
+                    - %
+                  </Typography>
+                </td>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <div className="flex w-full">
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button
+                        variant="gradient"
+                        className="w-full"
+                        color="cyan"
+                        onClick={() => {
+                          handleOffer(true, 0);
+                        }}
+                      >
+                        Offer
+                      </Button>
+                    </div>
                   </div>
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
+                </td>
+                <td className="p-4">
+                  <div className="flex w-full">
+                    <div className="float-left w-full p-2">
+                      <Button
+                        variant="gradient"
+                        className="w-full"
+                        color="deep-orange"
+                        onClick={() => {
+                          handleOffer(false, 0);
+                        }}
+                      >
+                        Offer
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
                   </div>
-                  <div className="float-left w-full p-2">
-                    <Button
-                      variant="gradient"
-                      className="w-full"
-                      color="cyan"
-                      onClick={() => {
-                        handleOffer(true, 0);
-                      }}
-                    >
-                      Offer
-                    </Button>
+                </td>
+              </tr>
+              <tr key={2}>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="h5">
+                    {details.participants[1].name}
+                  </Typography>
+                </td>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="paragraph" className="text-right">
+                    -
+                  </Typography>
+                  <Typography variant="paragraph" className="text-right">
+                    - %
+                  </Typography>
+                </td>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <div className="flex w-full">
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button
+                        variant="gradient"
+                        className="w-full"
+                        color="cyan"
+                        onClick={() => {
+                          handleOffer(true, 1);
+                        }}
+                      >
+                        Offer
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td className="p-4">
-                <div className="flex w-full">
-                  <div className="float-left w-full p-2">
-                    <Button
-                      variant="gradient"
-                      className="w-full"
-                      color="deep-orange"
-                      onClick={() => {
-                        handleOffer(false, 0);
-                      }}
-                    >
-                      Offer
-                    </Button>
+                </td>
+                <td className="p-4">
+                  <div className="flex w-full">
+                    <div className="float-left w-full p-2">
+                      <Button
+                        variant="gradient"
+                        className="w-full"
+                        color="deep-orange"
+                        onClick={() => {
+                          handleOffer(false, 1);
+                        }}
+                      >
+                        Offer
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
+                    <div className="float-left w-full p-2">
+                      <Button variant="gradient" className="w-full">
+                        -
+                      </Button>
+                    </div>
                   </div>
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
-                  </div>
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr key={2}>
-              <td className="p-4 border-b border-blue-gray-50">
-                <Typography variant="h5">
-                  {details.participants[1].name}
-                </Typography>
-              </td>
-              <td className="p-4 border-b border-blue-gray-50">
-                <Typography variant="paragraph" className="text-right">
-                  -
-                </Typography>
-                <Typography variant="paragraph" className="text-right">
-                  - %
-                </Typography>
-              </td>
-              <td className="p-4 border-b border-blue-gray-50">
-                <div className="flex w-full">
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
-                  </div>
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
-                  </div>
-                  <div className="float-left w-full p-2">
-                    <Button
-                      variant="gradient"
-                      className="w-full"
-                      color="cyan"
-                      onClick={() => {
-                        handleOffer(true, 1);
-                      }}
-                    >
-                      Offer
-                    </Button>
-                  </div>
-                </div>
-              </td>
-              <td className="p-4">
-                <div className="flex w-full">
-                  <div className="float-left w-full p-2">
-                    <Button
-                      variant="gradient"
-                      className="w-full"
-                      color="deep-orange"
-                      onClick={() => {
-                        handleOffer(false, 1);
-                      }}
-                    >
-                      Offer
-                    </Button>
-                  </div>
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
-                  </div>
-                  <div className="float-left w-full p-2">
-                    <Button variant="gradient" className="w-full">
-                      -
-                    </Button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
       <Dialog open={open} handler={() => {}}>
         <BetDialog
           handleOpen={handleOffer}
