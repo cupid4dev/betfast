@@ -140,11 +140,11 @@ export default function ComplexNavbar() {
   }, []);
 
   return eventCategories.length == 0 ? (
-    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white/30 place-content-center grid">
+    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white/90 place-content-center grid z-50">
       <Spinner className="h-16 w-16" />
     </div>
   ) : (
-    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0">
+    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-30">
       <div className="relative mx-auto flex items-center width-100 text-blue-gray-900">
         <Link href="/home" className="float-left">
           {" "}

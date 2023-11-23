@@ -31,35 +31,15 @@ export default function ViewProfilePage() {
           </Typography>
         </div>
         <div className="w-50 p-2">
-          <Input
-            size="lg"
-            label="First Name"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="First Name" crossOrigin={""} />
           <p className="mb-2" />
-          <Input
-            size="lg"
-            label="Last Name"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="Last Name" crossOrigin={""} />
           <p className="mb-2" />
           <Input
             size="lg"
             type="date"
             label="Birthday"
             placeholder="Birthday"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
             crossOrigin={""}
           />
         </div>
@@ -73,15 +53,7 @@ export default function ViewProfilePage() {
           </Typography>
         </div>
         <div className="w-50 p-2">
-          <Input
-            size="lg"
-            label="Username"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="Username" crossOrigin={""} />
         </div>
       </div>
       <Divider />
@@ -93,26 +65,9 @@ export default function ViewProfilePage() {
           </Typography>
         </div>
         <div className="w-50 p-2">
-          <Input
-            size="lg"
-            label="Email"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="Email" crossOrigin={""} />
           <p className="mb-2" />
-          <Input
-            size="lg"
-            type="number"
-            label="Phonenumber"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" type="number" label="Phonenumber" crossOrigin={""} />
         </div>
       </div>
       <Divider />
@@ -126,43 +81,15 @@ export default function ViewProfilePage() {
           </Typography>
         </div>
         <div className="w-50 p-2">
-          <Input
-            size="lg"
-            label="Address Line 1"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="Address Line 1" crossOrigin={""} />
           <p className="mb-2" />
-          <Input
-            size="lg"
-            label="Address Line 2"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="Address Line 2" crossOrigin={""} />
           <p className="mb-2" />
-          <Input
-            size="lg"
-            label="City"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="City" crossOrigin={""} />
           <p className="mb-2" />
           <Select
             placeholder="USA"
             label="Country"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
             menuProps={{ className: "h-48" }}
           >
             {countryList.map((country: any) => (
@@ -172,15 +99,7 @@ export default function ViewProfilePage() {
             ))}
           </Select>
           <p className="mb-2" />
-          <Input
-            size="lg"
-            label="Postcode"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            crossOrigin={""}
-          />
+          <Input size="lg" label="Postcode" crossOrigin={""} />
         </div>
       </div>
       <Divider />

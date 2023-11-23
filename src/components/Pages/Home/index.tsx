@@ -99,8 +99,11 @@ export default function HomePage() {
               </div>
             ))}
             <Typography variant="h5" className="mg-auto">
-              <Link href="/home" className="flex">
-                See all Upcoming Tennis&nbsp;{" "}
+              <Link
+                href={`/sports/event?event=${upcomingSport.id}`}
+                className="flex"
+              >
+                See all Upcoming {upcomingSport.title}&nbsp;{" "}
                 <FaLongArrowAltRight className="mt-4px" />{" "}
               </Link>
             </Typography>

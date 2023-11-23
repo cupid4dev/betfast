@@ -56,6 +56,10 @@
   right: 0;
 }
 
+.max-w-160px {
+  max-width: 160px;
+}
+
 .button-selected {
   background-color: rgb(33 150 243 / 0.5);
 }

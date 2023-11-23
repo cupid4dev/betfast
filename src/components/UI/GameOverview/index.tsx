@@ -69,7 +69,10 @@ export default function GameOverview({
           ) : (
             <div className="flex">
               <div className="ml-4">
-                <Typography variant="paragraph" className="text-center">
+                <Typography
+                  variant="paragraph"
+                  className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
+                >
                   {details.participants[0].name}
                 </Typography>
                 <div className="flex">
@@ -96,7 +99,10 @@ export default function GameOverview({
                 </div>
               </div>
               <div className="ml-4">
-                <Typography variant="paragraph" className="text-center">
+                <Typography
+                  variant="paragraph"
+                  className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
+                >
                   {details.participants[1].name}
                 </Typography>
                 <div className="flex">
