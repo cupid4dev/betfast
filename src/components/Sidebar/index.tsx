@@ -27,7 +27,7 @@ export default function Sidebar() {
   };
   const eventCategories = useSelector(getEventCategories);
   return (
-    <Card className="static h-[calc(100vh-2rem)] w-[300px] p-4 border-r-2 border-gray-500  rounded-none">
+    <Card className="static w-[300px] p-4 border-r-2 border-gray-500  rounded-none pt-20">
       <List>
         <Typography variant="h6">Popular</Typography>
         <ListItem>

@@ -8,11 +8,11 @@ const CustomLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <Suspense>
           <div className="">
-            <Header />
             <div className="flex">
               <Sidebar />
-              <div className="w-full">{children}</div>
+              <div className="w-full pt-20">{children}</div>
             </div>
+            <Header />
             <Footer />
           </div>
         </Suspense>

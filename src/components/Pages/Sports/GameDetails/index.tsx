@@ -206,7 +206,12 @@ export default function GameDetails() {
         </table>
       </div>
       <Dialog open={open} handler={handleOffer}>
-        <BetDialog handleOpen={handleOffer} />
+        <BetDialog
+          handleOpen={handleOffer}
+          details={undefined}
+          isBack={false}
+          team={0}
+        />
       </Dialog>
     </div>
   );

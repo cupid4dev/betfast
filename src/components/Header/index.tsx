@@ -9,6 +9,7 @@ import {
   MenuList,
   MenuItem,
   Avatar,
+  Spinner,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
@@ -19,9 +20,9 @@ import {
 import Link from "next/link";
 import ConnectWalletButton from "../UI/ConnectWalletButton";
 import API_URL from "@/constants/apiUrl";
-import { setEventCategories } from "@/redux/slice";
+import { getEventCategories, setEventCategories } from "@/redux/slice";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const profileMenuItems = [
   {
@@ -105,13 +106,21 @@ function ProfileMenu() {
 
 export default function ComplexNavbar() {
   const dispatch = useDispatch();
+  let fetchTimer: any = null;
+  const eventCategories = useSelector(getEventCategories);
+
   const fetchEventCategories = () => {
-    axios
-      .get(API_URL)
-      .then((data) => {
-        dispatch(setEventCategories(data.data.eventCategories));
-      })
-      .catch(() => {});
+    if (fetchTimer) {
+      clearInterval(fetchTimer);
+    }
+    fetchTimer = setInterval(() => {
+      axios
+        .get(API_URL)
+        .then((data) => {
+          dispatch(setEventCategories(data.data.eventCategories));
+        })
+        .catch(() => {});
+    }, 5000);
   };
   React.useEffect(() => {
     window.addEventListener(
@@ -122,8 +131,12 @@ export default function ComplexNavbar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 rounded-none lg:pl-6">
+  return eventCategories.length == 0 ? (
+    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white/30 place-content-center grid">
+      <Spinner className="h-16 w-16" />
+    </div>
+  ) : (
+    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0">
       <div className="relative mx-auto flex items-center width-100 text-blue-gray-900">
         <Link href="/home" className="float-left">
           {" "}

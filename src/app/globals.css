@@ -83,3 +83,11 @@
 .customized-wallet > .wallet-adapter-dropdown > button:hover {
   background-color: #55555522;
 }
+
+.customized-wallet > ul {
+  display: flex;
+}
+
+.wallet-adapter-modal {
+  z-index: 999999;
+}

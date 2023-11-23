@@ -6,23 +6,37 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { useWallet } from "@solana/wallet-adapter-react";
+import ConnectWalletButton from "../../ConnectWalletButton";
 
-export function BetDialog({ handleOpen }: { handleOpen: any }) {
+export function BetDialog({
+  handleOpen,
+  details,
+  isBack,
+  team,
+}: {
+  handleOpen: any;
+  details: any;
+  isBack: boolean;
+  team: number;
+}) {
+  const wallet = useWallet();
+
   return (
     <div className="p-4 relative">
       <div className="flex">
         <Typography variant="h6" className="gradient-back float-left">
-          BACK
+          {isBack ? "BACK" : "LAY"}
         </Typography>
         <Typography variant="h6" className="float-left">
-          &nbsp;Kansas City Chiefs
+          &nbsp;{details.participants[team].name}
         </Typography>
       </div>
       <Typography variant="paragraph" className="font-bold">
         Winner
       </Typography>
       <Typography variant="small" className="">
-        Kansas City Chiefs vs Philadelphia Eagles
+        {details.eventName}
       </Typography>
       <div className="flex my-2">
         <div className="w-full float-left">
@@ -44,9 +58,15 @@ export function BetDialog({ handleOpen }: { handleOpen: any }) {
           -
         </Typography>
       </div>
-      <Button variant="text" className="flex mg-auto my-2">
-        Connect Wallet to place order
-      </Button>
+      {wallet.connected ? (
+        <Button variant="gradient" className="flex mg-auto my-2">
+          STAKE
+        </Button>
+      ) : (
+        <div className="customized-wallet flex justify-center">
+          <ConnectWalletButton />
+        </div>
+      )}
       <div className="absolute t-0 r-0 p-2">
         <IconButton
           variant="gradient"
