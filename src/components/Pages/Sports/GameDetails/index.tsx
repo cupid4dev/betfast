@@ -4,30 +4,64 @@ import React from "react";
 import { BetDialog } from "@/components/UI/GameOverview/BetDialog";
 import LineChart from "@/components/UI/LineChart";
 import { Button, Dialog, Typography } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
+import { getEventCategories } from "@/redux/slice";
+import { useSearchParams } from "next/navigation";
+import SportIcon from "@/components/UI/SportIcon";
+import { ts2TimeOptions, ts2TodayTomorrow } from "@/constants/functions";
 
 export default function GameDetails() {
   const TABLE_HEAD = ["Selection", "Last Traded", "Back", "Lay"];
   const [open, setOpen] = React.useState(false);
+  const [details, setDetails] = React.useState({
+    eventGroupTitle: "",
+    category: "",
+    eventName: "",
+    eventStart: 0,
+    participants: [{ name: "" }, { name: "" }],
+  });
+  const [isBack, setIsBack] = React.useState(true);
+  const [team, setTeam] = React.useState(0);
 
-  const handleOffer = () => {
+  const eventCategories = useSelector(getEventCategories);
+
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const eventGroup = searchParams.get("eventGroup");
+  const eventAccount = searchParams.get("eventAccount");
+
+  const handleOffer = (isBack: boolean, team: number) => {
+    setIsBack(isBack);
+    setTeam(team);
     setOpen(!open);
   };
 
-  return (
+  React.useEffect(() => {
+    if (eventCategories.length == 0) {
+      return;
+    }
+    setDetails(
+      eventCategories
+        .findLast((ec: any) => ec.id == category)
+        .eventGroup.findLast((eg: any) => eg.id == eventGroup)
+        .events.findLast((e: any) => e.eventAccount == eventAccount),
+    );
+  }, [category, eventAccount, eventCategories, eventGroup]);
+
+  return details == undefined ? (
+    <></>
+  ) : (
     <div className="p-4">
       <Typography variant="paragraph" className="flex">
-        <img
-          className="h-5 w-5"
-          src="https://seeklogo.com/images/W/wta-logo-C8481584E6-seeklogo.com.png"
-          alt="WTA"
-        />
-        &nbsp;WTA WOMEN SINGLES
+        <SportIcon sportName={details.category} />
+        &nbsp;{details.eventGroupTitle}
       </Typography>
       <br />
-      <Typography variant="h2">Julia Riera vs Despina Papamichail</Typography>
+      <Typography variant="h2">{details.eventName}</Typography>
       <div className="flex">
         <Typography variant="h6" className="float-left">
-          19:00 - Today&nbsp;
+          {ts2TimeOptions(details.eventStart)} -{" "}
+          {ts2TodayTomorrow(details.eventStart)}&nbsp;
         </Typography>
         <Typography variant="paragraph" className="float-left">
           Liquidity:&nbsp;
@@ -74,7 +108,9 @@ export default function GameDetails() {
           <tbody>
             <tr key={1}>
               <td className="p-4 border-b border-blue-gray-50">
-                <Typography variant="h5">Julia Riera</Typography>
+                <Typography variant="h5">
+                  {details.participants[0].name}
+                </Typography>
               </td>
               <td className="p-4 border-b border-blue-gray-50">
                 <Typography variant="paragraph" className="text-right">
@@ -102,7 +138,7 @@ export default function GameDetails() {
                       className="w-full"
                       color="cyan"
                       onClick={() => {
-                        handleOffer();
+                        handleOffer(true, 0);
                       }}
                     >
                       Offer
@@ -118,7 +154,7 @@ export default function GameDetails() {
                       className="w-full"
                       color="deep-orange"
                       onClick={() => {
-                        handleOffer();
+                        handleOffer(false, 0);
                       }}
                     >
                       Offer
@@ -139,7 +175,9 @@ export default function GameDetails() {
             </tr>
             <tr key={2}>
               <td className="p-4 border-b border-blue-gray-50">
-                <Typography variant="h5">Despina Papamichail</Typography>
+                <Typography variant="h5">
+                  {details.participants[1].name}
+                </Typography>
               </td>
               <td className="p-4 border-b border-blue-gray-50">
                 <Typography variant="paragraph" className="text-right">
@@ -167,7 +205,7 @@ export default function GameDetails() {
                       className="w-full"
                       color="cyan"
                       onClick={() => {
-                        handleOffer();
+                        handleOffer(true, 1);
                       }}
                     >
                       Offer
@@ -183,7 +221,7 @@ export default function GameDetails() {
                       className="w-full"
                       color="deep-orange"
                       onClick={() => {
-                        handleOffer();
+                        handleOffer(false, 1);
                       }}
                     >
                       Offer
@@ -205,12 +243,12 @@ export default function GameDetails() {
           </tbody>
         </table>
       </div>
-      <Dialog open={open} handler={handleOffer}>
+      <Dialog open={open} handler={() => {}}>
         <BetDialog
           handleOpen={handleOffer}
-          details={undefined}
-          isBack={false}
-          team={0}
+          details={details}
+          isBack={isBack}
+          team={team}
         />
       </Dialog>
     </div>

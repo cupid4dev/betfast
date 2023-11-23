@@ -29,7 +29,17 @@ export default function GameOverview({
     details && (
       <div>
         <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
-          <Link className="float-left mr-auto" href="/sports/gamedetails">
+          <Link
+            className="float-left mr-auto"
+            href={
+              "/sports/gamedetails?category=" +
+              details.category +
+              "&eventGroup=" +
+              details.eventGroup +
+              "&eventAccount=" +
+              details.eventAccount
+            }
+          >
             <Typography variant="paragraph" className="flex">
               <SportIcon sportName={details.category} />
               &nbsp;{details.eventGroupTitle}
