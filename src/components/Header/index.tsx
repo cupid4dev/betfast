@@ -140,7 +140,7 @@ export default function ComplexNavbar() {
   }, []);
 
   return eventCategories.length == 0 ? (
-    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white/90 place-content-center grid z-50">
+    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white place-content-center grid z-50">
       <Spinner className="h-16 w-16" />
     </div>
   ) : (
