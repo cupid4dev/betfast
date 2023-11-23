@@ -10,10 +10,6 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-import { TbBallFootball } from "react-icons/tb";
-import { CiBasketball } from "react-icons/ci";
-import { GiHockey } from "react-icons/gi";
-import { SiNba } from "react-icons/si";
 import Link from "next/link";
 import { getEventCategories } from "@/redux/slice";
 import { useSelector } from "react-redux";
@@ -22,40 +18,44 @@ import Divider from "../UI/Divider";
 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(0);
+  const [popLeagues, setPopLeagues] = React.useState([]);
+  const eventCategories = useSelector(getEventCategories);
+
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };
-  const eventCategories = useSelector(getEventCategories);
+
+  React.useEffect(() => {
+    let plTemp: any = [];
+    eventCategories.forEach((eventCategory: any) => {
+      if (eventCategory.id == "HISTORICAL") {
+        return;
+      }
+      eventCategory.eventGroup.forEach((ev: any) => {
+        if (ev.displayPriority == 1) {
+          plTemp.push(ev);
+        }
+      });
+    });
+    setPopLeagues(plTemp);
+  }, [eventCategories]);
   return (
     <Card className="static w-[300px] p-4 border-r-2 border-gray-500  rounded-none pt-20">
       <List>
         <Typography variant="h6">Popular</Typography>
-        <ListItem>
-          <ListItemPrefix>
-            <TbBallFootball className="h-5 w-5" />
-          </ListItemPrefix>
-          Euro Qualifiers
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <CiBasketball className="h-5 w-5" />
-          </ListItemPrefix>
-          College Basketball
-        </ListItem>
-        <Link href="/sports/nfl">
-          <ListItem>
-            <ListItemPrefix>
-              <GiHockey className="h-5 w-5" />
-            </ListItemPrefix>
-            NHL
-          </ListItem>
-        </Link>
-        <ListItem>
-          <ListItemPrefix>
-            <SiNba className="h-5 w-5" />
-          </ListItemPrefix>
-          NBA
-        </ListItem>
+        {popLeagues.map((popLeague: any, index: number) => (
+          <Link
+            href={`/sports/league?sport=${popLeague.events[0].category}&league=${popLeague.id}`}
+            key={index}
+          >
+            <ListItem>
+              <ListItemPrefix>
+                <SportIcon sportName={popLeague.events[0].category} />
+              </ListItemPrefix>
+              {popLeague.title}
+            </ListItem>
+          </Link>
+        ))}
         <hr className="my-2 border-blue-gray-50" />
         <Typography variant="h6">SPORTS</Typography>
         {eventCategories.map(
