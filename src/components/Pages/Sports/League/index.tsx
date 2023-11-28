@@ -5,7 +5,7 @@ import { getEventCategories } from "@/redux/slice";
 import { Card, Typography } from "@material-tailwind/react";
 import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
-import { ts2LWDDLMYYYY } from "@/constants/functions";
+import { ts2LWDDLMYYYY } from "@/utils/timestamp";
 
 export default function League() {
   const searchParams = useSearchParams();

@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+import React from "react";
 import { Typography } from "@material-tailwind/react";
 import {
   Tabs,
@@ -7,6 +9,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import ActivedPage from "@/components/UI/MyTrades/Actived";
 
 export default function MyTradesPage() {
   const data = [
@@ -21,6 +24,7 @@ export default function MyTradesPage() {
       desc: `No settled trades`,
     },
   ];
+ 
   return (
     <div className="p-4">
       <Typography variant="h2">My Trades</Typography>
@@ -37,9 +41,9 @@ export default function MyTradesPage() {
           ))}
         </TabsHeader>
         <TabsBody>
-          {data.map(({ value, desc }) => (
+          {data.map(({ value }) => (
             <TabPanel key={value} value={value}>
-              {desc}
+              { value == "active" ? <ActivedPage/> : <></> }
             </TabPanel>
           ))}
         </TabsBody>

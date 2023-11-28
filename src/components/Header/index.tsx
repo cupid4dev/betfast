@@ -19,10 +19,11 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import ConnectWalletButton from "../UI/ConnectWalletButton";
-import API_URL from "@/constants/apiUrl";
-import { getEventCategories, setEventCategories } from "@/redux/slice";
-import axios from "axios";
+import { getEventCategories } from "@/redux/slice";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchEventCategories, fetchOrders } from "@/utils/fetchData";
+import { useProgram } from "@/context/ProgramContext";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const profileMenuItems = [
   {
@@ -106,38 +107,43 @@ function ProfileMenu() {
 
 export default function ComplexNavbar() {
   const dispatch = useDispatch();
-  let fetchTimer: any = null;
   const eventCategories = useSelector(getEventCategories);
+  const program = useProgram().program;
+  const wallet = useWallet();
 
-  const fetchEventCategories = () => {
-    if (fetchTimer) {
-      clearInterval(fetchTimer);
-    } else {
-      axios
-        .get(API_URL)
-        .then((data) => {
-          dispatch(setEventCategories(data.data.eventCategories));
-        })
-        .catch(() => {});
-    }
+  // const fetchEventCategories = () => {
+  //   if (fetchTimer) {
+  //     clearInterval(fetchTimer);
+  //   } else {
+  //     axios
+  //       .get(API_URL)
+  //       .then((data) => {
+  //         dispatch(setEventCategories(data.data.eventCategories));
+  //       })
+  //       .catch(() => {});
+  //   }
 
-    fetchTimer = setInterval(() => {
-      axios
-        .get(API_URL)
-        .then((data) => {
-          dispatch(setEventCategories(data.data.eventCategories));
-        })
-        .catch(() => {});
-    }, 50000);
-  };
+  //   fetchTimer = setInterval(() => {
+  //     axios
+  //       .get(API_URL)
+  //       .then((data) => {
+  //         dispatch(setEventCategories(data.data.eventCategories));
+  //       })
+  //       .catch(() => {});
+  //   }, 50000);
+  // };
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960, // && setIsNavOpen(false),
     );
-    fetchEventCategories();
+    fetchEventCategories(dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(()=>{
+    fetchOrders(program, wallet, dispatch);
+  }, [program, wallet]);
 
   return eventCategories.length == 0 ? (
     <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white place-content-center grid z-50">
@@ -160,9 +166,6 @@ export default function ComplexNavbar() {
             <Typography
               variant="h4"
               className="mr-4"
-              onClick={() => {
-                // setIsHome(1);
-              }}
             >
               <span className="inline-block align-middle">BETFAST</span>
             </Typography>
@@ -172,9 +175,6 @@ export default function ComplexNavbar() {
             <Link href="/home">
               <Button
                 variant={"gradient"}
-                onClick={() => {
-                  // setIsHome(1);
-                }}
               >
                 Home
               </Button>
@@ -185,9 +185,6 @@ export default function ComplexNavbar() {
             <Link href="/mytrades">
               <Button
                 variant={"text"}
-                onClick={() => {
-                  // setIsHome(0);
-                }}
               >
                 My Trades
               </Button>

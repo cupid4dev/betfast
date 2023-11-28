@@ -8,6 +8,10 @@ import {
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useWallet } from "@solana/wallet-adapter-react";
 import ConnectWalletButton from "../../ConnectWalletButton";
+import { PublicKey } from "@solana/web3.js";
+import { Event } from "@/types/event";
+import { createOrderUiStake } from "@monaco-protocol/client";
+import { useProgram } from "@/context/ProgramContext";
 
 export function BetDialog({
   handleOpen,
@@ -16,11 +20,46 @@ export function BetDialog({
   team,
 }: {
   handleOpen: any;
-  details: any;
+  details: Event;
   isBack: boolean;
   team: number;
 }) {
   const wallet = useWallet();
+  const program = useProgram().program;
+  const [stake, setStake] = React.useState(0);
+  const [odds, setOdds] = React.useState(1);
+
+  const handleStake = (e: any) => {
+    setStake(e.target.value);
+  }
+
+  const handleOdds = (e: any) => {
+    setOdds(e.target.value);
+  }
+
+  const handleOrder = async () => {
+    const market = details.markets.length == 1 ? details.markets[0] : 
+      details.markets.find( m => {
+        return m.marketName == "Winner" || m.marketName == "Full Time Result"
+    });
+    
+    if(!program){
+      return;
+    }
+
+    if(!market){
+      return;
+    }
+
+    const order = await createOrderUiStake(
+      program,
+      new PublicKey(market.marketAccount),
+      team,
+      isBack,
+      Number(odds),
+      Number(stake)
+    );
+  }
 
   return (
     <div className="p-4 relative">
@@ -40,26 +79,27 @@ export function BetDialog({
       </Typography>
       <div className="flex my-2">
         <div className="w-full float-left">
-          <Input label="Enter Stake.." crossOrigin={""} type="number" />
+          <Input label="Enter Stake.." crossOrigin={""} type="number" value={stake} onChange={handleStake}/>
         </div>
         <div className="float-right ml-2">
           <Input
             label="Odds"
-            defaultValue={1.67}
+            value={odds}
             type="number"
             crossOrigin={""}
             step="0.01"
+            onChange={handleOdds}
           />
         </div>
       </div>
       <div className="flex">
         <Typography variant="small">Profit:&nbsp;</Typography>
         <Typography variant="small" className="profit-color">
-          -
+          {(stake * odds).toFixed(3)}
         </Typography>
       </div>
       {wallet.connected ? (
-        <Button variant="gradient" className="flex mg-auto my-2">
+        <Button variant="gradient" className="flex mg-auto my-2" onClick={handleOrder}>
           STAKE
         </Button>
       ) : (

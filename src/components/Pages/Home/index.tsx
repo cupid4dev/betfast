@@ -7,7 +7,7 @@ import { Card, Carousel, Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { ts2DateOptions } from "@/constants/functions";
+import { ts2DateOptions } from "@/utils/timestamp";
 import SportIcon from "@/components/UI/SportIcon";
 export default function HomePage() {
   const eventCategories = useSelector(getEventCategories);

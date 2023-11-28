@@ -9,7 +9,7 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        primary: "#ff4500", // Customize the primary color
+        primary: "#2196F380", // Customize the primary color
         link: "#4fc3f7",
       },
       fontFamily: {

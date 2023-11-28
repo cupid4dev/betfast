@@ -11,8 +11,10 @@
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.4",
+    "@monaco-protocol/client": "^8.0.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
@@ -22,6 +24,7 @@
     "@types/node": "20.9.1",
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.15",
+    "dexie": "^3.2.4",
     "autoprefixer": "10.4.16",
     "axios": "^1.6.2",
     "countries-list": "^3.0.6",

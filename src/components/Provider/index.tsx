@@ -11,6 +11,7 @@ import {
 import { ThemeProvider } from "@material-tailwind/react";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
+import { ProgramProvider } from "@/context/ProgramContext";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
@@ -28,7 +29,11 @@ function CustomProvider({ children }: { children: React.ReactNode }) {
     <Provider store={store}>
       <ThemeProvider>
         <WalletProvider wallets={wallets} autoConnect>
-          <WalletModalProvider>{children}</WalletModalProvider>
+          <WalletModalProvider>
+            <ProgramProvider>
+              {children}
+            </ProgramProvider>
+          </WalletModalProvider>
         </WalletProvider>
       </ThemeProvider>
     </Provider>

@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { BetDialog } from "./BetDialog";
 import { Button, Typography, Dialog } from "@material-tailwind/react";
-import { ts2DateOptions, ts2TimeOptions } from "@/constants/functions";
+import { ts2DateOptions, ts2TimeOptions } from "@/utils/timestamp";
 import SportIcon from "../SportIcon";
 
 export default function GameOverview({

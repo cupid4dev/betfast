@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 import { getEventCategories } from "@/redux/slice";
 import { useSearchParams } from "next/navigation";
 import SportIcon from "@/components/UI/SportIcon";
-import { ts2TimeOptions, ts2TodayTomorrow } from "@/constants/functions";
+import { ts2TimeOptions, ts2TodayTomorrow } from "@/utils/timestamp";
+import { fetchMarket } from "@/utils/monaco/markets/fetchMarket";
+import { useProgram } from '@/context/ProgramContext';
 
 export default function GameDetails() {
   const TABLE_HEAD = ["Selection", "Last Traded", "Back", "Lay"];
@@ -20,6 +22,9 @@ export default function GameDetails() {
     eventStart: 0,
     eventEnd: 0,
     participants: [{ name: "" }, { name: "" }],
+    markets:[{
+      marketAccount: ""
+    }]
   });
   const [isBack, setIsBack] = React.useState(true);
   const [team, setTeam] = React.useState(0);
@@ -30,6 +35,8 @@ export default function GameDetails() {
   const category = searchParams.get("category");
   const eventGroup = searchParams.get("eventGroup");
   const eventAccount = searchParams.get("eventAccount");
+
+  const programContext = useProgram();
 
   const handleOffer = (isBack: boolean, team: number) => {
     setIsBack(isBack);
@@ -48,6 +55,13 @@ export default function GameDetails() {
         .events.findLast((e: any) => e.eventAccount == eventAccount),
     );
   }, [category, eventAccount, eventCategories, eventGroup]);
+
+  React.useEffect(()=>{
+    if(details.markets[0].marketAccount == ""){
+      return;
+    }
+    fetchMarket(programContext.program, details.markets[0].marketAccount);
+  }, [details]);
 
   return details == undefined ? (
     <></>
