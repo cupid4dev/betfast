@@ -1,43 +1,43 @@
 export type Participant = {
-  name: String,
-  id: String
+  name: string,
+  id: string
 };
 
 export type Market = {
-  marketAccount: String,
+  marketAccount: string,
   marketLock: number,
-  marketName: String,
-  outComes: [String],
-  invalidOutcomes: [String],
+  marketName: string,
+  outcomes: [string],
+  invalidOutcomes: [string],
   displayPriority: number,
-  mint: String
+  mint: string
 }
 
 export type Event = {
-  eventAccount: String,
-  eventName: String,
+  eventAccount: string,
+  eventName: string,
   participants: [Participant],
   eventStart: number,
   estimatedEnd: number,
-  category: String,
-  categoryTitle: String,
-  eventGroup: String,
-  eventGroupTitle: String,
+  category: string,
+  categoryTitle: string,
+  eventGroup: string,
+  eventGroupTitle: string,
   displayPriority: number,
   markets: [Market]
 }
 
 export type EventGroup = {
-  id: String,
-  title: String,
+  id: string,
+  title: string,
   displayPriority: number,
   events: [Event],
 }
 
 export type EventCategory = {
-  id: String,
-  title: String,
+  id: string,
+  title: string,
   displayPriority: number,
-  heroBanner: String,
+  heroBanner: string,
   eventGroup: [EventGroup]
 }

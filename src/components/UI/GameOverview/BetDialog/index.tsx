@@ -10,27 +10,41 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useWallet } from "@solana/wallet-adapter-react";
 import ConnectWalletButton from "../../ConnectWalletButton";
 import { PublicKey } from "@solana/web3.js";
-import { Event } from "@/types/event";
 import { createOrderUiStake } from "@monaco-protocol/client";
 import { useProgram } from "@/context/ProgramContext";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { fetchOrders } from "@/utils/fetchData";
 import { useDispatch } from "react-redux";
-import 'react-toastify/dist/ReactToastify.css';
 
 export function BetDialog({
   handleOpen,
   details,
   isBack,
   team,
+  marketIndex,
 }: {
   handleOpen: any;
-  details: Event;
+  details: {
+    eventAccount: string,
+    eventName: string,
+    participants: any[],
+    eventStart: number,
+    estimatedEnd: number,
+    category: string,
+    categoryTitle: string,
+    eventGroup: string,
+    eventGroupTitle: string,
+    displayPriority: number,
+    markets: any[]
+  };
   isBack: boolean;
   team: number;
+  marketIndex: number;
 }) {
   const wallet = useWallet();
   const program = useProgram().program;
+  const dispatch = useDispatch();
   const [stake, setStake] = React.useState(0);
   const [odds, setOdds] = React.useState(1);
 
@@ -43,10 +57,16 @@ export function BetDialog({
   }
 
   const handleOrder = async () => {
-    const market = details.markets.length == 1 ? details.markets[0] : 
+    let market;
+    if(marketIndex == -1){
+      market = details.markets.length == 1 ? details.markets[0] : 
       details.markets.find( m => {
         return m.marketName == "Winner" || m.marketName == "Full Time Result"
-    });
+      });
+    } else {
+      market = details.markets[marketIndex];
+    }
+    
     
     if(!program){
       return;
@@ -56,20 +76,24 @@ export function BetDialog({
       return;
     }
 
-    const order = await createOrderUiStake(
-      program,
-      new PublicKey(market.marketAccount),
-      team,
-      isBack,
-      Number(odds),
-      Number(stake)
-    );
-
-    if(order.success){
-      handleOpen();
-      toast.success("Your order created successfully!");
-      fetchOrders(program, wallet, useDispatch());
-    } else {
+    try{
+      const order = await createOrderUiStake(
+        program,
+        new PublicKey(market.marketAccount),
+        team,
+        isBack,
+        Number(odds),
+        Number(stake)
+      );
+  
+      if(order.success){
+        handleOpen();
+        toast.success("Your order created successfully!");
+        fetchOrders(program, wallet, dispatch);
+      } else {
+        toast.error("Failed to created your order!");
+      }
+    } catch (e) {
       toast.error("Failed to created your order!");
     }
   }
@@ -77,15 +101,15 @@ export function BetDialog({
   return (
     <div className="p-4 relative">
       <div className="flex">
-        <Typography variant="h6" className="gradient-back float-left">
+        <Typography variant="h6" className={`${isBack ? "gradient-back" : "gradient-lay"} float-left`}>
           {isBack ? "BACK" : "LAY"}
         </Typography>
         <Typography variant="h6" className="float-left">
-          &nbsp;{details.participants[team].name}
+          &nbsp;{details.markets[marketIndex].outcomes[team]}
         </Typography>
       </div>
       <Typography variant="paragraph" className="font-bold">
-        Winner
+        {details.markets[marketIndex].marketName}
       </Typography>
       <Typography variant="small" className="">
         {details.eventName}

@@ -48,10 +48,10 @@ export default function GameOverview({
               {" "}
               {details.participants[0].name} vs {details.participants[1].name}{" "}
             </Typography>
-            <Typography variant="paragraph" className="text-link">
+            {/* <Typography variant="paragraph" className="text-link">
               {" "}
               Liquidity: <span>$0 USDC</span>{" "}
-            </Typography>
+            </Typography> */}
           </Link>
           <div className="mr-4">
             <Typography variant="h6" className="text-right">
@@ -108,6 +108,7 @@ export default function GameOverview({
               details={details}
               isBack={isBack}
               team={selectedTeam}
+              marketIndex={-1}
             />
           </Dialog>
         </div>

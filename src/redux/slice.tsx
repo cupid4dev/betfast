@@ -7,6 +7,7 @@ interface AppState {
   eventCategories: any;
   orders: any;
   markets: any;
+  ecMarkets: any;
 }
 
 const initialState: AppState = {
@@ -15,6 +16,7 @@ const initialState: AppState = {
   eventCategories: [],
   orders: [],
   markets: {},
+  ecMarkets: {},
 };
 
 const appSlice = createSlice({
@@ -37,6 +39,24 @@ const appSlice = createSlice({
         }
         return a.displayPriority > b.displayPriority ? -1 : 1;
       });
+      state.eventCategories.forEach((ec: any) => {
+        ec.eventGroup.forEach((eg: any) => {
+          eg.events.forEach((ev: any) => {
+            ev.markets.forEach((market: any) => {
+              state.ecMarkets[market.marketAccount] = {
+                ...market,
+                eventName: ev.eventName,
+                eventStart: ev.eventStart,
+                categoryTitle: ev.categoryTitle,
+                category: ev.category,
+                eventGroupTitle: ev.eventGroupTitle,
+                eventGroup: ev.eventGroup,
+                eventAccount: ev.eventAccount,
+              };
+            })
+          })
+        })
+      });
     },
 
     setOrders(state, action){
@@ -54,6 +74,7 @@ export const getAppState = (state: any) => state.app.appState;
 export const getEventCategories = (state: any) => state.app.eventCategories;
 export const getOrders = (state: any) => state.app.orders;
 export const getMarkets = (state: any) => state.app.markets;
+export const getECMarkets = (state: any) => state.app.ecMarkets;
 
 export const { 
   activeAppState, 

@@ -23,6 +23,9 @@ export async function fetchOrders(program: any, wallet: any, dispatch: any) {
       }),
       fetchMarket(dispatch, program, publicKeyFromBn(order.account.market))
     ));
+    orders.sort((a, b) => {
+      return a.publicKey > b.publicKey ? 1 : -1;
+    })
     dispatch(setOrders(orders));
   }
 }
@@ -77,5 +80,5 @@ export function fetchEventCategories(dispatch: any) {
         dispatch(setEventCategories(data.data.eventCategories));
       })
       .catch(() => { });
-  }, 50000);
+  }, 10000);
 };
