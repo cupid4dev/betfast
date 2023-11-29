@@ -14,7 +14,7 @@ export async function fetchOrders(program: any, wallet: any, dispatch: any) {
     let orders = new Array();
     orderResult.data.orderAccounts.map((order: any) => (
       orders.push({
-        publickKey: publicKeyFromBn(order.publicKey).toString(),
+        publicKey: publicKeyFromBn(order.publicKey).toString(),
         expectedPrice: order.account.expectedPrice,
         forOutcome: order.account.forOutcome,
         marketOutcomeIndex: order.account.marketOutcomeIndex,

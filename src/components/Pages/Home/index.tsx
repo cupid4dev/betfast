@@ -37,8 +37,14 @@ export default function HomePage() {
         if (upcomingS.upcomingDate == 0) {
           upcomingS.upcomingDate = games[0].eventStart;
         }
-        const startDate = ts2DateOptions(games[0].eventStart);
+        let startDate = "";
         for (let i = 0; i < games.length; i++) {
+          if( games[i].eventStart * 1000 < new Date().getTime() ){
+            continue;
+          }
+          if( startDate == "" ){
+            startDate = ts2DateOptions(games[i].eventStart);
+          }
           if (ts2DateOptions(games[i].eventStart) != startDate) {
             break;
           }

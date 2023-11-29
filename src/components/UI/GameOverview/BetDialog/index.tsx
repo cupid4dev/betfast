@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import {
   Typography,
@@ -12,6 +13,10 @@ import { PublicKey } from "@solana/web3.js";
 import { Event } from "@/types/event";
 import { createOrderUiStake } from "@monaco-protocol/client";
 import { useProgram } from "@/context/ProgramContext";
+import { ToastContainer, toast } from "react-toastify";
+import { fetchOrders } from "@/utils/fetchData";
+import { useDispatch } from "react-redux";
+import 'react-toastify/dist/ReactToastify.css';
 
 export function BetDialog({
   handleOpen,
@@ -59,6 +64,14 @@ export function BetDialog({
       Number(odds),
       Number(stake)
     );
+
+    if(order.success){
+      handleOpen();
+      toast.success("Your order created successfully!");
+      fetchOrders(program, wallet, useDispatch());
+    } else {
+      toast.error("Failed to created your order!");
+    }
   }
 
   return (
@@ -117,6 +130,10 @@ export function BetDialog({
         >
           <RiDeleteBinLine className="w-5 h-5" />
         </IconButton>
+        <ToastContainer
+          position="bottom-right" 
+          theme="colored"
+        />
       </div>
     </div>
   );

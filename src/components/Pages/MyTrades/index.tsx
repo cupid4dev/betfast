@@ -10,6 +10,11 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import ActivedPage from "@/components/UI/MyTrades/Actived";
+import { useProgram } from "@/context/ProgramContext";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useDispatch } from "react-redux";
+import { fetchOrders } from "@/utils/fetchData";
+import SettledPage from "@/components/UI/MyTrades/Settled";
 
 export default function MyTradesPage() {
   const data = [
@@ -24,6 +29,14 @@ export default function MyTradesPage() {
       desc: `No settled trades`,
     },
   ];
+
+  const program = useProgram().program;
+  const wallet = useWallet();
+  const dispatch = useDispatch();
+
+  React.useEffect(()=>{
+    fetchOrders(program, wallet, dispatch);
+  }, []);
  
   return (
     <div className="p-4">
@@ -43,7 +56,7 @@ export default function MyTradesPage() {
         <TabsBody>
           {data.map(({ value }) => (
             <TabPanel key={value} value={value}>
-              { value == "active" ? <ActivedPage/> : <></> }
+              { value == "active" ? <ActivedPage/> : <SettledPage/> }
             </TabPanel>
           ))}
         </TabsBody>

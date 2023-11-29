@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import {
@@ -111,39 +112,17 @@ export default function ComplexNavbar() {
   const program = useProgram().program;
   const wallet = useWallet();
 
-  // const fetchEventCategories = () => {
-  //   if (fetchTimer) {
-  //     clearInterval(fetchTimer);
-  //   } else {
-  //     axios
-  //       .get(API_URL)
-  //       .then((data) => {
-  //         dispatch(setEventCategories(data.data.eventCategories));
-  //       })
-  //       .catch(() => {});
-  //   }
-
-  //   fetchTimer = setInterval(() => {
-  //     axios
-  //       .get(API_URL)
-  //       .then((data) => {
-  //         dispatch(setEventCategories(data.data.eventCategories));
-  //       })
-  //       .catch(() => {});
-  //   }, 50000);
-  // };
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960, // && setIsNavOpen(false),
     );
     fetchEventCategories(dispatch);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(()=>{
     fetchOrders(program, wallet, dispatch);
-  }, [program, wallet]);
+  }, [wallet]);
 
   return eventCategories.length == 0 ? (
     <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white place-content-center grid z-50">

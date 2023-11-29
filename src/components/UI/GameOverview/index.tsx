@@ -68,66 +68,38 @@ export default function GameOverview({
             </Button>
           ) : (
             <div className="flex">
-              <div className="ml-4">
-                <Typography
-                  variant="paragraph"
-                  className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
-                >
-                  {details.participants[0].name}
-                </Typography>
-                <div className="flex">
-                  <Button
-                    variant="gradient"
-                    color="cyan"
-                    className="mr-4 float-left"
-                    onClick={() => {
-                      handleOffer(true, 0);
-                    }}
+              { details.markets[0].outcomes.map((outcome: any, index: number) => (
+                <div className="ml-4" key={index}>
+                  <Typography
+                    variant="paragraph"
+                    className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
                   >
-                    Offer
-                  </Button>
-                  <Button
-                    variant="gradient"
-                    color="deep-orange"
-                    className="float-right"
-                    onClick={() => {
-                      handleOffer(false, 0);
-                    }}
-                  >
-                    Offer
-                  </Button>
+                    {outcome}
+                  </Typography>
+                  <div className="flex">
+                    <Button
+                      variant="gradient"
+                      color="cyan"
+                      className="mr-4 float-left w-[100px]"
+                      onClick={() => {
+                        handleOffer(true, index);
+                      }}
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      variant="gradient"
+                      color="deep-orange"
+                      className="float-right w-[100px]"
+                      onClick={() => {
+                        handleOffer(false, index);
+                      }}
+                    >
+                      Lay
+                    </Button>
+                  </div>
                 </div>
-              </div>
-              <div className="ml-4">
-                <Typography
-                  variant="paragraph"
-                  className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
-                >
-                  {details.participants[1].name}
-                </Typography>
-                <div className="flex">
-                  <Button
-                    variant="gradient"
-                    color="cyan"
-                    className="mr-4 float-left"
-                    onClick={() => {
-                      handleOffer(true, 1);
-                    }}
-                  >
-                    Offer
-                  </Button>
-                  <Button
-                    variant="gradient"
-                    color="deep-orange"
-                    className="float-right"
-                    onClick={() => {
-                      handleOffer(false, 1);
-                    }}
-                  >
-                    Offer
-                  </Button>
-                </div>
-              </div>
+              ))}
             </div>
           )}
           <Dialog open={open} handler={() => {}}>

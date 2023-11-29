@@ -4,6 +4,7 @@ import GameOverview from "@/components/UI/GameOverview";
 import SportIcon from "@/components/UI/SportIcon";
 import { Card, Typography } from "@material-tailwind/react";
 import Link from "next/link";
+import React from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 export default function MatchesPage({ event }: { event: any }) {

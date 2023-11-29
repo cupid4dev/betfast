@@ -75,20 +75,22 @@ export default function Sidebar() {
                   }
                 >
                   <ListItem className="p-0" selected={open === index}>
-                    <AccordionHeader
-                      onClick={() => handleOpen(index)}
-                      className="border-b-0 p-3"
-                    >
-                      <ListItemPrefix>
-                        <SportIcon sportName={item.id} />
-                      </ListItemPrefix>
-                      <Typography
-                        color="blue-gray"
-                        className="mr-auto font-normal"
+                    <Link href={`/sports/event?event=${item.id}`} className="w-full">
+                      <AccordionHeader
+                        onClick={() => handleOpen(index)}
+                        className="border-b-0 p-3"
                       >
-                        {item.title}
-                      </Typography>
-                    </AccordionHeader>
+                        <ListItemPrefix>
+                          <SportIcon sportName={item.id} />
+                        </ListItemPrefix>
+                        <Typography
+                          color="blue-gray"
+                          className="mr-auto font-normal"
+                        >
+                          {item.title}
+                          </Typography>
+                      </AccordionHeader>
+                    </Link>
                   </ListItem>
                   <AccordionBody className="py-1">
                     <List className="p-0">
