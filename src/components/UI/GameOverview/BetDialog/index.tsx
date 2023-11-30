@@ -13,7 +13,7 @@ import { PublicKey } from "@solana/web3.js";
 import { createOrderUiStake } from "@monaco-protocol/client";
 import { useProgram } from "@/context/ProgramContext";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { fetchOrders } from "@/utils/fetchData";
 import { useDispatch } from "react-redux";
 
@@ -26,17 +26,17 @@ export function BetDialog({
 }: {
   handleOpen: any;
   details: {
-    eventAccount: string,
-    eventName: string,
-    participants: any[],
-    eventStart: number,
-    estimatedEnd: number,
-    category: string,
-    categoryTitle: string,
-    eventGroup: string,
-    eventGroupTitle: string,
-    displayPriority: number,
-    markets: any[]
+    eventAccount: string;
+    eventName: string;
+    participants: any[];
+    eventStart: number;
+    estimatedEnd: number;
+    category: string;
+    categoryTitle: string;
+    eventGroup: string;
+    eventGroupTitle: string;
+    displayPriority: number;
+    markets: any[];
   };
   isBack: boolean;
   team: number;
@@ -50,43 +50,46 @@ export function BetDialog({
 
   const handleStake = (e: any) => {
     setStake(e.target.value);
-  }
+  };
 
   const handleOdds = (e: any) => {
     setOdds(e.target.value);
-  }
+  };
 
   const handleOrder = async () => {
     let market;
-    if(marketIndex == -1){
-      market = details.markets.length == 1 ? details.markets[0] : 
-      details.markets.find( m => {
-        return m.marketName == "Winner" || m.marketName == "Full Time Result"
-      });
+    if (marketIndex == -1) {
+      market =
+        details.markets.length == 1
+          ? details.markets[0]
+          : details.markets.find((m) => {
+              return (
+                m.marketName == "Winner" || m.marketName == "Full Time Result"
+              );
+            });
     } else {
       market = details.markets[marketIndex];
     }
-    
-    
-    if(!program){
+
+    if (!program) {
       return;
     }
 
-    if(!market){
+    if (!market) {
       return;
     }
 
-    try{
+    try {
       const order = await createOrderUiStake(
         program,
         new PublicKey(market.marketAccount),
         team,
         isBack,
         Number(odds),
-        Number(stake)
+        Number(stake),
       );
-  
-      if(order.success){
+
+      if (order.success) {
         handleOpen();
         toast.success("Your order created successfully!");
         fetchOrders(program, wallet, dispatch);
@@ -96,27 +99,37 @@ export function BetDialog({
     } catch (e) {
       toast.error("Failed to created your order!");
     }
-  }
+  };
 
   return (
     <div className="p-4 relative">
       <div className="flex">
-        <Typography variant="h6" className={`${isBack ? "gradient-back" : "gradient-lay"} float-left`}>
+        <Typography
+          variant="h6"
+          className={`${isBack ? "gradient-back" : "gradient-lay"} float-left`}
+        >
           {isBack ? "BACK" : "LAY"}
         </Typography>
         <Typography variant="h6" className="float-left">
-          &nbsp;{details.markets[marketIndex].outcomes[team]}
+          &nbsp;
+          {details.markets[marketIndex == -1 ? 0 : marketIndex].outcomes[team]}
         </Typography>
       </div>
       <Typography variant="paragraph" className="font-bold">
-        {details.markets[marketIndex].marketName}
+        {details.markets[marketIndex == -1 ? 0 : marketIndex].marketName}
       </Typography>
       <Typography variant="small" className="">
         {details.eventName}
       </Typography>
       <div className="flex my-2">
         <div className="w-full float-left">
-          <Input label="Enter Stake.." crossOrigin={""} type="number" value={stake} onChange={handleStake}/>
+          <Input
+            label="Enter Stake.."
+            crossOrigin={""}
+            type="number"
+            value={stake}
+            onChange={handleStake}
+          />
         </div>
         <div className="float-right ml-2">
           <Input
@@ -136,7 +149,11 @@ export function BetDialog({
         </Typography>
       </div>
       {wallet.connected ? (
-        <Button variant="gradient" className="flex mg-auto my-2" onClick={handleOrder}>
+        <Button
+          variant="gradient"
+          className="flex mg-auto my-2"
+          onClick={handleOrder}
+        >
           STAKE
         </Button>
       ) : (
@@ -154,10 +171,7 @@ export function BetDialog({
         >
           <RiDeleteBinLine className="w-5 h-5" />
         </IconButton>
-        <ToastContainer
-          position="bottom-right" 
-          theme="colored"
-        />
+        <ToastContainer position="bottom-right" theme="colored" />
       </div>
     </div>
   );

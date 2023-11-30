@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import Dexie from 'dexie';
+import Dexie from "dexie";
 
-declare module 'dexie' {
+declare module "dexie" {
   interface MonacoProtocolDB extends Dexie {
     markets: Dexie.Table<IMarket, string>;
     marketOutcomes: Dexie.Table<IMarketOutcome, string>;

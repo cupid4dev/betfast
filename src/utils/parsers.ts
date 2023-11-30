@@ -1,17 +1,17 @@
-import { BN } from '@coral-xyz/anchor';
+import { BN } from "@coral-xyz/anchor";
 import {
   MarketMatchingPoolsWithSeeds,
   MarketPrice,
   MarketStatus,
   OrderStatus,
-} from '@monaco-protocol/client';
-import { PublicKey } from '@solana/web3.js';
+} from "@monaco-protocol/client";
+import { PublicKey } from "@solana/web3.js";
 
-import { DEFAULT_MINT_DECIMALS } from '@/constants/appSettings';
-import { MappedMarketStatus } from '@/constants/markets';
-import { MappedOrderStatus } from '@/constants/orders';
+import { DEFAULT_MINT_DECIMALS } from "@/constants/appSettings";
+import { MappedMarketStatus } from "@/constants/markets";
+import { MappedOrderStatus } from "@/constants/orders";
 
-import { nowTimestamp } from './timestamp';
+import { nowTimestamp } from "./timestamp";
 
 export function parseResponseData(
   responseData: any,
@@ -46,16 +46,16 @@ export function parseResponseData(
           responseData[key][index] = mintValue.toNumber();
         }
       }
-    } else if (key === 'orderStatus') {
+    } else if (key === "orderStatus") {
       responseData[key] = parseOrderStatus(value, responseData.stakeUnmatched);
-    } else if (key === 'marketStatus') {
+    } else if (key === "marketStatus") {
       responseData[key] = parseMarketStatus(
         value,
         responseData.inplayEnabled,
         responseData.inplay,
         responseData.marketLockTimestamp.toNumber(),
       );
-    } else if (typeof value === 'object') {
+    } else if (typeof value === "object") {
       responseData[key] = parseResponseData(value);
     }
   }
@@ -65,20 +65,25 @@ export function parseResponseData(
 export function parseEmptyQueueItemsFromMatchingPoolAccounts(
   marketMatchingPoolAccounts: MarketMatchingPoolsWithSeeds,
 ): MarketMatchingPoolsWithSeeds {
-  marketMatchingPoolAccounts.marketMatchingPoolsWithSeeds.forEach((marketMatchingPool) => {
-    marketMatchingPool.account.marketMatchingPool.orders.items =
-      marketMatchingPool.account.marketMatchingPool.orders.items.filter(
-        (item) => item.order.toString() != emptyOrderString,
-      );
-  });
+  marketMatchingPoolAccounts.marketMatchingPoolsWithSeeds.forEach(
+    (marketMatchingPool) => {
+      marketMatchingPool.account.marketMatchingPool.orders.items =
+        marketMatchingPool.account.marketMatchingPool.orders.items.filter(
+          (item) => item.order.toString() != emptyOrderString,
+        );
+    },
+  );
   return marketMatchingPoolAccounts;
 }
 
-export function parseEmptyQueueItemsFromMarketPrices(marketPrices: MarketPrice[]): MarketPrice[] {
+export function parseEmptyQueueItemsFromMarketPrices(
+  marketPrices: MarketPrice[],
+): MarketPrice[] {
   marketPrices.forEach((marketPrice) => {
-    marketPrice.matchingPool.orders.items = marketPrice.matchingPool.orders.items.filter(
-      (item) => item.order.toString() != emptyOrderString,
-    );
+    marketPrice.matchingPool.orders.items =
+      marketPrice.matchingPool.orders.items.filter(
+        (item) => item.order.toString() != emptyOrderString,
+      );
   });
   return marketPrices;
 }
@@ -87,57 +92,65 @@ export function integerToUiValue(integerValue: BN, mintDecimals: number) {
   return integerValue.toNumber() / 10 ** mintDecimals;
 }
 
-const emptyOrderString = '11111111111111111111111111111111';
+const emptyOrderString = "11111111111111111111111111111111";
 
 /** All data keys for BNs */
 const bigNumberKeys = [
-  'marketLockTimestamp',
-  'marketSettleTimestamp',
-  'eventStartTimestamp',
-  'creationTimestamp',
-  'delayExpirationTimestamp',
+  "marketLockTimestamp",
+  "marketSettleTimestamp",
+  "eventStartTimestamp",
+  "creationTimestamp",
+  "delayExpirationTimestamp",
 ];
 
-const publicKeys = ['publicKey', 'market', 'purchaser', 'payer', 'product', 'eventAccount'];
+const publicKeys = [
+  "publicKey",
+  "market",
+  "purchaser",
+  "payer",
+  "product",
+  "eventAccount",
+];
 
 /** All data keys for BNs returning mint values */
 const bigNumberMintKeys = [
-  'payout',
-  'stake',
-  'stakeUnmatched',
-  'voidedStake',
-  'matchedTotal',
-  'liquidityAmount',
-  'matchedAmount',
-  'liquidityToAdd',
-  'matchedRisk',
-  'risk',
+  "payout",
+  "stake",
+  "stakeUnmatched",
+  "voidedStake",
+  "matchedTotal",
+  "liquidityAmount",
+  "matchedAmount",
+  "liquidityToAdd",
+  "matchedRisk",
+  "risk",
 ];
 
 /** All data keys for BNs returning mint values in an array */
-const bigNumberMintArrays = ['marketOutcomeSums', 'unmatchedExposures'];
+const bigNumberMintArrays = ["marketOutcomeSums", "unmatchedExposures"];
 
 export function parseOrderStatus(status: OrderStatus, unmatchedStake: number) {
   switch (true) {
-    case Object.prototype.hasOwnProperty.call(status, 'open'): {
+    case Object.prototype.hasOwnProperty.call(status, "open"): {
       return MappedOrderStatus.OPEN;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'matched') && unmatchedStake > 0: {
+    case Object.prototype.hasOwnProperty.call(status, "matched") &&
+      unmatchedStake > 0: {
       return MappedOrderStatus.PARTIALLY_MATCHED;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'matched'): {
+    case Object.prototype.hasOwnProperty.call(status, "matched"): {
       return MappedOrderStatus.MATCHED;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'settledWin'): {
+    case Object.prototype.hasOwnProperty.call(status, "settledWin"): {
       return MappedOrderStatus.WON;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'settledLose'): {
+    case Object.prototype.hasOwnProperty.call(status, "settledLose"): {
       return MappedOrderStatus.LOST;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'cancelled'): {
+    case Object.prototype.hasOwnProperty.call(status, "cancelled"): {
       return MappedOrderStatus.CANCELLED;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'voided'): {
+    case Object.prototype.hasOwnProperty.call(status, "voided"): {
       return MappedOrderStatus.VOIDED;
     }
     default: {
@@ -153,35 +166,39 @@ const parseMarketStatus = (
   marketLockTimestamp: number,
 ) => {
   switch (true) {
-    case Object.prototype.hasOwnProperty.call(status, 'initializing'): {
+    case Object.prototype.hasOwnProperty.call(status, "initializing"): {
       return MappedMarketStatus.INITIALIZING;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'readyForSettlement'): {
+    case Object.prototype.hasOwnProperty.call(status, "readyForSettlement"): {
       return MappedMarketStatus.READY_FOR_SETTLEMENT;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'settled'): {
+    case Object.prototype.hasOwnProperty.call(status, "settled"): {
       return MappedMarketStatus.SETTLED;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'readyToClose'): {
+    case Object.prototype.hasOwnProperty.call(status, "readyToClose"): {
       return MappedMarketStatus.READY_TO_CLOSE;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'readyToVoid'): {
+    case Object.prototype.hasOwnProperty.call(status, "readyToVoid"): {
       return MappedMarketStatus.READY_TO_VOID;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'voided'): {
+    case Object.prototype.hasOwnProperty.call(status, "voided"): {
       return MappedMarketStatus.VOIDED;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'open') &&
+    case Object.prototype.hasOwnProperty.call(status, "open") &&
       marketLockTimestamp < nowTimestamp(): {
-        return MappedMarketStatus.WAITING_FOR_SETTLEMENT;
-      }
-    case Object.prototype.hasOwnProperty.call(status, 'open') && inplayEnabled && !inplay: {
+      return MappedMarketStatus.WAITING_FOR_SETTLEMENT;
+    }
+    case Object.prototype.hasOwnProperty.call(status, "open") &&
+      inplayEnabled &&
+      !inplay: {
       return MappedMarketStatus.IN_PLAY;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'open') && inplayEnabled && inplay: {
+    case Object.prototype.hasOwnProperty.call(status, "open") &&
+      inplayEnabled &&
+      inplay: {
       return MappedMarketStatus.LIVE_NOW;
     }
-    case Object.prototype.hasOwnProperty.call(status, 'open'): {
+    case Object.prototype.hasOwnProperty.call(status, "open"): {
       return MappedMarketStatus.STANDARD;
     }
     default:
@@ -190,7 +207,7 @@ const parseMarketStatus = (
 };
 
 export function publicKeyFromBn(feePayer: any) {
-  const bigNumber = new BN(feePayer._bn, 16)
+  const bigNumber = new BN(feePayer._bn, 16);
   const decoded = { _bn: bigNumber };
   return new PublicKey(decoded);
 }

@@ -65,7 +65,8 @@ export function ts2TodayTomorrow(timestamp: number) {
 
 export function hasElapsed(isoString: string, minutes: number): boolean {
   const originalDate = new Date(isoString);
-  const elapsedMinutes = (new Date().getTime() - originalDate.getTime()) / (1000 * 60);
+  const elapsedMinutes =
+    (new Date().getTime() - originalDate.getTime()) / (1000 * 60);
   return elapsedMinutes > minutes;
 }
 

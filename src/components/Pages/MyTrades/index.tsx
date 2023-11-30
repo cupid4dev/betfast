@@ -34,10 +34,10 @@ export default function MyTradesPage() {
   const wallet = useWallet();
   const dispatch = useDispatch();
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     fetchOrders(program, wallet, dispatch);
   }, []);
- 
+
   return (
     <div className="p-4">
       <Typography variant="h2">My Trades</Typography>
@@ -56,7 +56,7 @@ export default function MyTradesPage() {
         <TabsBody>
           {data.map(({ value }) => (
             <TabPanel key={value} value={value}>
-              { value == "active" ? <ActivedPage/> : <SettledPage/> }
+              {value == "active" ? <ActivedPage /> : <SettledPage />}
             </TabPanel>
           ))}
         </TabsBody>

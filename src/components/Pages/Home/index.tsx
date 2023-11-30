@@ -39,10 +39,10 @@ export default function HomePage() {
         }
         let startDate = "";
         for (let i = 0; i < games.length; i++) {
-          if( games[i].eventStart * 1000 < new Date().getTime() ){
+          if (games[i].eventStart * 1000 < new Date().getTime()) {
             continue;
           }
-          if( startDate == "" ){
+          if (startDate == "") {
             startDate = ts2DateOptions(games[i].eventStart);
           }
           if (ts2DateOptions(games[i].eventStart) != startDate) {

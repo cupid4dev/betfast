@@ -1,5 +1,5 @@
-import db from './db';
-import { IMarketOutcome } from './types';
+import db from "./db";
+import { IMarketOutcome } from "./types";
 
 export const updateFetchTime = async (fetchedObject: string) => {
   try {
@@ -8,7 +8,7 @@ export const updateFetchTime = async (fetchedObject: string) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error('Error updating fetch time:', error);
+    console.error("Error updating fetch time:", error);
   }
 };
 
@@ -18,25 +18,31 @@ export const getLastFetchTimestamp = async (name: string) => {
 };
 
 export const getLocalOrdersByPurchaser = async (publicKeyString: string) => {
-  const orders = await db.orders.where('purchaser').equals(publicKeyString).toArray();
+  const orders = await db.orders
+    .where("purchaser")
+    .equals(publicKeyString)
+    .toArray();
   return orders;
 };
 
 export const removeLocalOrdersByPurchaser = async (publicKeyString: string) => {
-  await db.orders.where('purchaser').equals(publicKeyString).delete();
+  await db.orders.where("purchaser").equals(publicKeyString).delete();
 };
 
 export const getLocalOrdersByMarket = async (publicKeyString: string) => {
-  const orders = await db.orders.where('market').equals(publicKeyString).toArray();
+  const orders = await db.orders
+    .where("market")
+    .equals(publicKeyString)
+    .toArray();
   return orders;
 };
 
 export const removeLocalOrdersByMarket = async (publicKeyString: string) => {
-  await db.orders.where('market').equals(publicKeyString).delete();
+  await db.orders.where("market").equals(publicKeyString).delete();
 };
 
 export const getAllMarkets = async () => {
-  const allMarkets = await db.markets.orderBy('marketLockTimestamp').toArray();
+  const allMarkets = await db.markets.orderBy("marketLockTimestamp").toArray();
   return allMarkets;
 };
 
@@ -57,29 +63,38 @@ export const getAllMarketOutcomes = async () => {
 export const getLocalMarketOutcomesByMarket = async (
   marketPublicKey: string,
 ): Promise<IMarketOutcome[]> => {
-  const marketOutcomes = await db.marketOutcomes.where('market').equals(marketPublicKey).toArray();
+  const marketOutcomes = await db.marketOutcomes
+    .where("market")
+    .equals(marketPublicKey)
+    .toArray();
   return marketOutcomes.sort((a: any, b: any) => (a.index > b.index ? 1 : -1));
 };
 
-export const getLocalMarketMatchingPoolsByMarket = async (marketPublicKey: string) => {
+export const getLocalMarketMatchingPoolsByMarket = async (
+  marketPublicKey: string,
+) => {
   const marketMatchingPools = await db.marketMatchingPools
-    .where('market')
+    .where("market")
     .equals(marketPublicKey)
     .toArray();
   return marketMatchingPools;
 };
 
-export const getLocalMarketPositionsByPurchaser = async (purchaserPublicKey: string) => {
+export const getLocalMarketPositionsByPurchaser = async (
+  purchaserPublicKey: string,
+) => {
   const marketPositions = await db.marketPositions
-    .where('purchaser')
+    .where("purchaser")
     .equals(purchaserPublicKey)
     .toArray();
   return marketPositions;
 };
 
-export const getLocalMarketPositionsByMarket = async (marketPublicKey: string) => {
+export const getLocalMarketPositionsByMarket = async (
+  marketPublicKey: string,
+) => {
   const marketPositions = await db.marketPositions
-    .where('market')
+    .where("market")
     .equals(marketPublicKey)
     .toArray();
   return marketPositions;

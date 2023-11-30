@@ -12,9 +12,9 @@ const store = configureStore({
       serializableCheck: {
         // Ignore these paths in the state
         ignoredPaths: [
-          'payload.0.publicKey',
-          'app.orders.0.publicKey',
-          'payload.publicKey',
+          "payload.0.publicKey",
+          "app.orders.0.publicKey",
+          "payload.publicKey",
         ],
       },
     }),

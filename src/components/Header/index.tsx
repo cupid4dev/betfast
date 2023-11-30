@@ -1,12 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import {
-  Navbar,
-  Typography,
-  Button,
-  Spinner,
-} from "@material-tailwind/react";
+import { Navbar, Typography, Button, Spinner } from "@material-tailwind/react";
 import Link from "next/link";
 import ConnectWalletButton from "../UI/ConnectWalletButton";
 import { getEventCategories } from "@/redux/slice";
@@ -29,8 +24,8 @@ export default function ComplexNavbar() {
     fetchEventCategories(dispatch);
   }, []);
 
-  React.useEffect(()=>{
-    if(!program || !wallet){
+  React.useEffect(() => {
+    if (!program || !wallet) {
       return;
     }
     fetchOrders(program, wallet, dispatch);
@@ -54,31 +49,20 @@ export default function ComplexNavbar() {
         </Link>
         <div className="flex mr-auto cursor-pointer py-1.5 font-medium">
           <Link href="/home">
-            <Typography
-              variant="h4"
-              className="mr-4"
-            >
+            <Typography variant="h4" className="mr-4">
               <span className="inline-block align-middle">BETFAST</span>
             </Typography>
           </Link>
 
           <div className="float-left mr-4">
             <Link href="/home">
-              <Button
-                variant={"gradient"}
-              >
-                Home
-              </Button>
+              <Button variant={"gradient"}>Home</Button>
             </Link>
           </div>
 
           <div className="float-left">
             <Link href="/mytrades">
-              <Button
-                variant={"text"}
-              >
-                My Trades
-              </Button>
+              <Button variant={"text"}>My Trades</Button>
             </Link>
           </div>
         </div>

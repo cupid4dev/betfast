@@ -1,10 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import appSettings from '@/constants/appSettings';
-import { getFromLocalStorage } from '@/utils/localStorage';
-import { AnchorProvider, Program, Wallet, setProvider } from '@coral-xyz/anchor';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { Connection, PublicKey } from '@solana/web3.js';
-import React, { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import appSettings from "@/constants/appSettings";
+import { getFromLocalStorage } from "@/utils/localStorage";
+import {
+  AnchorProvider,
+  Program,
+  Wallet,
+  setProvider,
+} from "@coral-xyz/anchor";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { Connection, PublicKey } from "@solana/web3.js";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 
 interface ProgramContextProps {
   program: Program | null;
@@ -18,27 +29,37 @@ interface ProgramContextProps {
   setActiveProductProgramAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ProgramContext = createContext<ProgramContextProps | undefined>(undefined);
+const ProgramContext = createContext<ProgramContextProps | undefined>(
+  undefined,
+);
 
 type ProgramProviderProps = {
   children: ReactNode;
 };
 
-export const ProgramProvider: React.FC<ProgramProviderProps> = ({ children }) => {
+export const ProgramProvider: React.FC<ProgramProviderProps> = ({
+  children,
+}) => {
   const [program, setProgram] = useState<Program | null>(null);
   const [productProgram, setProductProgram] = useState<Program | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [rpcNodeUrl, setRpcNodeUrl] = useState(
-    getFromLocalStorage('active.rpcNode', appSettings.active.rpcNode).url,
+    getFromLocalStorage("active.rpcNode", appSettings.active.rpcNode).url,
   );
   const [activeProgramAddress, setActiveProgramAddress] = useState(
-    getFromLocalStorage('active.programAddress', appSettings.active.programAddress).address,
+    getFromLocalStorage(
+      "active.programAddress",
+      appSettings.active.programAddress,
+    ).address,
   );
-  const [activeProductProgramAddress, setActiveProductProgramAddress] = useState(
-    getFromLocalStorage('active.productProgramAddress', appSettings.active.productProgramAddress)
-      .address,
-  );
+  const [activeProductProgramAddress, setActiveProductProgramAddress] =
+    useState(
+      getFromLocalStorage(
+        "active.productProgramAddress",
+        appSettings.active.productProgramAddress,
+      ).address,
+    );
 
   const wallet = useWallet();
   const connection = new Connection(rpcNodeUrl);
@@ -54,7 +75,9 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({ children }) =>
         setProvider(provider);
 
         const protocolAddress = new PublicKey(activeProgramAddress);
-        const productProtocolAddress = new PublicKey(activeProductProgramAddress);
+        const productProtocolAddress = new PublicKey(
+          activeProductProgramAddress,
+        );
         const [loadedProgram, loadedProductProgram] = await Promise.all([
           Program.at(protocolAddress, provider),
           Program.at(productProtocolAddress, provider),
@@ -71,7 +94,12 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({ children }) =>
     };
 
     initializeProgram();
-  }, [wallet.publicKey, rpcNodeUrl, activeProgramAddress, activeProductProgramAddress]);
+  }, [
+    wallet.publicKey,
+    rpcNodeUrl,
+    activeProgramAddress,
+    activeProductProgramAddress,
+  ]);
 
   return (
     <ProgramContext.Provider
@@ -95,7 +123,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({ children }) =>
 export const useProgram = (): ProgramContextProps => {
   const context = useContext(ProgramContext);
   if (context === undefined) {
-    throw new Error('useProgram must be used within a ProgramProvider');
+    throw new Error("useProgram must be used within a ProgramProvider");
   }
   return context;
 };

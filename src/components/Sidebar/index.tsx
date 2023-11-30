@@ -75,7 +75,10 @@ export default function Sidebar() {
                   }
                 >
                   <ListItem className="p-0" selected={open === index}>
-                    <Link href={`/sports/event?event=${item.id}`} className="w-full">
+                    <Link
+                      href={`/sports/event?event=${item.id}`}
+                      className="w-full"
+                    >
                       <AccordionHeader
                         onClick={() => handleOpen(index)}
                         className="border-b-0 p-3"
@@ -88,7 +91,7 @@ export default function Sidebar() {
                           className="mr-auto font-normal"
                         >
                           {item.title}
-                          </Typography>
+                        </Typography>
                       </AccordionHeader>
                     </Link>
                   </ListItem>

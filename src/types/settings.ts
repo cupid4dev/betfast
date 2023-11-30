@@ -46,8 +46,8 @@ export type AppSettingsProps = ActiveSettingsProps & {
 };
 
 export enum SettingCategory {
-  RPC_NODES = 'rpcNodes',
-  PROGRAM_ADDRESSES = 'programAddresses',
-  MINTS = 'mints',
-  SAVED_WALLETS = 'savedWallets',
+  RPC_NODES = "rpcNodes",
+  PROGRAM_ADDRESSES = "programAddresses",
+  MINTS = "mints",
+  SAVED_WALLETS = "savedWallets",
 }

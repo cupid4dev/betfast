@@ -1,18 +1,23 @@
-import { Program } from '@coral-xyz/anchor';
-import { GetAccount, MarketAccount, Markets, getMarket } from '@monaco-protocol/client';
-import { PublicKey } from '@solana/web3.js';
+import { Program } from "@coral-xyz/anchor";
+import {
+  GetAccount,
+  MarketAccount,
+  Markets,
+  getMarket,
+} from "@monaco-protocol/client";
+import { PublicKey } from "@solana/web3.js";
 
-import db from '@/utils/monaco/databse/db';
+import db from "@/utils/monaco/databse/db";
 import {
   getAllMarkets,
   getLastFetchTimestamp,
   getLocalMarketById,
   removeLocalMarkets,
   updateFetchTime,
-} from '@/utils/monaco/databse/database';
-import { parseResponseData } from '@/utils/parsers';
-import { getStoredSettings } from '@/utils/settings';
-import { hasElapsed } from '@/utils/timestamp';
+} from "@/utils/monaco/databse/database";
+import { parseResponseData } from "@/utils/parsers";
+import { getStoredSettings } from "@/utils/settings";
+import { hasElapsed } from "@/utils/timestamp";
 
 const CACHE_DURATION_MINUTES = getStoredSettings().active.cache_markets;
 
@@ -28,22 +33,28 @@ export const fetchMarkets = async (program: Program) => {
       const marketsToStorePromises = marketData.data.markets.map((market) => {
         marketForDb(market);
       });
-      const marketFetchUpdatePromises = marketData.data.markets.map((market) => {
-        marketFetchUpdateForDb(market);
-      });
+      const marketFetchUpdatePromises = marketData.data.markets.map(
+        (market) => {
+          marketFetchUpdateForDb(market);
+        },
+      );
       await Promise.all(marketsToStorePromises);
       await Promise.all(marketFetchUpdatePromises);
-      await updateFetchTime('markets');
+      await updateFetchTime("markets");
       return getAllMarkets();
     } else {
       throw new Error(`Error returned from fetchMarkets endpoint`);
     }
   } catch (error) {
-    console.error('Error fetching markets:', error);
+    console.error("Error fetching markets:", error);
   }
 };
 
-export const fetchMarket = async (program: any, marketPublicKey: string, bustCache = false) => {
+export const fetchMarket = async (
+  program: any,
+  marketPublicKey: string,
+  bustCache = false,
+) => {
   const cache = await checkMarketCache(marketPublicKey);
   if (cache && !bustCache) return cache;
   try {
@@ -58,13 +69,13 @@ export const fetchMarket = async (program: any, marketPublicKey: string, bustCac
       // throw new Error(`Error returned from fetchMarket endpoint`);
     }
   } catch (error) {
-    console.error('Error fetching market:', error);
+    console.error("Error fetching market:", error);
     throw error;
   }
 };
 
 const checkCache = async () => {
-  const lastUpdate = await getLastFetchTimestamp('markets');
+  const lastUpdate = await getLastFetchTimestamp("markets");
   const allMarkets = await getAllMarkets();
   if (
     lastUpdate &&

@@ -1,6 +1,7 @@
-import { AppSettingsProps } from '@/types/settings';
+import { AppSettingsProps } from "@/types/settings";
 
-const DEFAULT_RPC = 'https://mainnet.helius-rpc.com/?api-key=584e55c2-ed50-4325-81b0-389f77eac5e0';
+const DEFAULT_RPC =
+  "https://mainnet.helius-rpc.com/?api-key=584e55c2-ed50-4325-81b0-389f77eac5e0";
 export const USE_APPROVED_WALLETS = false;
 export const DEFAULT_MINT_DECIMALS = 6;
 export const DEFAULT_TRANSACTIONS_LIMIT = 1000;
@@ -8,18 +9,18 @@ export const DEFAULT_TRANSACTIONS_LIMIT = 1000;
 const appSettings: AppSettingsProps = {
   active: {
     rpcNode: {
-      name: 'mainnet',
+      name: "mainnet",
       url: DEFAULT_RPC,
       removable: false,
     },
     programAddress: {
-      name: 'release',
-      address: 'monacoUXKtUi6vKsQwaLyxmXKSievfNWEcYXTgkbCih',
+      name: "release",
+      address: "monacoUXKtUi6vKsQwaLyxmXKSievfNWEcYXTgkbCih",
       removable: false,
     },
     productProgramAddress: {
-      name: 'release',
-      address: 'mppFrYmM6A4Ud3AxRbGXsGisX1HUsbDfp1nrg9FQJEE',
+      name: "release",
+      address: "mppFrYmM6A4Ud3AxRbGXsGisX1HUsbDfp1nrg9FQJEE",
       removable: false,
     },
     default_stake: 1.0,
@@ -33,37 +34,37 @@ const appSettings: AppSettingsProps = {
   },
   rpcNodes: [
     {
-      name: 'mainnet',
+      name: "mainnet",
       url: DEFAULT_RPC,
       removable: false,
     },
   ],
   programAddresses: [
     {
-      name: 'release',
-      address: 'monacoUXKtUi6vKsQwaLyxmXKSievfNWEcYXTgkbCih',
+      name: "release",
+      address: "monacoUXKtUi6vKsQwaLyxmXKSievfNWEcYXTgkbCih",
       removable: false,
     },
   ],
   mints: [
     {
-      name: 'USDC',
-      address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+      name: "USDC",
+      address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
       decimals: 6,
       removable: false,
     },
   ],
   savedWallets: [
     {
-      name: 'Example',
-      address: '99kfM9BB5ZGf8tUWxP4qhLeoaUUv5PuiXbUpoWa1w3oL',
+      name: "Example",
+      address: "99kfM9BB5ZGf8tUWxP4qhLeoaUUv5PuiXbUpoWa1w3oL",
       removable: false,
     },
   ],
   operators: [
     {
-      name: 'BetDEX',
-      address: 'J2LqciLvyxVHMjMcda73459zWfFxw7rveDb5YAhSdGTe',
+      name: "BetDEX",
+      address: "J2LqciLvyxVHMjMcda73459zWfFxw7rveDb5YAhSdGTe",
       removable: false,
     },
   ],

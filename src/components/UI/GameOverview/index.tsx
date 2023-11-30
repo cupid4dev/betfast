@@ -68,38 +68,40 @@ export default function GameOverview({
             </Button>
           ) : (
             <div className="flex">
-              { details.markets[0].outcomes.map((outcome: any, index: number) => (
-                <div className="ml-4" key={index}>
-                  <Typography
-                    variant="paragraph"
-                    className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
-                  >
-                    {outcome}
-                  </Typography>
-                  <div className="flex">
-                    <Button
-                      variant="gradient"
-                      color="cyan"
-                      className="mr-4 float-left w-[100px]"
-                      onClick={() => {
-                        handleOffer(true, index);
-                      }}
+              {details.markets[0].outcomes.map(
+                (outcome: any, index: number) => (
+                  <div className="ml-4" key={index}>
+                    <Typography
+                      variant="paragraph"
+                      className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
                     >
-                      Back
-                    </Button>
-                    <Button
-                      variant="gradient"
-                      color="deep-orange"
-                      className="float-right w-[100px]"
-                      onClick={() => {
-                        handleOffer(false, index);
-                      }}
-                    >
-                      Lay
-                    </Button>
+                      {outcome}
+                    </Typography>
+                    <div className="flex">
+                      <Button
+                        variant="gradient"
+                        color="cyan"
+                        className="mr-4 float-left w-[100px]"
+                        onClick={() => {
+                          handleOffer(true, index);
+                        }}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="gradient"
+                        color="deep-orange"
+                        className="float-right w-[100px]"
+                        onClick={() => {
+                          handleOffer(false, index);
+                        }}
+                      >
+                        Lay
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           )}
           <Dialog open={open} handler={() => {}}>

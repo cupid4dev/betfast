@@ -8,7 +8,11 @@ import { useSelector } from "react-redux";
 import { getEventCategories } from "@/redux/slice";
 import { useSearchParams } from "next/navigation";
 import SportIcon from "@/components/UI/SportIcon";
-import { ts2DateOptions, ts2TimeOptions, ts2TodayTomorrow } from "@/utils/timestamp";
+import {
+  ts2DateOptions,
+  ts2TimeOptions,
+  ts2TodayTomorrow,
+} from "@/utils/timestamp";
 import { Market, Participant } from "@/types/event";
 
 export default function GameDetails() {
@@ -24,7 +28,7 @@ export default function GameDetails() {
     eventGroup: "",
     eventGroupTitle: "",
     displayPriority: 0,
-    markets: new Array<Market>()
+    markets: new Array<Market>(),
   });
   const [isBack, setIsBack] = React.useState(true);
   const [team, setTeam] = React.useState(0);
@@ -86,22 +90,22 @@ export default function GameDetails() {
         <div>This game is finished!</div>
       ) : (
         details.markets.map((market, index) => (
-          <Card  key={index} className="p-4">
-          <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
-            <div className="float-left mr-auto">
-              <Typography variant="h3" className="ml-4">
-                {market.marketName}
-              </Typography>
-            </div>
-            <div className="mr-4">
-              <Typography variant="h6" className="text-right">
-                {ts2TimeOptions(details.eventStart)}
-              </Typography>
-              <Typography variant="h6">
-                {ts2DateOptions(details.eventStart)}
-              </Typography>
-            </div>
-            {/* <table className="hide mt-4 w-full min-w-max table-auto text-left">
+          <Card key={index} className="p-4">
+            <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
+              <div className="float-left mr-auto">
+                <Typography variant="h3" className="ml-4">
+                  {market.marketName}
+                </Typography>
+              </div>
+              <div className="mr-4">
+                <Typography variant="h6" className="text-right">
+                  {ts2TimeOptions(details.eventStart)}
+                </Typography>
+                <Typography variant="h6">
+                  {ts2DateOptions(details.eventStart)}
+                </Typography>
+              </div>
+              {/* <table className="hide mt-4 w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
@@ -257,52 +261,51 @@ export default function GameDetails() {
                 </tr>
               </tbody>
             </table> */}
-            {new Date().getTime() > details.eventStart * 1000 ? (
-            <Button variant="gradient" className="h-full">
-              FINISHED
-            </Button>
-          ) : (
-            <div className="flex">
-              { market.outcomes.map((outcome: any, mIndex: number) => (
-                <div className="ml-4" key={mIndex}>
-                  <Typography
-                    variant="paragraph"
-                    className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
-                  >
-                    {outcome}
-                  </Typography>
-                  <div className="flex">
-                    <Button
-                      variant="gradient"
-                      color="cyan"
-                      className="mr-4 float-left w-[100px]"
-                      onClick={() => {
-                        handleOffer(true, mIndex, index);
-                      }}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="gradient"
-                      color="deep-orange"
-                      className="float-right w-[100px]"
-                      onClick={() => {
-                        handleOffer(false, mIndex, index);
-                      }}
-                    >
-                      Lay
-                    </Button>
-                  </div>
+              {new Date().getTime() > details.eventStart * 1000 ? (
+                <Button variant="gradient" className="h-full">
+                  FINISHED
+                </Button>
+              ) : (
+                <div className="flex">
+                  {market.outcomes.map((outcome: any, mIndex: number) => (
+                    <div className="ml-4" key={mIndex}>
+                      <Typography
+                        variant="paragraph"
+                        className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
+                      >
+                        {outcome}
+                      </Typography>
+                      <div className="flex">
+                        <Button
+                          variant="gradient"
+                          color="cyan"
+                          className="mr-4 float-left w-[100px]"
+                          onClick={() => {
+                            handleOffer(true, mIndex, index);
+                          }}
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="gradient"
+                          color="deep-orange"
+                          className="float-right w-[100px]"
+                          onClick={() => {
+                            handleOffer(false, mIndex, index);
+                          }}
+                        >
+                          Lay
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
-          </div>
           </Card>
         ))
-
       )}
-      <Dialog open={open} handler={() => { }}>
+      <Dialog open={open} handler={() => {}}>
         <BetDialog
           handleOpen={handleOffer}
           details={details}

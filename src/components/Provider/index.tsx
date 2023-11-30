@@ -30,9 +30,7 @@ function CustomProvider({ children }: { children: React.ReactNode }) {
       <ThemeProvider>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <ProgramProvider>
-              {children}
-            </ProgramProvider>
+            <ProgramProvider>{children}</ProgramProvider>
           </WalletModalProvider>
         </WalletProvider>
       </ThemeProvider>

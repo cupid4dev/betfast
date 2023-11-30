@@ -53,20 +53,20 @@ const appSlice = createSlice({
                 eventGroup: ev.eventGroup,
                 eventAccount: ev.eventAccount,
               };
-            })
-          })
-        })
+            });
+          });
+        });
       });
     },
 
-    setOrders(state, action){
+    setOrders(state, action) {
       state.orders = action.payload;
     },
 
-    updateMarket(state, action){
+    updateMarket(state, action) {
       const market = action.payload;
       state.markets[market.publicKey] = market;
-    }
+    },
   },
 });
 
@@ -76,10 +76,6 @@ export const getOrders = (state: any) => state.app.orders;
 export const getMarkets = (state: any) => state.app.markets;
 export const getECMarkets = (state: any) => state.app.ecMarkets;
 
-export const { 
-  activeAppState, 
-  setEventCategories, 
-  setOrders,
-  updateMarket 
-} = appSlice.actions;
+export const { activeAppState, setEventCategories, setOrders, updateMarket } =
+  appSlice.actions;
 export const { actions, reducer } = appSlice;
