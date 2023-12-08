@@ -15,12 +15,11 @@ export default function ComplexNavbar() {
   const program = useProgram().program;
   const wallet = useWallet();
   const eventCategories = useSelector(getEventCategories);
+  // const [isMobile, setIsMobile] = React.useState(true);
 
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960, // && setIsNavOpen(false),
-    );
+    // setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+
     fetchEventCategories(dispatch);
   }, []);
 
@@ -36,7 +35,7 @@ export default function ComplexNavbar() {
       <Spinner className="h-16 w-16" />
     </div>
   ) : (
-    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-30">
+    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-30 w-screen">
       <div className="relative mx-auto flex items-center width-100 text-blue-gray-900">
         <Link href="/home" className="float-left">
           {" "}
@@ -49,20 +48,20 @@ export default function ComplexNavbar() {
         </Link>
         <div className="flex mr-auto cursor-pointer py-1.5 font-medium">
           <Link href="/home">
-            <Typography variant="h4" className="mr-4">
+            <Typography variant="h4" className="mr-4 logo-text">
               <span className="inline-block align-middle">BETFAST</span>
             </Typography>
           </Link>
 
-          <div className="float-left mr-4">
+          <div className="float-left mx-2">
             <Link href="/home">
-              <Button variant={"gradient"}>Home</Button>
+              <Button variant={"text"} className="header-button">Home</Button>
             </Link>
           </div>
 
           <div className="float-left">
             <Link href="/mytrades">
-              <Button variant={"text"}>My Trades</Button>
+              <Button variant={"text"} className="header-button">My Trades</Button>
             </Link>
           </div>
         </div>
