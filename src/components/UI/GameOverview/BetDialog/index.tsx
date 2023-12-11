@@ -121,8 +121,8 @@ export function BetDialog({
       <Typography variant="small" className="">
         {details.eventName}
       </Typography>
-      <div className="flex my-2">
-        <div className="w-full float-left">
+      <div className="md:flex my-2">
+        <div className="w-full md:float-left">
           <Input
             label="Enter Stake.."
             crossOrigin={""}
@@ -131,7 +131,7 @@ export function BetDialog({
             onChange={handleStake}
           />
         </div>
-        <div className="float-right ml-2">
+        <div className="mt-2 md:mt-0 md:float-right md:ml-2">
           <Input
             label="Odds"
             value={odds}
@@ -142,7 +142,7 @@ export function BetDialog({
           />
         </div>
       </div>
-      <div className="flex">
+      <div className="md:flex">
         <Typography variant="small">Profit:&nbsp;</Typography>
         <Typography variant="small" className="profit-color">
           {(stake * odds).toFixed(3)}
