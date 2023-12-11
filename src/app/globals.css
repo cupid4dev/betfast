@@ -133,6 +133,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .main-container {
   min-height: calc(100vh - 100px);
 }

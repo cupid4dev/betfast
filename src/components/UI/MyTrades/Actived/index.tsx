@@ -57,8 +57,8 @@ export default function ActivedPage() {
               (order.orderStatus.open || order.orderStatus.matched) && (
                 <div key={index}>
                   {ecMarkets[order.market] == undefined ? (
-                    <Card className="p-4 relative mx-auto flex-row items-center w-full my-2">
-                      <div className="float-left mr-auto">
+                    <Card className="p-4 relative mx-auto block md:flex-row items-center w-full my-2 min-h-[120px]">
+                      <div className="md:float-left mr-auto">
                         <Typography variant="h5" className="mb-2">
                           {!markets[order.market]
                             ? ""
@@ -71,15 +71,21 @@ export default function ActivedPage() {
                           Expected Price: {order.expectedPrice}
                         </Typography>
                       </div>
-                      <div className="float-right ml-auto">
-                        {markets[order.market] &&
-                          markets[order.market].outcomes.map(
+                      {markets[order.market] && (
+                        <div
+                          className={`md:w-[300px] w-full grid grid-cols-${
+                            markets[order.market].outcomes.length
+                          } gap-${
+                            markets[order.market].outcomes.length
+                          } md:float-right md:ml-auto`}
+                        >
+                          {markets[order.market].outcomes.map(
                             (outcome: any, mIndex: number) => (
-                              <div className="float-left" key={mIndex}>
+                              <div className="md:float-left" key={mIndex}>
                                 <Button
                                   disabled={order.marketOutcomeIndex != mIndex}
                                   variant="gradient"
-                                  className="mx-2 w-200px"
+                                  className="h-full px-0 w-full mx-2 md:w-200px"
                                   color={
                                     order.marketOutcomeIndex == mIndex
                                       ? order.forOutcome
@@ -97,11 +103,12 @@ export default function ActivedPage() {
                               </div>
                             ),
                           )}
-                      </div>
+                        </div>
+                      )}
                     </Card>
                   ) : (
-                    <Card className="p-4 relative mx-auto flex-row items-center w-full my-2">
-                      <div className="float-left mr-auto">
+                    <Card className="p-4 relative mx-auto md:flex-row items-center w-full my-2 min-h-[120px]">
+                      <div className="md:float-left mr-auto">
                         <Typography variant="paragraph" className="flex">
                           <SportIcon
                             sportName={ecMarkets[order.market].category}
@@ -123,15 +130,21 @@ export default function ActivedPage() {
                           Expected Price: {order.expectedPrice}
                         </Typography>
                       </div>
-                      <div className="float-right ml-auto">
-                        {markets[order.market] &&
-                          markets[order.market].outcomes.map(
+                      {markets[order.market] && (
+                        <div
+                          className={`md:w-[300px] w-full grid grid-cols-${
+                            markets[order.market].outcomes.length
+                          } gap-${
+                            markets[order.market].outcomes.length
+                          } md:float-right md:ml-auto`}
+                        >
+                          {markets[order.market].outcomes.map(
                             (outcome: any, mIndex: number) => (
-                              <div className="float-left" key={mIndex}>
+                              <div className="md:float-left" key={mIndex}>
                                 <Button
                                   disabled={order.marketOutcomeIndex != mIndex}
                                   variant="gradient"
-                                  className="mx-2 w-200px"
+                                  className="h-full px-0 w-full mx-2 md:w-200px"
                                   color={
                                     order.marketOutcomeIndex == mIndex
                                       ? order.forOutcome
@@ -149,7 +162,8 @@ export default function ActivedPage() {
                               </div>
                             ),
                           )}
-                      </div>
+                        </div>
+                      )}
                     </Card>
                   )}
                 </div>
