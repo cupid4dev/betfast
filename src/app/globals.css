@@ -102,6 +102,29 @@
   width: 100vw;
 }
 
+.left-\[285px\] {
+  left: 285px;
+}
+
+.left-\[15px\] {
+  left: 15px;
+}
+
+.left-\[0px\] {
+  left: 0px;
+}
+
+.left-\[-300px\] {
+  left: -300px;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 @media only screen and (max-width: 767px) {
   .logo-text {
     display: none;
@@ -115,4 +138,5 @@
   .header-button {
     padding: 2px;
   }
+
 }
