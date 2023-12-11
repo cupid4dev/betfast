@@ -122,8 +122,8 @@
 }
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .grid-cols-2 {
@@ -131,7 +131,7 @@
 }
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-}	
+}
 
 .main-container {
   min-height: calc(100vh - 100px);
@@ -140,7 +140,7 @@
   .logo-text {
     display: none;
   }
-  
+
   .customized-wallet > .wallet-adapter-dropdown > button {
     line-height: unset;
     padding: 0;
@@ -149,5 +149,4 @@
   .header-button {
     padding: 2px;
   }
-
 }

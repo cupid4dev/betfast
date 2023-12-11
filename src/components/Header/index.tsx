@@ -55,13 +55,17 @@ export default function ComplexNavbar() {
 
           <div className="float-left mx-2">
             <Link href="/home">
-              <Button variant={"text"} className="header-button">Home</Button>
+              <Button variant={"text"} className="header-button">
+                Home
+              </Button>
             </Link>
           </div>
 
           <div className="float-left">
             <Link href="/mytrades">
-              <Button variant={"text"} className="header-button">My Trades</Button>
+              <Button variant={"text"} className="header-button">
+                My Trades
+              </Button>
             </Link>
           </div>
         </div>

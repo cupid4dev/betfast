@@ -94,10 +94,12 @@ export function BetDialog({
         toast.success("Your order created successfully!");
         fetchOrders(program, wallet, dispatch);
       } else {
-        toast.error("Failed to created your order!");
+        toast.error("Failed to create your order!");
+        // console.log(order.errors);
       }
     } catch (e) {
-      toast.error("Failed to created your order!");
+      toast.error("Failed to create your order!");
+      // console.log(e);
     }
   };
 

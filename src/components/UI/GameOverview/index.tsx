@@ -67,7 +67,9 @@ export default function GameOverview({
               FINISHED
             </Button>
           ) : (
-            <div className={`grid grid-cols-${details.markets[0].outcomes.length} gap-${details.markets[0].outcomes.length} md:flex`}>
+            <div
+              className={`grid grid-cols-${details.markets[0].outcomes.length} gap-${details.markets[0].outcomes.length} md:flex`}
+            >
               {details.markets[0].outcomes.map(
                 (outcome: any, index: number) => (
                   <div className="my-2 col-span-1" key={index}>

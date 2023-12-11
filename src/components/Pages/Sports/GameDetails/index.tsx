@@ -110,7 +110,9 @@ export default function GameDetails() {
                   FINISHED
                 </Button>
               ) : (
-                <div className={`grid grid-cols-${market.outcomes.length} gap-${market.outcomes.length} md:flex`}>
+                <div
+                  className={`grid grid-cols-${market.outcomes.length} gap-${market.outcomes.length} md:flex`}
+                >
                   {market.outcomes.map((outcome: any, mIndex: number) => (
                     <div className="my-2 col-span-1" key={mIndex}>
                       <Typography
