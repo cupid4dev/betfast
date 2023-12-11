@@ -132,6 +132,10 @@
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }	
+
+.main-container {
+  min-height: calc(100vh - 100px);
+}
 @media only screen and (max-width: 767px) {
   .logo-text {
     display: none;
