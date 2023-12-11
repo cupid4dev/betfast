@@ -46,7 +46,7 @@ export default function Sidebar() {
     setPopLeagues(plTemp);
   }, [eventCategories]);
   return (
-    <Card className={`fixed z-30 w-[300px] h-screen p-4 border-r-2 border-gray-500  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${isMenu ? "-300px" : "0px"}\] transition-all no-scrollbar`}>
+    <Card className={`fixed z-30 w-[300px] h-screen p-4 border-r-2 border-gray-500  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${!isMenu ? "-300px" : "0px"}\] transition-all no-scrollbar`}>
       <List className="">
         <Typography variant="h6">Popular</Typography>
         {popLeagues.map((popLeague: any, index: number) => (
@@ -135,14 +135,14 @@ export default function Sidebar() {
             ),
         )}
       </List>
-      <div id="a" className={`md:hidden fixed left-[${isMenu ? "15px" : "285px"}] top-2/4 transition-all`} onClick={handleMenu}>
+      <div id="a" className={`md:hidden fixed left-[${!isMenu ? "15px" : "285px"}] top-2/4 transition-all`} onClick={handleMenu}>
         <div className="animate-bounce">
           <div
               className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
           </div>
           <div title="Get quote now"
               className="relative inline-flex items-center justify-center p-4 text-lg font-bold text-black transition-all duration-200 bg-white font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-              role="button">{!isMenu ? <FaAngleDoubleLeft /> : <FaAngleDoubleRight/>}
+              role="button">{!!isMenu ? <FaAngleDoubleLeft /> : <FaAngleDoubleRight/>}
           </div>
         </div>
       </div>

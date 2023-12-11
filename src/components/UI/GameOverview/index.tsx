@@ -28,7 +28,7 @@ export default function GameOverview({
   return (
     details && (
       <div>
-        <div className="relative mx-auto flex items-center w-full text-blue-gray-900">
+        <div className="relative mx-auto grid md:flex items-center w-full text-blue-gray-900">
           <Link
             className="float-left mr-auto"
             href={
@@ -53,12 +53,12 @@ export default function GameOverview({
               Liquidity: <span>$0 USDC</span>{" "}
             </Typography> */}
           </Link>
-          <div className="mr-4">
+          <div className="mr-4 flex md:block">
             <Typography variant="h6" className="text-right">
               {ts2TimeOptions(details.eventStart)}
             </Typography>
             <Typography variant="h6">
-              {ts2DateOptions(details.eventStart)}
+              &nbsp;{ts2DateOptions(details.eventStart)}
             </Typography>
           </div>
 
@@ -67,21 +67,21 @@ export default function GameOverview({
               FINISHED
             </Button>
           ) : (
-            <div className="flex">
+            <div className={`grid grid-cols-${details.markets[0].outcomes.length} gap-${details.markets[0].outcomes.length} md:flex`}>
               {details.markets[0].outcomes.map(
                 (outcome: any, index: number) => (
-                  <div className="ml-4" key={index}>
+                  <div className="my-2 col-span-1" key={index}>
                     <Typography
                       variant="paragraph"
                       className="text-center text-ellipsis overflow-hidden max-w-160px mg-auto truncate"
                     >
                       {outcome}
                     </Typography>
-                    <div className="flex">
+                    <div className="md:flex">
                       <Button
                         variant="gradient"
                         color="cyan"
-                        className="mr-4 float-left w-[100px]"
+                        className="md:mr-4 md:float-left w-full md:w-[100px] px-1 my-1"
                         onClick={() => {
                           handleOffer(true, index);
                         }}
@@ -91,7 +91,7 @@ export default function GameOverview({
                       <Button
                         variant="gradient"
                         color="deep-orange"
-                        className="float-right w-[100px]"
+                        className="md:float-right w-full md:w-[100px] px-1 my-1"
                         onClick={() => {
                           handleOffer(false, index);
                         }}
