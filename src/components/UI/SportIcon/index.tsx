@@ -14,34 +14,40 @@ import { MdSportsGolf } from "react-icons/md";
 import { MdOutlineSportsRugby } from "react-icons/md";
 import { RiBilliardsFill } from "react-icons/ri";
 
-export default function SportIcon({ sportName }: { sportName: string }) {
+export default function SportIcon({
+  sportName,
+  color = "white",
+}: {
+  sportName: string;
+  color: string;
+}) {
   return sportName == "TENNIS" ? (
-    <BiTennisBall className="h-5 w-5" />
+    <BiTennisBall className="h-5 w-5" color={color} />
   ) : sportName == "AMERICAN_FOOTBALL" ? (
-    <IoAmericanFootballOutline className="h-5 w-5" />
+    <IoAmericanFootballOutline className="h-5 w-5" color={color} />
   ) : sportName == "ICEHOCKEY" ? (
-    <LiaHockeyPuckSolid className="h-5 w-5" />
+    <LiaHockeyPuckSolid className="h-5 w-5" color={color} />
   ) : sportName == "BASKETBALL" || sportName == "CBB" ? (
-    <CiBasketball className="h-5 w-5" />
+    <CiBasketball className="h-5 w-5" color={color} />
   ) : sportName == "BASEBALL" ? (
-    <TbBallBaseball className="h-5 w-5" />
+    <TbBallBaseball className="h-5 w-5" color={color} />
   ) : sportName == "CSGO" ? (
-    <GiCrosshair className="h-5 w-5" />
+    <GiCrosshair className="h-5 w-5" color={color} />
   ) : sportName == "CRICKET" || sportName == "T20" ? (
-    <BiCricketBall className="h-5 w-5" />
+    <BiCricketBall className="h-5 w-5" color={color} />
   ) : sportName == "ESPORTS" || sportName == "DOTA" || sportName == "LOL" ? (
-    <MdSportsEsports className="h-5 w-5" />
+    <MdSportsEsports className="h-5 w-5" color={color} />
   ) : sportName == "MMA" ? (
-    <MdSportsMma className="h-5 w-5" />
+    <MdSportsMma className="h-5 w-5" color={color} />
   ) : sportName == "BOXING" ? (
-    <GiBoxingGlove className="h-5 w-5" />
+    <GiBoxingGlove className="h-5 w-5" color={color} />
   ) : sportName == "GOLF" ? (
-    <MdSportsGolf className="h-5 w-5" />
+    <MdSportsGolf className="h-5 w-5" color={color} />
   ) : sportName == "RUGBY" ? (
-    <MdOutlineSportsRugby className="h-5 w-5" />
+    <MdOutlineSportsRugby className="h-5 w-5" color={color} />
   ) : sportName == "SNOOKER" ? (
-    <RiBilliardsFill className="h-5 w-5" />
+    <RiBilliardsFill className="h-5 w-5" color={color} />
   ) : (
-    <TbBallFootball className="h-5 w-5" />
+    <TbBallFootball className="h-5 w-5" color={color} />
   );
 }

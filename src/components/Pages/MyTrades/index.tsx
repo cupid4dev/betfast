@@ -40,13 +40,15 @@ export default function MyTradesPage() {
 
   return (
     <div className="p-4">
-      <Typography variant="h2">My Trades</Typography>
-      <Typography variant="paragraph">
+      <Typography variant="h2" color="white">
+        My Trades
+      </Typography>
+      <Typography variant="paragraph" className="text-gray-200">
         View your currently active and previously settled trades.
       </Typography>
       <br />
       <Tabs value="active">
-        <TabsHeader className="w-200px">
+        <TabsHeader className="w-200px bg-transparent border-2 border-primary_light custom-tab">
           {data.map(({ label, value }) => (
             <Tab key={value} value={value}>
               {label}

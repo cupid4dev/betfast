@@ -19,14 +19,14 @@ export default function SettledPage() {
               !order.orderStatus.open &&
               !order.orderStatus.matched && (
                 <div key={index}>
-                  <Card className="p-4 relative mx-auto md:flex-row items-center w-full my-2">
+                  <Card className="p-4 relative mx-auto md:flex-row items-center w-full my-2 bg-secondary_4">
                     <div className="md:float-left mr-auto">
-                      <Typography variant="h5" className="mb-2">
+                      <Typography variant="h5" className="mb-2 text-gray-200">
                         {!markets[order.market]
                           ? ""
                           : markets[order.market].title}
                       </Typography>
-                      <Typography variant="h4" className="ml-2">
+                      <Typography variant="h4" className="ml-2 text-white">
                         {order.orderStatus.settledWin
                           ? "You Won!"
                           : order.orderStatus.settledLose
@@ -35,8 +35,11 @@ export default function SettledPage() {
                               ? "Order Cancelled!"
                               : "Voided!"}
                       </Typography>
-                      <Typography variant="h6" className="ml-2 text-primary">
-                        Expected Price: {order.expectedPrice}
+                      <Typography variant="h6" className="ml-2 text-gray-400">
+                        Expected Price:{" "}
+                        <span className="text-highlight">
+                          {order.expectedPrice}
+                        </span>
                       </Typography>
                     </div>
                     {markets[order.market] && (
@@ -52,15 +55,13 @@ export default function SettledPage() {
                             <div className="md:float-left" key={mIndex}>
                               <Button
                                 disabled
-                                variant="gradient"
-                                className="h-full px-0 w-full mx-2 md:w-200px"
-                                color={
+                                className={`h-full px-0 w-full mx-2 md:w-200px ${
                                   order.marketOutcomeIndex == mIndex
                                     ? order.forOutcome
-                                      ? "cyan"
-                                      : "deep-orange"
+                                      ? "bg-transparent border-primary_4 border-2 text-primary_4"
+                                      : "bg-transparent border-gray-200 border-2 text-gray-200"
                                     : "gray"
-                                }
+                                }`}
                               >
                                 {outcome.title}
                               </Button>

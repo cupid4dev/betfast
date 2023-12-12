@@ -57,18 +57,21 @@ export default function ActivedPage() {
               (order.orderStatus.open || order.orderStatus.matched) && (
                 <div key={index}>
                   {ecMarkets[order.market] == undefined ? (
-                    <Card className="p-4 relative mx-auto block md:flex-row items-center w-full my-2 min-h-[120px]">
+                    <Card className="p-4 relative mx-auto block md:flex-row items-center w-full my-2 min-h-[120px] bg-secondary_4">
                       <div className="md:float-left mr-auto">
-                        <Typography variant="h5" className="mb-2">
+                        <Typography variant="h5" className="mb-2 text-white">
                           {!markets[order.market]
                             ? ""
                             : markets[order.market].title}
                         </Typography>
-                        <Typography variant="h6" className="ml-2">
+                        <Typography variant="h6" className="ml-2 text-gray-200">
                           {order.orderStatus.open ? "Open" : "Matched"}
                         </Typography>
-                        <Typography variant="h6" className="ml-2 text-primary">
-                          Expected Price: {order.expectedPrice}
+                        <Typography variant="h6" className="ml-2 text-gray-400">
+                          Expected Price:{" "}
+                          <span className="text-highlight">
+                            {order.expectedPrice}
+                          </span>
                         </Typography>
                       </div>
                       {markets[order.market] && (
@@ -84,15 +87,13 @@ export default function ActivedPage() {
                               <div className="md:float-left" key={mIndex}>
                                 <Button
                                   disabled={order.marketOutcomeIndex != mIndex}
-                                  variant="gradient"
-                                  className="h-full px-0 w-full mx-2 md:w-200px"
-                                  color={
+                                  className={`h-full px-0 w-full mx-2 md:w-200px ${
                                     order.marketOutcomeIndex == mIndex
                                       ? order.forOutcome
-                                        ? "cyan"
-                                        : "deep-orange"
+                                        ? "bg-transparent border-primary_4 border-2 text-primary_4"
+                                        : "bg-transparent border-gray-200 border-2 text-gray-200"
                                       : "gray"
-                                  }
+                                  }`}
                                   onClick={() => {
                                     handleOpen(),
                                       setSelectedPk(order.publicKey);
@@ -107,27 +108,34 @@ export default function ActivedPage() {
                       )}
                     </Card>
                   ) : (
-                    <Card className="p-4 relative mx-auto md:flex-row items-center w-full my-2 min-h-[120px]">
+                    <Card className="p-4 relative mx-auto md:flex-row items-center w-full my-2 min-h-[120px] bg-secondary_4">
                       <div className="md:float-left mr-auto">
-                        <Typography variant="paragraph" className="flex">
+                        <Typography
+                          variant="paragraph"
+                          className="flex text-gray-200"
+                        >
                           <SportIcon
+                            color="white"
                             sportName={ecMarkets[order.market].category}
                           />
                           &nbsp;{ecMarkets[order.market].eventGroupTitle} -{" "}
                           {ecMarkets[order.market].categoryTitle}
                         </Typography>
-                        <Typography variant="h5" className="mb-2">
+                        <Typography variant="h5" className="mb-2 text-white">
                           {ecMarkets[order.market].eventName} (
                           {ts2TimeOptions(ecMarkets[order.market].eventStart)}{" "}
                           {ts2DateOptions(ecMarkets[order.market].eventStart)})
                         </Typography>
-                        <Typography variant="h6" className="ml-2">
+                        <Typography variant="h6" className="ml-2 text-gray-200">
                           {!markets[order.market]
                             ? ""
                             : markets[order.market].title}
                         </Typography>
-                        <Typography variant="h6" className="ml-2 text-primary">
-                          Expected Price: {order.expectedPrice}
+                        <Typography variant="h6" className="ml-2 text-gray-400">
+                          Expected Price:{" "}
+                          <span className="text-highlight">
+                            {order.expectedPrice}
+                          </span>
                         </Typography>
                       </div>
                       {markets[order.market] && (
@@ -143,15 +151,13 @@ export default function ActivedPage() {
                               <div className="md:float-left" key={mIndex}>
                                 <Button
                                   disabled={order.marketOutcomeIndex != mIndex}
-                                  variant="gradient"
-                                  className="h-full px-0 w-full mx-2 md:w-200px"
-                                  color={
+                                  className={`h-full px-0 w-full mx-2 md:w-200px ${
                                     order.marketOutcomeIndex == mIndex
                                       ? order.forOutcome
-                                        ? "cyan"
-                                        : "deep-orange"
+                                        ? "bg-transparent border-primary_4 border-2 text-primary_4"
+                                        : "bg-transparent border-gray-200 border-2 text-gray-200"
                                       : "gray"
-                                  }
+                                  }`}
                                   onClick={() => {
                                     handleOpen(),
                                       setSelectedPk(order.publicKey);
@@ -170,21 +176,23 @@ export default function ActivedPage() {
               ),
           )}
       <ToastContainer position="bottom-right" theme="colored" />
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen} className="bg-secondary_4">
         <DialogBody>
-          <Typography variant="h3" className="text-center text-black">
+          <Typography variant="h5" className="text-center text-white">
             Are you sure to cancel your order?
           </Typography>
         </DialogBody>
         <DialogFooter>
-          <Button variant="text" onClick={handleOpen} className="mr-4">
+          <Button
+            variant="text"
+            onClick={handleOpen}
+            className="mr-4 text-white"
+          >
             <span>No</span>
           </Button>
           <Button
-            variant="gradient"
-            color="green"
             onClick={handleCancelOrder}
-            className="mr-16"
+            className="mr-16 bg-transparent border-2 border-primary_light"
           >
             <span>Cancel</span>
           </Button>

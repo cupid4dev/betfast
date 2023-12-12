@@ -47,28 +47,35 @@ export default function Sidebar() {
   }, [eventCategories]);
   return (
     <Card
-      className={`fixed z-30 w-[300px] h-screen p-4 border-r-2 border-gray-500  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${
+      className={`fixed z-30 w-[300px] h-screen p-4 border-r-2 bg-secondary_back border-none  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${
         !isMenu ? "-300px" : "0px"
       }\] transition-all no-scrollbar`}
     >
       <List className="">
-        <Typography variant="h6">Popular</Typography>
+        <Typography variant="h6" className="text-primary_4">
+          Popular
+        </Typography>
         {popLeagues.map((popLeague: any, index: number) => (
           <Link
             href={`/sports/league?sport=${popLeague.events[0].category}&league=${popLeague.id}`}
             key={index}
             onClick={handleMenu}
           >
-            <ListItem>
+            <ListItem className="text-white">
               <ListItemPrefix>
-                <SportIcon sportName={popLeague.events[0].category} />
+                <SportIcon
+                  color="white"
+                  sportName={popLeague.events[0].category}
+                />
               </ListItemPrefix>
               {popLeague.title}
             </ListItem>
           </Link>
         ))}
-        <hr className="my-2 border-blue-gray-50" />
-        <Typography variant="h6">SPORTS</Typography>
+        <Divider />
+        <Typography variant="h6" className="text-primary_4">
+          SPORTS
+        </Typography>
         {eventCategories.map(
           (item: any, index: number) =>
             item.id !== "HISTORICAL" && (
@@ -79,6 +86,7 @@ export default function Sidebar() {
                   icon={
                     <ChevronDownIcon
                       strokeWidth={2.5}
+                      color="white"
                       className={`mx-auto h-4 w-4 transition-transform ${
                         open === 1 ? "rotate-180" : ""
                       }`}
@@ -95,11 +103,11 @@ export default function Sidebar() {
                         className="border-b-0 p-3"
                       >
                         <ListItemPrefix>
-                          <SportIcon sportName={item.id} />
+                          <SportIcon color="white" sportName={item.id} />
                         </ListItemPrefix>
                         <Typography
                           color="blue-gray"
-                          className="mr-auto font-normal"
+                          className="mr-auto font-normal text-white"
                         >
                           {item.title}
                         </Typography>
@@ -120,7 +128,7 @@ export default function Sidebar() {
                             key={egIndex}
                             onClick={handleMenu}
                           >
-                            <ListItem>
+                            <ListItem className="text-white">
                               <ListItemPrefix>
                                 <ChevronRightIcon
                                   strokeWidth={3}

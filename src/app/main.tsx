@@ -5,12 +5,12 @@ import Footer from "@/components/Footer";
 const CustomLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-secondary_back">
         <Suspense>
-          <div className="overflow-auto">
+          <div className="overflow-auto bg-secondary_back">
             <div className="flex main-container">
               <Sidebar />
-              <div className="w-full pt-20">{children}</div>
+              <div className="w-full pt-20 bg-secondary_3">{children}</div>
             </div>
             <Header />
             <Footer />

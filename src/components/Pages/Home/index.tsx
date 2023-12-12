@@ -98,11 +98,11 @@ export default function HomePage() {
 
       {upcomingSports.map((upcomingSport: any, index: number) => (
         <div className="px-4 my-4" key={index}>
-          <Typography variant="h6" className="flex my-2">
-            <SportIcon sportName={upcomingSport.id} />
+          <Typography variant="h6" className="flex my-2 text-primary_4">
+            <SportIcon sportName={upcomingSport.id} color="text-primary_4" />
             &nbsp;Upcoming {upcomingSport.title}
           </Typography>
-          <Card className="w-full px-4 py-4">
+          <Card className="w-full px-4 py-4 bg-secondary_4">
             {upcomingSport.games.map((game: any, gIndex: number) => (
               <div key={gIndex}>
                 <GameOverview finished={false} details={game} />
@@ -112,10 +112,10 @@ export default function HomePage() {
             <Typography variant="h5" className="mg-auto">
               <Link
                 href={`/sports/event?event=${upcomingSport.id}`}
-                className="flex"
+                className="flex text-white"
               >
                 See all Upcoming {upcomingSport.title}&nbsp;{" "}
-                <FaLongArrowAltRight className="mt-4px" />{" "}
+                <FaLongArrowAltRight className="mt-4px" color="white" />{" "}
               </Link>
             </Typography>
           </Card>

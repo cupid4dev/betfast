@@ -47,10 +47,12 @@ export default function SportEventPage() {
     selectedEvent && (
       <div>
         <div className="py-4 px-4">
-          <Typography variant="h2">{selectedEvent.title}</Typography>
+          <Typography variant="h2" className="text-white">
+            {selectedEvent.title}
+          </Typography>
 
           <Tabs value="matches" className="mt-4">
-            <TabsHeader className="w-200px">
+            <TabsHeader className="w-200px bg-transparent border-2 border-primary_light custom-tab">
               {tabData.map(({ label, value }) => (
                 <Tab key={value} value={value}>
                   {label}

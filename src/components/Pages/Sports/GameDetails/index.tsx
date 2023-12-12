@@ -65,7 +65,7 @@ export default function GameDetails() {
   ) : (
     <div className="p-4">
       <Typography variant="paragraph" className="flex">
-        <SportIcon sportName={details.category} />
+        <SportIcon sportName={details.category} color="white" />
         &nbsp;{details.eventGroupTitle}
       </Typography>
       <br />

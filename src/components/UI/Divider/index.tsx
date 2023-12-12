@@ -1,4 +1,4 @@
 import React from "react";
 export default function Divider() {
-  return <hr className="border-blue-gray-50 my-4" />;
+  return <hr className="border-secondary_3 my-4" />;
 }

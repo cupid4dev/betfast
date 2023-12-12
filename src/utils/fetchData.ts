@@ -10,7 +10,7 @@ import axios from "axios";
 import { publicKeyFromBn } from "./parsers";
 
 export async function fetchOrders(program: any, wallet: any, dispatch: any) {
-  if (!program || !wallet) {
+  if (!program || !wallet || !wallet.connected) {
     return;
   }
   const orderResult = await Orders.orderQuery(program)
@@ -88,5 +88,5 @@ export function fetchEventCategories(dispatch: any) {
         dispatch(setEventCategories(data.data.eventCategories));
       })
       .catch(() => {});
-  }, 10000);
+  }, 60000);
 }

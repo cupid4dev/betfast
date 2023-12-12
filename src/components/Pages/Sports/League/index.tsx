@@ -79,12 +79,16 @@ export default function League() {
   return (
     <div>
       <div className="py-4 px-4">
-        <Typography variant="h2">{selectedLeague.title}</Typography>
+        <Typography variant="h2" className="text-white">
+          {selectedLeague.title}
+        </Typography>
         {selectedLeague.events.map((event: any, eIndex: number) => (
           <div key={eIndex}>
             <p>&nbsp;</p>
-            <Typography variant="h5">{event.fDate}</Typography>
-            <Card className="w-full px-4 py-4">
+            <Typography variant="h5" className="text-gray-200">
+              {event.fDate}
+            </Typography>
+            <Card className="w-full px-4 py-4 bg-secondary_4">
               {event.items &&
                 event.items.map((item: any, iIndex: number) => (
                   <div key={iIndex}>

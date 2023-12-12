@@ -104,23 +104,20 @@ export function BetDialog({
   };
 
   return (
-    <div className="p-4 relative">
+    <div className="p-4 relative bg-secondary_4">
       <div className="flex">
-        <Typography
-          variant="h6"
-          className={`${isBack ? "gradient-back" : "gradient-lay"} float-left`}
-        >
+        <Typography variant="h6" className={`text-primary_4 float-left`}>
           {isBack ? "BACK" : "LAY"}
         </Typography>
-        <Typography variant="h6" className="float-left">
+        <Typography variant="h6" className="float-left text-gray-200">
           &nbsp;
           {details.markets[marketIndex == -1 ? 0 : marketIndex].outcomes[team]}
         </Typography>
       </div>
-      <Typography variant="paragraph" className="font-bold">
+      <Typography variant="paragraph" className="font-bold text-white">
         {details.markets[marketIndex == -1 ? 0 : marketIndex].marketName}
       </Typography>
-      <Typography variant="small" className="">
+      <Typography variant="small" className="text-gray-400">
         {details.eventName}
       </Typography>
       <div className="md:flex my-2">
@@ -130,6 +127,7 @@ export function BetDialog({
             crossOrigin={""}
             type="number"
             value={stake}
+            color="white"
             onChange={handleStake}
           />
         </div>
@@ -140,20 +138,22 @@ export function BetDialog({
             type="number"
             crossOrigin={""}
             step="0.01"
+            color="white"
             onChange={handleOdds}
           />
         </div>
       </div>
       <div className="md:flex">
-        <Typography variant="small">Profit:&nbsp;</Typography>
-        <Typography variant="small" className="profit-color">
+        <Typography variant="small" color="white">
+          Profit:&nbsp;
+        </Typography>
+        <Typography variant="small" className="text-highlight">
           {(stake * odds).toFixed(3)}
         </Typography>
       </div>
       {wallet.connected ? (
         <Button
-          variant="gradient"
-          className="flex mg-auto my-2"
+          className="flex mg-auto my-2 bg-primary_light"
           onClick={handleOrder}
         >
           STAKE

@@ -31,12 +31,12 @@ export default function ComplexNavbar() {
   }, [program, wallet]);
 
   return eventCategories.length == 0 ? (
-    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-white place-content-center grid z-50">
-      <Spinner className="h-16 w-16" />
+    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-secondary_back place-content-center grid z-50">
+      <Spinner className="h-16 w-16 text-gray-900/50" color="teal" />
     </div>
   ) : (
-    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-30 w-screen">
-      <div className="relative mx-auto flex items-center width-100 text-blue-gray-900">
+    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-30 w-screen bg-primary_light border-none">
+      <div className="relative mx-auto flex items-center width-100">
         <Link href="/home" className="float-left">
           {" "}
           <img
@@ -55,7 +55,7 @@ export default function ComplexNavbar() {
 
           <div className="float-left mx-2">
             <Link href="/home">
-              <Button variant={"text"} className="header-button">
+              <Button variant={"text"} className="header-button text-white">
                 Home
               </Button>
             </Link>
@@ -63,7 +63,7 @@ export default function ComplexNavbar() {
 
           <div className="float-left">
             <Link href="/mytrades">
-              <Button variant={"text"} className="header-button">
+              <Button variant={"text"} className="header-button text-white">
                 My Trades
               </Button>
             </Link>
