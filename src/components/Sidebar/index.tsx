@@ -47,7 +47,7 @@ export default function Sidebar() {
   }, [eventCategories]);
   return (
     <Card
-      className={`fixed z-30 w-[300px] h-screen p-4 border-r-2 bg-secondary_back border-none  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${
+      className={`fixed z-[60] w-[300px] h-screen p-4 border-r-2 bg-secondary_back border-none  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${
         !isMenu ? "-300px" : "0px"
       }\] transition-all no-scrollbar`}
     >
@@ -155,10 +155,10 @@ export default function Sidebar() {
         onClick={handleMenu}
       >
         <div className="animate-bounce">
-          <div className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+          <div className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-secondary_4 via-primary_light to-primary_4 rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
           <div
             title="Get quote now"
-            className="relative inline-flex items-center justify-center p-4 text-lg font-bold text-black transition-all duration-200 bg-white font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+            className="relative inline-flex items-center justify-center p-4 text-lg font-bold text-white transition-all duration-200 bg-secondary_back font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
             role="button"
           >
             {!!isMenu ? <FaAngleDoubleLeft /> : <FaAngleDoubleRight />}

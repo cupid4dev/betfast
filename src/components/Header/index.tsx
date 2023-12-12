@@ -35,7 +35,7 @@ export default function ComplexNavbar() {
       <Spinner className="h-16 w-16 text-gray-900/50" color="teal" />
     </div>
   ) : (
-    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-30 w-screen bg-primary_light border-none">
+    <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-[100] w-screen bg-primary_light border-none">
       <div className="relative mx-auto flex items-center width-100">
         <Link href="/home" className="float-left">
           {" "}

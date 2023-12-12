@@ -104,7 +104,7 @@ export function BetDialog({
   };
 
   return (
-    <div className="p-4 relative bg-secondary_4">
+    <div className="p-4 relative bg-secondary_4 rounded-lg">
       <div className="flex">
         <Typography variant="h6" className={`text-primary_4 float-left`}>
           {isBack ? "BACK" : "LAY"}
