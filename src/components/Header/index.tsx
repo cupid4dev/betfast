@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { Navbar, Typography, Button, Spinner } from "@material-tailwind/react";
+import { Navbar, Button, Spinner } from "@material-tailwind/react";
 import Link from "next/link";
 import ConnectWalletButton from "../UI/ConnectWalletButton";
 import { getEventCategories } from "@/redux/slice";
