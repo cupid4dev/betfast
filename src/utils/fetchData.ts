@@ -64,6 +64,7 @@ export async function fetchMarket(dispatch: any, program: any, marketPK: any) {
       };
 
       dispatch(updateMarket(market));
+      // console.log(marketOutcomes.data);
     }
   }
 }
