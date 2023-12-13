@@ -23,6 +23,7 @@ export default function GameOverview({
     setIsBack(argIsBack);
     setSelectedTeam(argSelectedTeam);
     setOpen(!open);
+    console.log(details);
   };
 
   return (

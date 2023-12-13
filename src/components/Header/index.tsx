@@ -42,17 +42,11 @@ export default function ComplexNavbar() {
           <img
             src="/logo.png" // Path to your logo image inside the public folder
             alt="Logo"
-            width={50} // Set the width of the image
+            width={100} // Set the width of the image
             height={50} // Set the height of the image
           />
         </Link>
         <div className="flex mr-auto cursor-pointer py-1.5 font-medium">
-          <Link href="/home">
-            <Typography variant="h4" className="mr-4 logo-text">
-              <span className="inline-block align-middle">BETFAST</span>
-            </Typography>
-          </Link>
-
           <div className="float-left mx-2">
             <Link href="/home">
               <Button variant={"text"} className="header-button text-white">
