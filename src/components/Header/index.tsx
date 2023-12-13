@@ -31,7 +31,7 @@ export default function ComplexNavbar() {
   }, [program, wallet]);
 
   return eventCategories.length == 0 ? (
-    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-secondary_back place-content-center grid z-50">
+    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-secondary_back place-content-center grid z-[500]">
       <Spinner className="h-16 w-16 text-gray-900/50" color="teal" />
     </div>
   ) : (
