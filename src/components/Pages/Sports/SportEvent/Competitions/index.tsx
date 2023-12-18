@@ -5,17 +5,17 @@ import { Card, Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-export default function CompetitionPage({ event }: { event: any }) {
+export default function CompetitionPage({ sport }: { sport: any }) {
   return (
     <div>
-      {event.eventGroup &&
-        event.eventGroup.map((eg: any, egIndex: number) => (
+      {sport.competitions &&
+        sport.competitions.map((eg: any, egIndex: number) => (
           <div key={egIndex} className="mt-4 w-full">
-            <Link href={`/sports/league?sport=${event.id}&league=${eg.id}`}>
+            <Link href={`/sports/league?league=${eg.id}`}>
               <Card className="p-2 w-full bg-secondary_4">
                 <div className="flex my-2 w-full">
                   <div className="mt-1 float-left">
-                    <SportIcon sportName={event.id} color="white" />
+                    <SportIcon sportName={sport.id} color="white" />
                   </div>
                   <Typography variant="h5" className="float-left text-white">
                     &nbsp;{eg.title}

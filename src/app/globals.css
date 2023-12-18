@@ -145,6 +145,16 @@
   background-color: #126e51;
 }
 
+.outcome-select > span {
+  padding: 0 1rem;
+}
+
+.select-container > div > ul {
+  background-color: #464646;
+  border: none;
+  color: white;
+}
+
 @media only screen and (max-width: 767px) {
   .logo-text {
     display: none;

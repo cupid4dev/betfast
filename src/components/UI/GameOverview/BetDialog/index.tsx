@@ -23,6 +23,7 @@ export function BetDialog({
   isBack,
   team,
   marketIndex,
+  defaultPrice,
 }: {
   handleOpen: any;
   details: {
@@ -37,16 +38,18 @@ export function BetDialog({
     eventGroupTitle: string;
     displayPriority: number;
     markets: any[];
+    marketsWithMP: any[];
   };
   isBack: boolean;
   team: number;
   marketIndex: number;
+  defaultPrice: number;
 }) {
   const wallet = useWallet();
   const program = useProgram().program;
   const dispatch = useDispatch();
   const [stake, setStake] = React.useState(0);
-  const [odds, setOdds] = React.useState(1);
+  const [odds, setOdds] = React.useState(defaultPrice);
 
   const handleStake = (e: any) => {
     setStake(e.target.value);
@@ -111,11 +114,15 @@ export function BetDialog({
         </Typography>
         <Typography variant="h6" className="float-left text-gray-200">
           &nbsp;
-          {details.markets[marketIndex == -1 ? 0 : marketIndex].outcomes[team]}
+          {
+            details.marketsWithMP[marketIndex == -1 ? 0 : marketIndex].outcomes[
+              team
+            ]
+          }
         </Typography>
       </div>
       <Typography variant="paragraph" className="font-bold text-white">
-        {details.markets[marketIndex == -1 ? 0 : marketIndex].marketName}
+        {details.marketsWithMP[marketIndex == -1 ? 0 : marketIndex].marketName}
       </Typography>
       <Typography variant="small" className="text-gray-400">
         {details.eventName}

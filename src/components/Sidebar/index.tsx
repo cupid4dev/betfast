@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import {
   Card,
@@ -8,20 +9,23 @@ import {
   Accordion,
   AccordionHeader,
   AccordionBody,
+  Spinner,
 } from "@material-tailwind/react";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { getEventCategories } from "@/redux/slice";
-import { useSelector } from "react-redux";
+import { getMenuList, updateMenuList } from "@/redux/slice";
+import { useDispatch, useSelector } from "react-redux";
 import SportIcon from "../UI/SportIcon";
 import Divider from "../UI/Divider";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+import axios from "axios";
+import MP_CONSTS from "@/constants/mpRouter";
 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(0);
-  const [popLeagues, setPopLeagues] = React.useState([]);
   const [isMenu, setIsMenu] = React.useState(false);
-  const eventCategories = useSelector(getEventCategories);
+  const menuList = useSelector(getMenuList);
+  const dispatch = useDispatch();
 
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
@@ -32,20 +36,18 @@ export default function Sidebar() {
   };
 
   React.useEffect(() => {
-    let plTemp: any = [];
-    eventCategories.forEach((eventCategory: any) => {
-      if (eventCategory.id == "HISTORICAL") {
-        return;
+    axios.get(MP_CONSTS.API_URL + "/menulist").then((data) => {
+      if (data.status == 200) {
+        dispatch(updateMenuList(data.data));
       }
-      eventCategory.eventGroup.forEach((ev: any) => {
-        if (ev.displayPriority == 1) {
-          plTemp.push(ev);
-        }
-      });
     });
-    setPopLeagues(plTemp);
-  }, [eventCategories]);
-  return (
+  }, []);
+
+  return menuList.sports.length == 0 ? (
+    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-secondary_back place-content-center grid z-[500]">
+      <Spinner className="h-16 w-16 text-gray-900/50" color="teal" />
+    </div>
+  ) : (
     <Card
       className={`fixed z-[60] w-[300px] h-screen p-4 border-r-2 bg-secondary_back border-none  rounded-none overflow-y-auto pt-20 md:static md:left-0 md:h-auto left-\[${
         !isMenu ? "-300px" : "0px"
@@ -55,18 +57,15 @@ export default function Sidebar() {
         <Typography variant="h6" className="text-primary_4">
           Popular
         </Typography>
-        {popLeagues.map((popLeague: any, index: number) => (
+        {menuList.popLeagues.map((popLeague: any, index: number) => (
           <Link
-            href={`/sports/league?sport=${popLeague.events[0].category}&league=${popLeague.id}`}
+            href={`/sports/league?league=${popLeague.id}`}
             key={index}
             onClick={handleMenu}
           >
             <ListItem className="text-white">
               <ListItemPrefix>
-                <SportIcon
-                  color="white"
-                  sportName={popLeague.events[0].category}
-                />
+                <SportIcon color="white" sportName={popLeague.sport} />
               </ListItemPrefix>
               {popLeague.title}
             </ListItem>
@@ -76,7 +75,7 @@ export default function Sidebar() {
         <Typography variant="h6" className="text-primary_4">
           SPORTS
         </Typography>
-        {eventCategories.map(
+        {menuList.sports.map(
           (item: any, index: number) =>
             item.id !== "HISTORICAL" && (
               <div key={index}>
@@ -116,30 +115,23 @@ export default function Sidebar() {
                   </ListItem>
                   <AccordionBody className="py-1">
                     <List className="p-0">
-                      {item.eventGroup.map(
-                        (eventGroup: any, egIndex: number) => (
-                          <Link
-                            href={
-                              "/sports/league?sport=" +
-                              item.id +
-                              "&league=" +
-                              eventGroup.id
-                            }
-                            key={egIndex}
-                            onClick={handleMenu}
-                          >
-                            <ListItem className="text-white">
-                              <ListItemPrefix>
-                                <ChevronRightIcon
-                                  strokeWidth={3}
-                                  className="h-3 w-5"
-                                />
-                              </ListItemPrefix>
-                              {eventGroup.title}
-                            </ListItem>
-                          </Link>
-                        ),
-                      )}
+                      {item.leagues.map((eventGroup: any, egIndex: number) => (
+                        <Link
+                          href={"/sports/league?league=" + eventGroup.id}
+                          key={egIndex}
+                          onClick={handleMenu}
+                        >
+                          <ListItem className="text-white">
+                            <ListItemPrefix>
+                              <ChevronRightIcon
+                                strokeWidth={3}
+                                className="h-3 w-5"
+                              />
+                            </ListItemPrefix>
+                            {eventGroup.title}
+                          </ListItem>
+                        </Link>
+                      ))}
                     </List>
                   </AccordionBody>
                 </Accordion>

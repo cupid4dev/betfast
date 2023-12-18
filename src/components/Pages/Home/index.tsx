@@ -1,77 +1,35 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import GameOverview from "@/components/UI/GameOverview";
-import { getEventCategories } from "@/redux/slice";
-import { Card, Carousel, Typography } from "@material-tailwind/react";
+import { getUpcomings, updateUpcomings } from "@/redux/slice";
+import { Card, Carousel, Spinner, Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { ts2DateOptions } from "@/utils/timestamp";
+import { useDispatch, useSelector } from "react-redux";
 import SportIcon from "@/components/UI/SportIcon";
+import axios from "axios";
+import mpRouter from "@/constants/mpRouter";
 export default function HomePage() {
-  const eventCategories = useSelector(getEventCategories);
-  const [upcomingSports, setUpcomingSports] = React.useState(new Array());
+  const dispatch = useDispatch();
+  const upcomings = useSelector(getUpcomings);
 
   React.useEffect(() => {
-    let upcomingSS = new Array();
-
-    eventCategories.forEach((eventCategory: any) => {
-      if (eventCategory.id == "HISTORICAL") {
-        return;
+    axios.get(mpRouter.API_URL + "/upcomings").then((data) => {
+      if (data.status == 200) {
+        dispatch(updateUpcomings(data.data.upcomings));
       }
-
-      let upcomingS = {
-        id: eventCategory.id,
-        title: eventCategory.title,
-        games: new Array(),
-        upcomingDate: 0,
-      };
-
-      eventCategory.eventGroup.forEach((eg: any) => {
-        let games = [...eg.events.slice(0)];
-        games.sort((a: any, b: any) => {
-          return a.eventStart > b.eventStart ? 1 : -1;
-        });
-
-        if (upcomingS.upcomingDate == 0) {
-          upcomingS.upcomingDate = games[0].eventStart;
-        }
-        let startDate = "";
-        for (let i = 0; i < games.length; i++) {
-          if (games[i].eventStart * 1000 < new Date().getTime()) {
-            continue;
-          }
-          if (startDate == "") {
-            startDate = ts2DateOptions(games[i].eventStart);
-          }
-          if (ts2DateOptions(games[i].eventStart) != startDate) {
-            break;
-          }
-          upcomingS.games.push(games[i]);
-        }
-      });
-
-      upcomingS.games.sort((a: any, b: any) => {
-        return a.eventStart > b.eventStart ? 1 : -1;
-      });
-
-      upcomingS.games = upcomingS.games.filter((a: any) => {
-        return (
-          ts2DateOptions(a.eventStart) ==
-          ts2DateOptions(upcomingS.games[0].eventStart)
-        );
-      });
-
-      upcomingSS.push(upcomingS);
     });
+  }, []);
 
-    setUpcomingSports(upcomingSS);
-  }, [eventCategories]);
-
-  return (
+  return upcomings.length == 0 ? (
+    <div className="w-full h-full t-0 l-0 backdrop-blur-xl place-content-center grid z-[500]">
+      <Spinner className="h-16 w-16 text-gray-900/50" color="teal" />
+    </div>
+  ) : (
     <div>
-      <div className="py-4 px-4">
+      <div className="py-4 px-4 h-fit">
         <Carousel className="rounded-xl carousel">
           <img
             src="/banner/1.png"
@@ -79,24 +37,24 @@ export default function HomePage() {
             className="h-full w-full object-cover"
           />
           <img
-            src="/banner/3.png"
+            src="/banner/2.png"
             alt="image 2"
             className="h-full w-full object-cover"
           />
           <img
-            src="/banner/4.png"
+            src="/banner/3.png"
             alt="image 3"
             className="h-full w-full object-cover"
           />
           <img
-            src="/banner/5.png"
+            src="/banner/4.png"
             alt="image 4"
             className="h-full w-full object-cover"
           />
         </Carousel>
       </div>
 
-      {upcomingSports.map((upcomingSport: any, index: number) => (
+      {upcomings.map((upcomingSport: any, index: number) => (
         <div className="px-4 my-4" key={index}>
           <Typography variant="h6" className="flex my-2 text-primary_4">
             <SportIcon sportName={upcomingSport.id} color="text-primary_4" />

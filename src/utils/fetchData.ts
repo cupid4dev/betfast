@@ -1,12 +1,13 @@
 "use client";
-import API_URL from "@/constants/apiUrl";
-import { setEventCategories, setOrders, updateMarket } from "@/redux/slice";
+import {
+  setOrders,
+  updateMarket,
+} from "@/redux/slice";
 import {
   Orders,
   getMarket,
   getMarketOutcomesByMarket,
 } from "@monaco-protocol/client";
-import axios from "axios";
 import { publicKeyFromBn } from "./parsers";
 
 export async function fetchOrders(program: any, wallet: any, dispatch: any) {
@@ -54,40 +55,12 @@ export async function fetchMarket(dispatch: any, program: any, marketPK: any) {
       );
       let market = {
         publicKey: marketPK.toString(),
-        title: marketResult.data.account.title,
-        marketStatus: marketResult.data.account.marketStatus,
-        published: marketResult.data.account.published,
-        suspended: marketResult.data.account.suspended,
-        marketoutcomesCount: marketResult.data.account.marketOutcomesCount,
-        inplay: marketResult.data.account.inplay,
+        ...marketResult.data.account,
         outcomes: outcomes,
       };
 
       dispatch(updateMarket(market));
-      // console.log(marketOutcomes.data);
     }
   }
 }
 
-var fetchTimer: any = null;
-export function fetchEventCategories(dispatch: any) {
-  if (fetchTimer) {
-    clearInterval(fetchTimer);
-  } else {
-    axios
-      .get(API_URL)
-      .then((data) => {
-        dispatch(setEventCategories(data.data.eventCategories));
-      })
-      .catch(() => {});
-  }
-
-  fetchTimer = setInterval(() => {
-    axios
-      .get(API_URL)
-      .then((data) => {
-        dispatch(setEventCategories(data.data.eventCategories));
-      })
-      .catch(() => {});
-  }, 60000);
-}

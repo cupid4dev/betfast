@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { Navbar, Button, Spinner } from "@material-tailwind/react";
+import { Navbar, Button } from "@material-tailwind/react";
 import Link from "next/link";
 import ConnectWalletButton from "../UI/ConnectWalletButton";
-import { getEventCategories } from "@/redux/slice";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchEventCategories, fetchOrders } from "@/utils/fetchData";
+import { useDispatch } from "react-redux";
+import { fetchOrders } from "@/utils/fetchData";
 import { useProgram } from "@/context/ProgramContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 
@@ -14,14 +13,6 @@ export default function ComplexNavbar() {
   const dispatch = useDispatch();
   const program = useProgram().program;
   const wallet = useWallet();
-  const eventCategories = useSelector(getEventCategories);
-  // const [isMobile, setIsMobile] = React.useState(true);
-
-  React.useEffect(() => {
-    // setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
-
-    fetchEventCategories(dispatch);
-  }, []);
 
   React.useEffect(() => {
     if (!program || !wallet) {
@@ -30,11 +21,7 @@ export default function ComplexNavbar() {
     fetchOrders(program, wallet, dispatch);
   }, [program, wallet]);
 
-  return eventCategories.length == 0 ? (
-    <div className="fixed w-full h-full t-0 l-0 backdrop-blur-xl bg-secondary_back place-content-center grid z-[500]">
-      <Spinner className="h-16 w-16 text-gray-900/50" color="teal" />
-    </div>
-  ) : (
+  return (
     <Navbar className="mx-auto p-2 max-w-none rounded-none lg:pl-6 fixed t-0 z-[100] w-screen bg-primary_light border-none">
       <div className="relative mx-auto flex items-center width-100">
         <Link href="/home" className="float-left">
