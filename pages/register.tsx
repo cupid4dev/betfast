@@ -18,14 +18,14 @@ export default function Register() {
     "I confirm the details entered are accurate and personal to me, and that I am at least 18 years of age.";
 
   const handleJoin = () => {
-    const captchaResult = (document.getElementById('cf-chl-widget-iqu7r_response') as HTMLInputElement).value;
+    const captchaResult = (document.getElementsByName('cf-turnstile-response')[0] as HTMLInputElement).value;
     console.log(captchaResult);
   }
 
   return (
     <div className="bg-secondary_back w-full h-full fixed overflow-auto">
       <form action="/register" method="POST" id="register-form">
-        <div className="w-full mx-auto px-4" style={{ maxWidth: "500px" }}>
+        <div className="w-full mx-auto px-4 text-white!important" style={{ maxWidth: "500px" }}>
           <img
             src="/logo.png"
             alt="logo"
