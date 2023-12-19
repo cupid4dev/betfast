@@ -37,7 +37,7 @@ export default function GameDetails() {
   const [selectedABL, setSelectedABL] = React.useState(0);
 
   const searchParams = useSearchParams();
-  const eventAccount = searchParams.get("eventAccount");
+  const eventAccount = searchParams ? searchParams.get("eventAccount") : "";
   const dispatch = useDispatch();
   const game = useSelector(getGameById("" + eventAccount));
 

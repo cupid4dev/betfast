@@ -1,8 +1,5 @@
 "use client";
-import {
-  setOrders,
-  updateMarket,
-} from "@/redux/slice";
+import { setOrders, updateMarket } from "@/redux/slice";
 import {
   Orders,
   getMarket,
@@ -63,4 +60,3 @@ export async function fetchMarket(dispatch: any, program: any, marketPK: any) {
     }
   }
 }
-

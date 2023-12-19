@@ -31,7 +31,7 @@ export default function SportEventPage() {
     },
   ];
   const searchParams = useSearchParams();
-  const event = searchParams.get("event");
+  const event = searchParams ? searchParams.get("event") : "";
   const sport = useSelector(getSportById("" + event));
 
   React.useEffect(() => {

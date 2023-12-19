@@ -11,7 +11,7 @@ import mpRouter from "@/constants/mpRouter";
 
 export default function League() {
   const searchParams = useSearchParams();
-  const leagueId = searchParams.get("league");
+  const leagueId = searchParams ? searchParams.get("league") : "";
   const dispatch = useDispatch();
   const league = useSelector(getLeagueById("" + leagueId));
 
