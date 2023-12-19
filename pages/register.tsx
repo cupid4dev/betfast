@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @next/next/no-img-element */
 // pages/register.tsx
 import {
@@ -15,9 +16,15 @@ export default function Register() {
   const countryList = Object.values(countries);
   const confirmLabel =
     "I confirm the details entered are accurate and personal to me, and that I am at least 18 years of age.";
+
+  const handleJoin = () => {
+    const captchaResult = (document.getElementById('cf-chl-widget-iqu7r_response') as HTMLInputElement).value;
+    console.log(captchaResult);
+  }
+
   return (
     <div className="bg-secondary_back w-full h-full fixed overflow-auto">
-      <form action="/login" method="POST">
+      <form action="/register" method="POST" id="register-form">
         <div className="w-full mx-auto px-4" style={{ maxWidth: "500px" }}>
           <img
             src="/logo.png"
@@ -120,7 +127,7 @@ export default function Register() {
             defer
           ></script>
           <div className="my-2">
-            <Button color="teal" className="w-full" type="submit">
+            <Button color="teal" className="w-full" onClick={()=>handleJoin()}>
               Join
             </Button>
           </div>
