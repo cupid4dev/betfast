@@ -81,9 +81,8 @@ function ProfileMenu() {
           const isLastItem = key === profileMenuItems.length - 1;
           // eslint-disable-next-line react/jsx-key
           return (
-            <Link href={link}>
+            <Link href={link} key={label}>
               <MenuItem
-                key={label}
                 onClick={() => {
                   closeMenu(isLastItem);
                 }}
