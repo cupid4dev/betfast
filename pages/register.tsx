@@ -285,6 +285,7 @@ export default function Register() {
               color="teal"
               className="h-5 w-5 float-left"
               checked={isAgreed}
+              onChange={() => {}}
             />
             <div>{confirmLabel}</div>
           </div>

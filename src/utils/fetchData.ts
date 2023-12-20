@@ -25,6 +25,10 @@ export async function fetchOrders(program: any, wallet: any, dispatch: any) {
           marketOutcomeIndex: order.account.marketOutcomeIndex,
           market: publicKeyFromBn(order.account.market).toString(),
           orderStatus: order.account.orderStatus,
+          stake: order.account.stake / 1000,
+          created: order.account.creationTimestamp,
+          payout: order.account.payout,
+          stakeUnmatched: order.account.stakeUnmatched / 1000,
         }),
         fetchMarket(dispatch, program, publicKeyFromBn(order.account.market))
       ),

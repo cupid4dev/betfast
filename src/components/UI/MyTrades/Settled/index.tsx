@@ -55,7 +55,7 @@ export default function SettledPage() {
                             <div className="md:float-left" key={mIndex}>
                               <Button
                                 disabled
-                                className={`h-full px-0 w-full mx-2 md:w-200px ${
+                                className={`h-full px-0 w-full md:mx-2 md:w-200px ${
                                   order.marketOutcomeIndex == mIndex
                                     ? order.forOutcome
                                       ? "bg-transparent border-primary_4 border-2 text-primary_4"

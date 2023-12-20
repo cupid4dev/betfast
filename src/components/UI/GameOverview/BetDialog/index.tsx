@@ -10,13 +10,19 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useWallet } from "@solana/wallet-adapter-react";
 import ConnectWalletButton from "../../ConnectWalletButton";
 import { PublicKey } from "@solana/web3.js";
-import { createOrderUiStake } from "@monaco-protocol/client";
+import {
+  createOrderUiStake,
+  getMarketOutcomesByMarket,
+} from "@monaco-protocol/client";
 import { useProgram } from "@/context/ProgramContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchOrders } from "@/utils/fetchData";
 import { useDispatch, useSelector } from "react-redux";
-import { getBFEmail } from "@/redux/slice";
+import { getBFEmail, updateGame } from "@/redux/slice";
+import { publicKeyFromBn } from "@/utils/parsers";
+import axios from "axios";
+import mpRouter from "@/constants/mpRouter";
 
 export function BetDialog({
   handleOpen,
@@ -85,6 +91,13 @@ export function BetDialog({
     }
 
     try {
+      const marketOutcome = await getMarketOutcomesByMarket(
+        program,
+        new PublicKey(market.marketAccount),
+      );
+      const priceLadder = publicKeyFromBn(
+        marketOutcome.data.marketOutcomeAccounts[team].account.prices,
+      ).toString();
       const order = await createOrderUiStake(
         program,
         new PublicKey(market.marketAccount),
@@ -92,19 +105,40 @@ export function BetDialog({
         isBack,
         Number(odds),
         Number(stake),
+        new PublicKey(priceLadder),
       );
 
       if (order.success) {
         handleOpen();
         toast.success("Your order created successfully!");
         fetchOrders(program, wallet, dispatch);
+        setTimeout(
+          () =>
+            axios
+              .get(
+                mpRouter.API_URL +
+                  "/ordered?marketAccount=" +
+                  market.marketAccount +
+                  "&eventAccount=" +
+                  details.eventAccount,
+              )
+              .then((data) => {
+                if (data.status == 200) {
+                  dispatch(
+                    updateGame({
+                      id: details.eventAccount,
+                      game: data.data.event,
+                    }),
+                  );
+                }
+              }),
+          5000,
+        );
       } else {
         toast.error("Failed to create your order!");
-        // console.log(order.errors);
       }
     } catch (e) {
       toast.error("Failed to create your order!");
-      // console.log(e);
     }
   };
 
@@ -186,7 +220,7 @@ export function BetDialog({
         >
           <RiDeleteBinLine className="w-5 h-5" />
         </IconButton>
-        <ToastContainer position="bottom-right" theme="colored" />
+        <ToastContainer position="top-right" theme="colored" />
       </div>
     </div>
   );

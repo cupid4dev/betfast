@@ -13,7 +13,12 @@ import {
 } from "@material-tailwind/react";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { getMenuList, updateBFEmail, updateMenuList } from "@/redux/slice";
+import {
+  getMenuList,
+  updateBFEmail,
+  updateBFUser,
+  updateMenuList,
+} from "@/redux/slice";
 import { useDispatch, useSelector } from "react-redux";
 import SportIcon from "../UI/SportIcon";
 import Divider from "../UI/Divider";
@@ -36,16 +41,21 @@ export default function Sidebar() {
   };
 
   React.useEffect(() => {
+    const bfEmail = localStorage.getItem("betfast-email");
+    const bfUser = localStorage.getItem("betfast-user");
+    if (bfEmail) {
+      dispatch(updateBFEmail(bfEmail));
+    }
+
+    if (bfUser) {
+      dispatch(updateBFUser(JSON.parse(bfUser)));
+    }
+
     axios.get(MP_CONSTS.API_URL + "/menulist").then((data) => {
       if (data.status == 200) {
         dispatch(updateMenuList(data.data));
       }
     });
-
-    const bfEmail = localStorage.getItem("betfast-email");
-    if (bfEmail) {
-      dispatch(updateBFEmail(bfEmail));
-    }
   }, []);
 
   return menuList.sports.length == 0 ? (
@@ -148,7 +158,7 @@ export default function Sidebar() {
         id="a"
         className={`md:hidden fixed left-[${
           !isMenu ? "15px" : "285px"
-        }] top-2/4 transition-all`}
+        }] top-2/4 transition-all opacity-90`}
         onClick={handleMenu}
       >
         <div className="animate-bounce">

@@ -110,7 +110,7 @@ export default function GameOverview({
                         <div className="text-gray-400 text-center md:mr-4">
                           {details.marketsWithMP[0].mp[index]
                             .maxAgainstLiquidity <= 0
-                            ? " "
+                            ? "0.0"
                             : details.marketsWithMP[0].mp[index]
                                 .maxAgainstLiquidity}
                         </div>
@@ -129,13 +129,13 @@ export default function GameOverview({
                           }}
                         >
                           {details.marketsWithMP[0].mp[index].minFor <= 0
-                            ? "Back"
+                            ? "Lay"
                             : details.marketsWithMP[0].mp[index].minFor}
                         </Button>
                         <div className="text-gray-400 text-center">
                           {details.marketsWithMP[0].mp[index].minForLiquidity <=
                           0
-                            ? " "
+                            ? "0.0"
                             : details.marketsWithMP[0].mp[index]
                                 .minForLiquidity}
                         </div>

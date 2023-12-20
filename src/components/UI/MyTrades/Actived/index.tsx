@@ -38,16 +38,15 @@ export default function ActivedPage() {
     }
     const orderPk = new PublicKey(selectedPk);
     const cancelledOrder = await cancelOrder(program, orderPk);
-
     if (cancelledOrder.success) {
       toast.success("Order cancelled!");
       handleOpen();
       fetchOrders(program, wallet, dispatch);
     } else {
+      handleOpen();
       toast.error("Failed to cancel!");
     }
   };
-
   return (
     <div>
       {!orders || !orders.map
@@ -87,7 +86,7 @@ export default function ActivedPage() {
                               <div className="md:float-left" key={mIndex}>
                                 <Button
                                   disabled={order.marketOutcomeIndex != mIndex}
-                                  className={`h-full px-0 w-full mx-2 md:w-200px ${
+                                  className={`h-full px-0 w-full md:mx-2 md:w-200px ${
                                     order.marketOutcomeIndex == mIndex
                                       ? order.forOutcome
                                         ? "bg-transparent border-primary_4 border-2 text-primary_4"
@@ -151,7 +150,7 @@ export default function ActivedPage() {
                               <div className="md:float-left" key={mIndex}>
                                 <Button
                                   disabled={order.marketOutcomeIndex != mIndex}
-                                  className={`h-full px-0 w-full mx-2 md:w-200px ${
+                                  className={`h-full px-0 w-full md:mx-2 md:w-200px ${
                                     order.marketOutcomeIndex == mIndex
                                       ? order.forOutcome
                                         ? "bg-transparent border-primary_4 border-2 text-primary_4"

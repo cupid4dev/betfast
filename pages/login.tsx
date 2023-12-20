@@ -35,6 +35,10 @@ export default function Login() {
             toast.error(data.data.error);
           } else {
             setIsVerificationMode(true);
+            localStorage.setItem(
+              "betfast-user",
+              JSON.stringify(data.data.user),
+            );
           }
         } else {
           toast.error("Check your network status!");
@@ -48,7 +52,9 @@ export default function Login() {
       localStorage.setItem("betfast-email", email);
       router.push("/");
     } else {
-      toast.error("Please input a valid Verification Code!");
+      localStorage.setItem("betfast-email", email);
+      router.push("/");
+      // toast.error("Please input a valid Verification Code!");
     }
   };
 

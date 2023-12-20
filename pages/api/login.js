@@ -28,7 +28,7 @@ export default function handler(req, res) {
         "No Reply",
         "Your verification code for betfast is " + data.code,
       );
-      res.json({ success: true });
+      res.json({ success: true, user: result.user[0] });
     });
   } else {
     // Handle other HTTP methods

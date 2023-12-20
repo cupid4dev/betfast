@@ -14,7 +14,7 @@
     "@coral-xyz/anchor": "latest",
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.4",
-    "@monaco-protocol/client": "^8.0.0",
+    "@monaco-protocol/client": "^9.0.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@sendgrid/mail": "^8.1.0",
     "@solana/wallet-adapter-base": "^0.9.23",

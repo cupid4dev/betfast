@@ -15,6 +15,7 @@ interface AppState {
   leagues: any;
   games: any;
   bfEmail: any;
+  bfUser: any;
 }
 
 const initialState: AppState = {
@@ -33,6 +34,7 @@ const initialState: AppState = {
   leagues: {},
   games: {},
   bfEmail: "",
+  bfUser: {},
 };
 
 const appSlice = createSlice({
@@ -94,6 +96,10 @@ const appSlice = createSlice({
     updateBFEmail(state, action) {
       state.bfEmail = action.payload;
     },
+
+    updateBFUser(state, action) {
+      state.bfUser = action.payload;
+    },
   },
 });
 
@@ -117,6 +123,7 @@ export const getGameById = (id: string) => {
   return createSelector([getGames], (gameData) => gameData[id]);
 };
 export const getBFEmail = (state: any) => state.app.bfEmail;
+export const getBFUser = (state: any) => state.app.bfUser;
 
 export const {
   activeAppState,
@@ -130,5 +137,6 @@ export const {
   updateLeague,
   updateGame,
   updateBFEmail,
+  updateBFUser,
 } = appSlice.actions;
 export const { actions, reducer } = appSlice;

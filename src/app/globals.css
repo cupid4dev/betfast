@@ -155,6 +155,9 @@
   color: white;
 }
 
+.country-select {
+}
+
 @media only screen and (max-width: 767px) {
   .logo-text {
     display: none;
