@@ -14,6 +14,7 @@ interface AppState {
   sports: any;
   leagues: any;
   games: any;
+  bfEmail: any;
 }
 
 const initialState: AppState = {
@@ -31,6 +32,7 @@ const initialState: AppState = {
   sports: {},
   leagues: {},
   games: {},
+  bfEmail: "",
 };
 
 const appSlice = createSlice({
@@ -88,6 +90,10 @@ const appSlice = createSlice({
     updateGame(state, action) {
       state.games[action.payload.id] = action.payload.game;
     },
+
+    updateBFEmail(state, action) {
+      state.bfEmail = action.payload;
+    },
   },
 });
 
@@ -110,6 +116,7 @@ export const getGames = (state: any) => state.app.games;
 export const getGameById = (id: string) => {
   return createSelector([getGames], (gameData) => gameData[id]);
 };
+export const getBFEmail = (state: any) => state.app.bfEmail;
 
 export const {
   activeAppState,
@@ -122,5 +129,6 @@ export const {
   updateSport,
   updateLeague,
   updateGame,
+  updateBFEmail,
 } = appSlice.actions;
 export const { actions, reducer } = appSlice;

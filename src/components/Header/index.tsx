@@ -4,15 +4,17 @@ import React from "react";
 import { Navbar, Button } from "@material-tailwind/react";
 import Link from "next/link";
 import ConnectWalletButton from "../UI/ConnectWalletButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/utils/fetchData";
 import { useProgram } from "@/context/ProgramContext";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { getBFEmail } from "@/redux/slice";
 
 export default function ComplexNavbar() {
   const dispatch = useDispatch();
   const program = useProgram().program;
   const wallet = useWallet();
+  const bfEmail = useSelector(getBFEmail);
 
   React.useEffect(() => {
     if (!program || !wallet) {
@@ -42,19 +44,36 @@ export default function ComplexNavbar() {
             </Link>
           </div>
 
-          <div className="float-left">
-            <Link href="/mytrades">
-              <Button variant={"text"} className="header-button text-white">
-                My Trades
+          {bfEmail && (
+            <div className="float-left">
+              <Link href="/mytrades">
+                <Button variant={"text"} className="header-button text-white">
+                  My Trades
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {bfEmail ? (
+          <div className="flex customized-wallet">
+            <ConnectWalletButton />
+            {/* <ProfileMenu /> */}
+          </div>
+        ) : (
+          <div className="flex">
+            <Link href="/register" className="">
+              <Button className="p-2 mx-1 bg-secondary_4 text-primary_4 border-2 border-secondary_4">
+                Join
+              </Button>
+            </Link>
+            <Link href="/login" className="">
+              <Button className="p-2 mx-1 bg-secondary_4 border-primary_4 border-2 text-primary_4 md:mr-4">
+                Log In
               </Button>
             </Link>
           </div>
-        </div>
-
-        <div className="flex customized-wallet">
-          <ConnectWalletButton />
-          {/* <ProfileMenu /> */}
-        </div>
+        )}
       </div>
     </Navbar>
   );

@@ -1,40 +1,63 @@
 // db.ts
-import sqlite from "sqlite-async";
+import sqlite3, { Database } from "sqlite3";
 
-let db: sqlite.Database;
+let db: Database;
 
-export const connectDatabase = async (): Promise<sqlite.Database> => {
+export const connectDatabase = async () => {
   if (db) return db;
 
-  db = await sqlite.open({
-    filename: "./database.db",
-    driver: sqlite.Database,
+  db = new sqlite3.Database("db/database.db", (err) => {
+    if (err) {
+      console.error("Error opening database:", err.message);
+    }
   });
 
-  await db.run(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      email TEXT NOT NULL,
-      password TEXT NOT NULL
-    );
-  `);
+  await db.run(
+    `CREATE TABLE IF NOT EXISTS users (email TEXT PRIMARY KEY NOT NULL, country TEXT NOT NULL, firstName TEXT NOT NULL, lastName TEXT NOT NULL, birthday TEXT NOT NULL, address1 TEXT NOT NULL, address2 TEXT NOT NULL, city TEXT NOT NULL, postcode TEXT NOT NULL )`,
+  );
 
   return db;
 };
 
-export const createUser = async (
-  email: string,
-  password: string,
-): Promise<number> => {
+export const createUser = async (user, callback) => {
   const db = await connectDatabase();
+
   const result = await db.run(
-    "INSERT INTO users (email, password) VALUES (?, ?)",
-    [email, password],
+    "INSERT INTO users (email, country, firstName, lastName, birthday, address1, address2, city, postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      user.email,
+      user.country,
+      user.firstName,
+      user.lastName,
+      user.birthday,
+      user.address1,
+      user.address2,
+      user.city,
+      user.postcode,
+    ],
+    function (err) {
+      if (err) {
+        callback({
+          success: false,
+          error: err,
+        });
+      } else {
+        callback({
+          success: true,
+        });
+      }
+    },
   );
-  return result.lastID;
+  return result;
 };
 
-export const getUserByEmail = async (email: string): Promise<any | null> => {
+export const getUserByEmail = async (email, callback) => {
   const db = await connectDatabase();
-  return db.get("SELECT * FROM users WHERE email = ?", [email]);
+  return db.all("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+    if (err) {
+      callback({ success: false });
+    } else {
+      callback({ success: true, user: rows });
+    }
+  });
 };

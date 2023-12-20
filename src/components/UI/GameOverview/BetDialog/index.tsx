@@ -15,7 +15,8 @@ import { useProgram } from "@/context/ProgramContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchOrders } from "@/utils/fetchData";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBFEmail } from "@/redux/slice";
 
 export function BetDialog({
   handleOpen,
@@ -50,6 +51,7 @@ export function BetDialog({
   const dispatch = useDispatch();
   const [stake, setStake] = React.useState(0);
   const [odds, setOdds] = React.useState(defaultPrice);
+  const bfEmail = useSelector(getBFEmail);
 
   const handleStake = (e: any) => {
     setStake(e.target.value);
@@ -158,7 +160,11 @@ export function BetDialog({
           {(stake * odds).toFixed(3)}
         </Typography>
       </div>
-      {wallet.connected ? (
+      {bfEmail == "" ? (
+        <Typography variant="small" className="text-gray-400">
+          You need to login to start trading.
+        </Typography>
+      ) : wallet.connected ? (
         <Button
           className="flex mg-auto my-2 bg-primary_light"
           onClick={handleOrder}

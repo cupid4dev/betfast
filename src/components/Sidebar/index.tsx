@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { getMenuList, updateMenuList } from "@/redux/slice";
+import { getMenuList, updateBFEmail, updateMenuList } from "@/redux/slice";
 import { useDispatch, useSelector } from "react-redux";
 import SportIcon from "../UI/SportIcon";
 import Divider from "../UI/Divider";
@@ -41,6 +41,11 @@ export default function Sidebar() {
         dispatch(updateMenuList(data.data));
       }
     });
+
+    const bfEmail = localStorage.getItem("betfast-email");
+    if (bfEmail) {
+      dispatch(updateBFEmail(bfEmail));
+    }
   }, []);
 
   return menuList.sports.length == 0 ? (
