@@ -6,7 +6,7 @@ let db: Database;
 export const connectDatabase = async () => {
   if (db) return db;
 
-  db = new sqlite3.Database("db/database.db", (err) => {
+  db = new sqlite3.Database("database.db", (err) => {
     if (err) {
       console.error("Error opening database:", err.message);
     }
