@@ -104,24 +104,24 @@ export default function Register() {
       return;
     }
 
-    // try {
-    //   const captchaResult = (
-    //     document.getElementsByName(
-    //       "cf-turnstile-response",
-    //     )[0] as HTMLInputElement
-    //   ).value;
-    //   if (
-    //     captchaResult == null ||
-    //     captchaResult == undefined ||
-    //     captchaResult == ""
-    //   ) {
-    //     toast.error("Captcha Failed!");
-    //     return;
-    //   }
-    // } catch (e) {
-    //   toast.error("Captcha Failed!");
-    //   return;
-    // }
+    try {
+      const captchaResult = (
+        document.getElementsByName(
+          "cf-turnstile-response",
+        )[0] as HTMLInputElement
+      ).value;
+      if (
+        captchaResult == null ||
+        captchaResult == undefined ||
+        captchaResult == ""
+      ) {
+        toast.error("Captcha Failed!");
+        return;
+      }
+    } catch (e) {
+      toast.error("Captcha Failed!");
+      return;
+    }
 
     axios.post("/api/register", formData).then((data) => {
       if (data.status != 200) {
