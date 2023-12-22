@@ -1,7 +1,7 @@
 import { AppSettingsProps } from "@/types/settings";
 
 const DEFAULT_RPC =
-  "https://mainnet.helius-rpc.com/?api-key=584e55c2-ed50-4325-81b0-389f77eac5e0";
+  "https://mainnet.helius-rpc.com/?api-key=74ac7925-0644-4409-a846-9343bfb7dac3";
 export const USE_APPROVED_WALLETS = false;
 export const DEFAULT_MINT_DECIMALS = 6;
 export const DEFAULT_TRANSACTIONS_LIMIT = 1000;
