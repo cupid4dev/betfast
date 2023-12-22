@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
@@ -182,11 +183,11 @@ export default function ComplexNavbar() {
           </div>
         ) : (
           <div className="flex">
-            <Link href="/register" className="">
+            <a href="https://betfast.com/register">
               <Button className="p-2 mx-1 bg-secondary_4 text-primary_4 border-2 border-secondary_4">
                 Join
               </Button>
-            </Link>
+            </a>
             <Link href="/login" className="">
               <Button className="p-2 mx-1 bg-secondary_4 border-primary_4 border-2 text-primary_4 md:mr-4">
                 Log In
