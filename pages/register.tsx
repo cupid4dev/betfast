@@ -291,7 +291,7 @@ export default function Register() {
           </div>
           <div
             className="cf-turnstile"
-            data-sitekey="0x4AAAAAAAOzJWuRD4ejNdA-"
+            data-sitekey="0x4AAAAAAAO8vgf6oA7EP0m2"
           ></div>
           <script
             src="https://challenges.cloudflare.com/turnstile/v0/api.js"
