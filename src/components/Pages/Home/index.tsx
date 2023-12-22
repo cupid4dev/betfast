@@ -29,27 +29,52 @@ export default function HomePage() {
     </div>
   ) : (
     <div>
-      <div className="py-4 px-4 h-fit">
-        <Carousel className="rounded-xl carousel">
+      <div className="py-4 px-4 h-fit hidden md:block">
+        <Carousel className="rounded-xl h-fit">
           <img
             src="/banner/1.png"
             alt="image 1"
-            className="h-full w-full object-cover"
+            className="w-full object-cover"
           />
           <img
             src="/banner/2.png"
             alt="image 2"
-            className="h-full w-full object-cover"
+            className="w-full object-cover"
           />
           <img
             src="/banner/3.png"
             alt="image 3"
-            className="h-full w-full object-cover"
+            className="w-full object-cover"
           />
           <img
             src="/banner/4.png"
             alt="image 4"
-            className="h-full w-full object-cover"
+            className="w-full object-cover"
+          />
+        </Carousel>
+      </div>
+
+      <div className="py-4 px-4 h-fit block md:hidden">
+        <Carousel className="rounded-xl h-fit">
+          <img
+            src="/banner/mob1.png"
+            alt="image 1"
+            className="w-full object-cover"
+          />
+          <img
+            src="/banner/mob2.png"
+            alt="image 2"
+            className="w-full object-cover"
+          />
+          <img
+            src="/banner/mob3.png"
+            alt="image 3"
+            className="w-full object-cover"
+          />
+          <img
+            src="/banner/mob4.png"
+            alt="image 4"
+            className="w-full object-cover"
           />
         </Carousel>
       </div>
