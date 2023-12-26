@@ -119,8 +119,8 @@ export default function Register() {
         return;
       }
     } catch (e) {
-      toast.error("Captcha Failed!");
-      return;
+      // toast.error("Captcha Failed!");
+      // return;
     }
 
     axios.post("/api/register", formData).then((data) => {

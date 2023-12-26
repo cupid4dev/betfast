@@ -1,85 +1,35 @@
-// db.ts
-import sqlite3, { Database } from "sqlite3";
+import mongoose from "mongoose";
 
-let db: Database;
+const MONGODB_URI = process.env.DB_URI;
 
-export const connectDatabase = async () => {
-  if (db) return db;
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
+}
 
-  db = new sqlite3.Database("database.db", (err) => {
-    if (err) {
-      console.error("Error opening database:", err.message);
+let cached = global.mongoose;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    if (!MONGODB_URI) {
+      return null;
     }
-  });
-
-  await db.run(
-    `CREATE TABLE IF NOT EXISTS users (email TEXT PRIMARY KEY NOT NULL, country TEXT NOT NULL, firstName TEXT NOT NULL, lastName TEXT NOT NULL, birthday TEXT NOT NULL, address1 TEXT NOT NULL, address2 TEXT NOT NULL, city TEXT NOT NULL, postcode TEXT NOT NULL, username TEXT, phonenumber TEXT  )`,
-  );
-
-  return db;
-};
-
-export const createUser = async (user, callback) => {
-  const db = await connectDatabase();
-
-  const result = await db.run(
-    "INSERT INTO users (email, country, firstName, lastName, birthday, address1, address2, city, postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [
-      user.email,
-      user.country,
-      user.firstName,
-      user.lastName,
-      user.birthday,
-      user.address1,
-      user.address2,
-      user.city,
-      user.postcode,
-    ],
-    function (err) {
-      if (err) {
-        callback({
-          success: false,
-          error: err,
-        });
-      } else {
-        callback({
-          success: true,
-        });
-      }
-    },
-  );
-  return result;
-};
-
-export const getUserByEmail = async (email, callback) => {
-  const db = await connectDatabase();
-  return db.all("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
-    if (err) {
-      callback({ success: false });
-    } else {
-      callback({ success: true, user: rows });
-    }
-  });
-};
-
-export const updateUser = async (user, callback) => {
-  const db = await connectDatabase();
-  const query =
-    `Update users set email='${user.email}', country='${user.country}', firstName='${user.firstName}', lastName='${user.lastName}', birthday='${user.birthday}', address1='${user.address1}', address2='${user.address2}', city='${user.city}', postcode='${user.postcode}', username='${user.username}', phonenumber='${user.phonenumber}' WHERE email='${user.email}'`.replaceAll(
-      "null",
-      "",
-    );
-  const result = await db.run(query, function (err) {
-    if (err) {
-      callback({
-        success: false,
-        error: err,
+    cached.promise = mongoose
+      .connect(MONGODB_URI, {
+        dbName: "BetFast",
+      })
+      .then((mongoose) => {
+        return mongoose;
       });
-    } else {
-      callback({
-        success: true,
-      });
-    }
-  });
-  return result;
-};
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
+
+export default dbConnect;

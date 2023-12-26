@@ -96,7 +96,7 @@ export default function ViewProfilePage() {
   }, [userInfo]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-4xl">
       <Typography variant="h2" className="text-white">
         My Profile
       </Typography>
@@ -104,7 +104,7 @@ export default function ViewProfilePage() {
         Your profile overview in detail
       </Typography>
       <p>&nbsp;</p>
-      <div className="md:flex">
+      <div className="md:flex md:w-full">
         <div className="md:w-50 p-2">
           <Typography variant="h5" className="text-gray-200">
             Personal Information
@@ -117,7 +117,7 @@ export default function ViewProfilePage() {
             online identity.
           </Typography>
         </div>
-        <div className="md:w-50 p-2">
+        <div className="md:w-50 p-2 md:float-right md:ml-auto">
           <Input
             size="lg"
             color={"white"}
@@ -152,7 +152,7 @@ export default function ViewProfilePage() {
         </div>
       </div>
       <Divider />
-      <div className="md:flex">
+      <div className="md:flex md:w-full">
         <div className="md:w-50 p-2">
           <Typography variant="h5" className="text-gray-200">
             Username
@@ -161,7 +161,7 @@ export default function ViewProfilePage() {
             This is how you will apear on the BETFAST platform.
           </Typography>
         </div>
-        <div className="md:w-50 p-2">
+        <div className="md:w-50 p-2 md:float-right md:ml-auto">
           <Input
             size="lg"
             color={"white"}
@@ -174,7 +174,7 @@ export default function ViewProfilePage() {
         </div>
       </div>
       <Divider />
-      <div className="md:flex">
+      <div className="md:flex md:w-full">
         <div className="md:w-50 p-2">
           <Typography variant="h5" className="text-gray-200">
             Contact Details
@@ -183,7 +183,7 @@ export default function ViewProfilePage() {
             How can we keep in touch with you.
           </Typography>
         </div>
-        <div className="md:w-50 p-2">
+        <div className="md:w-50 p-2  md:float-right md:ml-auto">
           {/* <Input size="lg" color={"white"} label="Email" crossOrigin={""} /> */}
           <p className="mb-2" />
           <Input
@@ -199,7 +199,7 @@ export default function ViewProfilePage() {
         </div>
       </div>
       <Divider />
-      <div className="md:flex">
+      <div className="md:flex md:w-full">
         <div className="md:w-50 p-2">
           <Typography variant="h5" className="text-gray-200">
             Address
@@ -210,7 +210,7 @@ export default function ViewProfilePage() {
             accurate communication.{" "}
           </Typography>
         </div>
-        <div className="md:w-50 p-2 select-container">
+        <div className="md:w-50 p-2 select-container  md:float-right md:ml-auto">
           <Input
             size="lg"
             color={"white"}

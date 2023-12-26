@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 .w-50 {
   width: 50%;
@@ -153,9 +153,6 @@
   background-color: #464646;
   border: none;
   color: white;
-}
-
-.country-select {
 }
 
 @media only screen and (max-width: 767px) {

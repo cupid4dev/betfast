@@ -183,7 +183,7 @@ export default function ComplexNavbar() {
           </div>
         ) : (
           <div className="flex">
-            <a href="https://betfast.com/register">
+            <a href="/register">
               <Button className="p-2 mx-1 bg-secondary_4 text-primary_4 border-2 border-secondary_4">
                 Join
               </Button>

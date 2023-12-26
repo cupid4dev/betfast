@@ -7,6 +7,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Bet Fast",
   description: "Sports Betting platform on solana network.",
+  viewport: {
+    width: "device-width",
+    height: "device-height",
+    initialScale: 1,
+    maximumScale: 1,
+    minimumScale: 1,
+  },
 };
 
 export default function RootLayout({

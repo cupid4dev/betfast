@@ -48,7 +48,9 @@ export default function GameOverview({
               {" "}
               Liquidity:{" "}
               <span className="text-highlight">
-                ${details.totalLiquidity.toFixed(2)} USDC
+                $
+                {details.totalLiquidity ? details.totalLiquidity.toFixed(2) : 0}{" "}
+                USDC
               </span>{" "}
               <br className="md:hidden" />
               <span className="hidden md:inline-flex">
@@ -56,7 +58,8 @@ export default function GameOverview({
                 |&nbsp;
               </span>Traded:{" "}
               <span className="text-highlight">
-                ${details.totalMatched.toFixed(2)} USDC
+                ${details.totalMatched ? details.totalMatched.toFixed(2) : 0}{" "}
+                USDC
               </span>
             </Typography>
           </Link>
@@ -97,18 +100,22 @@ export default function GameOverview({
                             handleOffer(
                               true,
                               index,
-                              details.marketsWithMP[0].mp[index].maxAgainst <= 0
+                              details.marketsWithMP[0].mp == undefined ||
+                                details.marketsWithMP[0].mp[index].maxAgainst <=
+                                  0
                                 ? 1
                                 : details.marketsWithMP[0].mp[index].maxAgainst,
                             );
                           }}
                         >
-                          {details.marketsWithMP[0].mp[index].maxAgainst <= 0
+                          {details.marketsWithMP[0].mp == undefined ||
+                          details.marketsWithMP[0].mp[index].maxAgainst <= 0
                             ? "Back"
                             : details.marketsWithMP[0].mp[index].maxAgainst}
                         </Button>
                         <div className="text-gray-400 text-center md:mr-4">
-                          {details.marketsWithMP[0].mp[index]
+                          {details.marketsWithMP[0].mp == undefined ||
+                          details.marketsWithMP[0].mp[index]
                             .maxAgainstLiquidity <= 0
                             ? "0.0"
                             : details.marketsWithMP[0].mp[index]
@@ -122,19 +129,22 @@ export default function GameOverview({
                             handleOffer(
                               false,
                               index,
-                              details.marketsWithMP[0].mp[index].minFor <= 0
+                              details.marketsWithMP[0].mp == undefined ||
+                                details.marketsWithMP[0].mp[index].minFor <= 0
                                 ? 1
                                 : details.marketsWithMP[0].mp[index].minFor,
                             );
                           }}
                         >
-                          {details.marketsWithMP[0].mp[index].minFor <= 0
+                          {details.marketsWithMP[0].mp == undefined ||
+                          details.marketsWithMP[0].mp[index].minFor <= 0
                             ? "Lay"
                             : details.marketsWithMP[0].mp[index].minFor}
                         </Button>
                         <div className="text-gray-400 text-center">
-                          {details.marketsWithMP[0].mp[index].minForLiquidity <=
-                          0
+                          {details.marketsWithMP[0].mp == undefined ||
+                          details.marketsWithMP[0].mp[index].minForLiquidity <=
+                            0
                             ? "0.0"
                             : details.marketsWithMP[0].mp[index]
                                 .minForLiquidity}

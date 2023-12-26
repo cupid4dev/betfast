@@ -91,14 +91,14 @@ export default function GameDetails() {
         <Typography variant="h6" className="md:float-left text-gray-400">
           Liquidity:{" "}
           <span className="text-highlight">
-            ${game.totalLiquidity.toFixed(2)} USDC
+            ${game.totalLiquidity ? game.totalLiquidity.toFixed(2) : 0} USDC
           </span>
         </Typography>
         <div className="hidden md:block">&nbsp;|&nbsp;</div>
         <Typography variant="h6" className="md:float-left text-gray-400">
           Traded:{" "}
           <span className="text-highlight">
-            ${game.totalMatched.toFixed(2)} USDC
+            ${game.totalMatched ? game.totalMatched.toFixed(2) : 0} USDC
           </span>
         </Typography>
         <br />
@@ -159,7 +159,8 @@ export default function GameDetails() {
                             <div className="flex md:block mr-4 text-gray-400">
                               <Typography variant="h6" className="text-right">
                                 Last Traded:{" "}
-                                {market.mp[oIndex].matchedPrices.length == 0
+                                {market.mp == undefined ||
+                                market.mp[oIndex].matchedPrices.length == 0
                                   ? "-"
                                   : market.mp[oIndex].matchedPrices[0]}
                               </Typography>
@@ -183,43 +184,44 @@ export default function GameDetails() {
                                     </Typography>
                                   )}
                                   <div className="md:flex">
-                                    {market.mp[oIndex].listAgainstShow.map(
-                                      (value, iIndex) => (
-                                        <div
-                                          key={iIndex}
-                                          className={`${
-                                            iIndex < 2 ? "hidden" : ""
-                                          } md:block`}
-                                        >
-                                          <Button
-                                            className={`float-left md:float-right w-[90%] md:w-[70px] px-1 mx-2 bg-transparent border-2 ${
-                                              iIndex < 2
-                                                ? "border-gray-200 text-gray-200"
-                                                : "border-primary_4 text-primary_4"
-                                            }`}
-                                            onClick={() => {
-                                              handleOffer(
-                                                true,
-                                                oIndex,
-                                                index,
-                                                value.price,
-                                              );
-                                            }}
+                                    {market.mp &&
+                                      market.mp[oIndex].listAgainstShow.map(
+                                        (value, iIndex) => (
+                                          <div
+                                            key={iIndex}
+                                            className={`${
+                                              iIndex < 2 ? "hidden" : ""
+                                            } md:block`}
                                           >
-                                            {value.price != 0
-                                              ? value.price
-                                              : iIndex == 2
-                                                ? "Offer"
-                                                : "-"}
-                                          </Button>
-                                          <div className="text-gray-400 text-center mt-1">
-                                            {value.price == 0
-                                              ? ""
-                                              : value.liquidityAmount}
+                                            <Button
+                                              className={`float-left md:float-right w-[90%] md:w-[70px] px-1 mx-2 bg-transparent border-2 ${
+                                                iIndex < 2
+                                                  ? "border-gray-200 text-gray-200"
+                                                  : "border-primary_4 text-primary_4"
+                                              }`}
+                                              onClick={() => {
+                                                handleOffer(
+                                                  true,
+                                                  oIndex,
+                                                  index,
+                                                  value.price,
+                                                );
+                                              }}
+                                            >
+                                              {value.price != 0
+                                                ? value.price
+                                                : iIndex == 2
+                                                  ? "Offer"
+                                                  : "-"}
+                                            </Button>
+                                            <div className="text-gray-400 text-center mt-1">
+                                              {value.price == 0
+                                                ? ""
+                                                : value.liquidityAmount}
+                                            </div>
                                           </div>
-                                        </div>
-                                      ),
-                                    )}
+                                        ),
+                                      )}
                                   </div>
                                 </div>
                                 <div className="my-2 col-span-1">
@@ -232,43 +234,44 @@ export default function GameDetails() {
                                     </Typography>
                                   )}
                                   <div className="md:flex">
-                                    {market.mp[oIndex].listForShow.map(
-                                      (value, iIndex) => (
-                                        <div
-                                          key={iIndex}
-                                          className={`${
-                                            iIndex > 0 ? "hidden" : ""
-                                          } md:block`}
-                                        >
-                                          <Button
-                                            className={`float-right w-[90%] md:w-[70px] px-1 mx-2 bg-transparent border-2 ${
-                                              iIndex > 0
-                                                ? "border-gray-200 text-gray-200"
-                                                : "border-highlight text-highlight"
-                                            }`}
-                                            onClick={() => {
-                                              handleOffer(
-                                                false,
-                                                oIndex,
-                                                index,
-                                                value.price,
-                                              );
-                                            }}
+                                    {market.mp &&
+                                      market.mp[oIndex].listForShow.map(
+                                        (value, iIndex) => (
+                                          <div
+                                            key={iIndex}
+                                            className={`${
+                                              iIndex > 0 ? "hidden" : ""
+                                            } md:block`}
                                           >
-                                            {value.price != 0
-                                              ? value.price
-                                              : iIndex == 0
-                                                ? "Offer"
-                                                : "-"}
-                                          </Button>
-                                          <div className="text-gray-400 text-center mt-1">
-                                            {value.price == 0
-                                              ? ""
-                                              : value.liquidityAmount}
+                                            <Button
+                                              className={`float-right w-[90%] md:w-[70px] px-1 mx-2 bg-transparent border-2 ${
+                                                iIndex > 0
+                                                  ? "border-gray-200 text-gray-200"
+                                                  : "border-highlight text-highlight"
+                                              }`}
+                                              onClick={() => {
+                                                handleOffer(
+                                                  false,
+                                                  oIndex,
+                                                  index,
+                                                  value.price,
+                                                );
+                                              }}
+                                            >
+                                              {value.price != 0
+                                                ? value.price
+                                                : iIndex == 0
+                                                  ? "Offer"
+                                                  : "-"}
+                                            </Button>
+                                            <div className="text-gray-400 text-center mt-1">
+                                              {value.price == 0
+                                                ? ""
+                                                : value.liquidityAmount}
+                                            </div>
                                           </div>
-                                        </div>
-                                      ),
-                                    )}
+                                        ),
+                                      )}
                                   </div>
                                 </div>
                               </div>
@@ -356,6 +359,7 @@ export default function GameDetails() {
                       </div>
 
                       {selectedABL != 2 &&
+                        market.mp &&
                         market.mp[selectedOutcome] &&
                         market.mp[selectedOutcome].listFor.map(
                           (item, lIndex) => (
@@ -400,7 +404,8 @@ export default function GameDetails() {
                             </div>
                           ),
                         )}
-                      {market.mp[selectedOutcome] &&
+                      {market.mp &&
+                        market.mp[selectedOutcome] &&
                         market.mp[selectedOutcome].matchedPrices.map(
                           (item, lIndex) => (
                             <div
@@ -429,6 +434,7 @@ export default function GameDetails() {
                           ),
                         )}
                       {selectedABL != 1 &&
+                        market.mp &&
                         market.mp[selectedOutcome] &&
                         market.mp[selectedOutcome].listAgainst.map(
                           (item, lIndex) => (
