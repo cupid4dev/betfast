@@ -15,7 +15,7 @@ import dbConnect from "../../db/db";
 //   });
 // };
 
-export default async function handler(req, res) {
+export default async function POST(req, res) {
   if (req.method === "POST") {
     // Handle POST request logic here
     const data = req.body;
@@ -28,6 +28,6 @@ export default async function handler(req, res) {
     }
   } else {
     // Handle other HTTP methods
-    res.json({ message: "Method Not Allowed" });
+    res.json({ message: "Method Not Allowed.." });
   }
 }
