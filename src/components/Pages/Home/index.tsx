@@ -76,6 +76,21 @@ export default function HomePage() {
             alt="image 4"
             className="w-full object-cover"
           />
+          <img
+            src="/banner/mob5.png"
+            alt="image 2"
+            className="w-full object-cover"
+          />
+          <img
+            src="/banner/mob6.png"
+            alt="image 3"
+            className="w-full object-cover"
+          />
+          <img
+            src="/banner/mob7.png"
+            alt="image 4"
+            className="w-full object-cover"
+          />
         </Carousel>
       </div>
 
