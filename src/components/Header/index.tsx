@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "@/utils/fetchData";
 import { useProgram } from "@/context/ProgramContext";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { getBFEmail, updateBFEmail, updateBFUser } from "@/redux/slice";
+import { getBFEmail, getBFUser, updateBFEmail, updateBFUser } from "@/redux/slice";
 import {
   ChevronDownIcon,
   LifebuoyIcon,
@@ -40,6 +40,11 @@ const profileMenuItems = [
     link: "/help",
   },
   {
+    label: "Admin",
+    icon: LifebuoyIcon,
+    link: "/admin",
+  },
+  {
     label: "Sign Out",
     icon: PowerIcon,
     link: "#",
@@ -49,6 +54,7 @@ const profileMenuItems = [
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const userInfo = useSelector(getBFUser);
 
   const closeMenu = (isLastItem) => {
     setIsMenuOpen(false);
@@ -71,9 +77,8 @@ function ProfileMenu() {
           <GrUserManager className="h-5 w-5 text-white" />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform text-white ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
+            className={`h-3 w-3 transition-transform text-white ${isMenuOpen ? "rotate-180" : ""
+              }`}
           />
         </Button>
       </MenuHandler>
@@ -81,33 +86,36 @@ function ProfileMenu() {
         {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           // eslint-disable-next-line react/jsx-key
-          return (
-            <Link href={link} key={label}>
-              <MenuItem
-                onClick={() => {
-                  closeMenu(isLastItem);
-                }}
-                className={`flex items-center gap-2 rounded text-white ${
-                  isLastItem
-                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                    : ""
-                }`}
-              >
-                {React.createElement(icon, {
-                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                  strokeWidth: 2,
-                })}
-                <Typography
-                  as="span"
-                  variant="small"
-                  className="font-normal"
-                  color={isLastItem ? "red" : "inherit"}
+          if (label == "Admin" && userInfo.role != "admin") {
+            return <></>
+          } else {
+            return (
+              <Link href={link} key={label}>
+                <MenuItem
+                  onClick={() => {
+                    closeMenu(isLastItem);
+                  }}
+                  className={`flex items-center gap-2 rounded text-white ${isLastItem
+                      ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                      : ""
+                    }`}
                 >
-                  {label}
-                </Typography>
-              </MenuItem>
-            </Link>
-          );
+                  {React.createElement(icon, {
+                    className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                    strokeWidth: 2,
+                  })}
+                  <Typography
+                    as="span"
+                    variant="small"
+                    className="font-normal"
+                    color={isLastItem ? "red" : "inherit"}
+                  >
+                    {label}
+                  </Typography>
+                </MenuItem>
+              </Link>
+            );
+          }
         })}
       </MenuList>
     </Menu>
